@@ -1,0 +1,419 @@
+---
+import { MapPin } from "../../components/icons/MapPin";
+import { Minus } from "../../components/icons/Minus";
+import { Briefcase } from "../../components/icons/BriefCase";
+import { Keyboard } from "../../components/icons/KeyBoard";
+import { Timer } from "../../components/icons/Timer";
+import { Accuracy } from "../../components/icons/Accuracy";
+import { Globe } from "../../components/icons/Globe";
+import { X } from "../../components/icons/X";
+import { Instagram } from "../../components/icons/Instagram";
+import { Linkedin } from "../../components/icons/Linkedin";
+import { ChevronRight } from "../../components/icons/ChevronRight";
+import { Github } from "../../components/icons/Github";
+import { Layers } from "../../components/icons/Layers";
+
+import { Typescript } from "../../components/icons/Typescript";
+import { Tailwind } from "../../components/icons/Tailwind";
+import { React as ReactIcon } from "../../components/icons/React";
+import { Prisma } from "../../components/icons/Prisma";
+import { Mongodb } from "../../components/icons/Mongodb";
+import { Nextjs } from "../../components/icons/Nextjs";
+import { Astro as AstroLogo } from "../../components/icons/Astro";
+import { Javascript } from "../../components/icons/Javascript";
+import { Nodejs } from "../../components/icons/Nodejs";
+import { Express } from "../../components/icons/Express";
+import { Postgresql } from "../../components/icons/Postgresql";
+import { getGitHubContributions } from "../../lib/contribution";
+import { GoogleMapBackground } from "../../lib/GoogleMapBackground";
+import { Marquee } from "../../components/uicomp/Marquee";
+
+const data = await getGitHubContributions();
+const { totalContributions, weeks } = data;
+
+type TechStackProps = {
+  name: string;
+  icon: any;
+  description: string;
+};
+
+const techStack: TechStackProps[] = [
+  {
+    name: "Typescript",
+    icon: Typescript,
+    description: "",
+  },
+  {
+    name: "Javascript",
+    icon: Javascript,
+    description: "",
+  },
+  {
+    name: "React",
+    icon: ReactIcon,
+    description: "",
+  },
+  {
+    name: "Nextjs",
+    icon: Nextjs,
+    description: "",
+  },
+  {
+    name: "Nodejs",
+    icon: Nodejs,
+    description: "",
+  },
+  {
+    name: "Tailwind",
+    icon: Tailwind,
+    description: "",
+  },
+  {
+    name: "Astro",
+    icon: AstroLogo,
+    description: "",
+  },
+  {
+    name: "Express",
+    icon: Express,
+    description: "",
+  },
+  {
+    name: "Prisma",
+    icon: Prisma,
+    description: "",
+  },
+  {
+    name: "Mongodb",
+    icon: Mongodb,
+    description: "",
+  },
+  {
+    name: "Postgresql",
+    icon: Postgresql,
+    description: "",
+  },
+];
+---
+
+<section class="pt-30 pb-16 px-4 md:px-10 max-w-7xl mx-auto">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Location Card Component -->
+    <div
+      class="group relative h-full overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl hover:shadow-emerald-500/5 shadow-sm"
+    >
+      <!-- Google Maps Background Layer -->
+      <GoogleMapBackground client:visible />
+
+      <!-- Foreground Content -->
+      <div class="relative z-10 flex flex-col justify-between h-full">
+        <div class="flex items-center justify-between">
+          <div
+            class="bg-zinc-50/80 backdrop-blur-md rounded-full px-4 py-2 w-fit border border-zinc-200"
+          >
+            <span class="flex items-center gap-2 text-zinc-900 font-medium">
+              <MapPin className="text-emerald-600" /> Location</span
+            >
+          </div>
+
+          <span
+            class="border border-zinc-200 bg-zinc-50/80 backdrop-blur-md rounded-full p-1 text-zinc-900"
+          >
+            <Minus /></span
+          >
+        </div>
+
+        <div class="mt-auto">
+          <h2 class="text-4xl font-black tracking-tighter text-zinc-900">
+            Ogun
+          </h2>
+          <p class="text-zinc-600 font-medium">Nigeria, GMT +1</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Works Card -->
+    <div
+      class="md:col-span-2 group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl hover:shadow-purple-500/5 shadow-sm"
+    >
+      <div class="flex flex-col h-full gap-4">
+        <div
+          class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit"
+        >
+          <h2
+            class="flex items-center gap-2 text-sm font-medium tracking-wide text-zinc-900"
+          >
+            <Briefcase className="w-4 h-4 text-purple-600" /> Featured Works
+          </h2>
+        </div>
+
+        <div
+          class="grow flex items-center justify-center border border-dashed border-white/10 rounded-2xl min-h-[120px]"
+        >
+          <p class="text-gray-500 text-sm italic">
+            Coming soon: Exploring innovative security solutions...
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Typing Speed Card -->
+    <div
+      class="group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl hover:shadow-emerald-500/5 shadow-sm"
+    >
+      <div class="flex flex-col h-full justify-between gap-6">
+        <div
+          class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit"
+        >
+          <h2
+            class="flex items-center gap-2 text-sm font-medium tracking-wide text-zinc-900"
+          >
+            <Keyboard className="w-4 h-4 text-emerald-600" /> Typing Speed
+          </h2>
+        </div>
+
+        <div>
+          <div class="flex items-baseline gap-2">
+            <p class="text-4xl font-bold tracking-tighter text-zinc-900">50</p>
+            <p class="text-zinc-500 font-medium">WPM</p>
+          </div>
+
+          <div class="flex items-center gap-4 mt-6">
+            <div
+              class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-xs font-medium text-zinc-700"
+            >
+              <Timer className="w-3.5 h-3.5 text-orange-600" />
+              <span>15s</span>
+            </div>
+            <div
+              class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-xs font-medium text-zinc-700"
+            >
+              <Accuracy className="w-3.5 h-3.5 text-yellow-600" />
+              <span>99%</span>
+            </div>
+            <div
+              class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-xs font-medium text-zinc-700"
+            >
+              <Globe className="w-3.5 h-3.5 text-cyan-600" />
+              <span>En</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social Media Card -->
+    <div
+      class="group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl shadow-sm"
+    >
+      <div class="flex flex-col h-full justify-between gap-6">
+        <div
+          class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit"
+        >
+          <h2 class="text-sm font-medium tracking-wide text-zinc-900">
+            Connect
+          </h2>
+        </div>
+        <div class="flex items-center gap-4">
+          <a
+            href="https://x.com/DevTech_Coder23"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="X"
+            class="p-3 rounded-2xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-900 transition-all duration-300 hover:scale-110"
+          >
+            <X className="w-6 h-6" />
+          </a>
+          <a
+            href="https://www.instagram.com/micahkingfx2/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            class="p-3 rounded-2xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-900 transition-all duration-300 hover:scale-110"
+          >
+            <Instagram className="w-6 h-6" />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/%C3%B0%C9%9Bv-t%C9%9Bc%C4%A5-8a7507344/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            class="p-3 rounded-2xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-900 transition-all duration-300 hover:scale-110"
+          >
+            <Linkedin className="w-6 h-6" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Learn More Card -->
+    <a
+      href="/projects"
+      class="group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl shadow-sm flex flex-col justify-between gap-4"
+    >
+      <div
+        class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit"
+      >
+        <h2
+          class="flex items-center gap-2 text-sm font-medium tracking-wide text-zinc-900"
+        >
+          Projects
+        </h2>
+      </div>
+      <div class="flex items-center justify-between">
+        <p class="text-lg font-medium tracking-tight text-zinc-900">
+          Explore my latest projects & tools
+        </p>
+        <div
+          class="w-10 h-10 rounded-full border border-zinc-200 flex items-center justify-center group-hover:bg-zinc-50 transition-all duration-300 group-hover:translate-x-1 text-zinc-900"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </div>
+      </div>
+    </a>
+
+    <!-- Github Contributions -->
+    <div
+      class="md:col-span-2 group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl shadow-sm"
+    >
+      <div class="flex flex-col h-full justify-between gap-6">
+        <div>
+          <div
+            class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit"
+          >
+            <h2
+              class="flex items-center gap-2 text-sm font-medium tracking-wide text-zinc-900"
+            >
+              <Github className="w-4 h-4 text-emerald-600" /> Github Contributions
+            </h2>
+          </div>
+
+          <div class="mt-4">
+            <p class="text-3xl font-bold tracking-tight text-zinc-900">
+              {totalContributions.toLocaleString()}
+            </p>
+            <p
+              class="text-zinc-500 text-xs uppercase tracking-wider font-medium"
+            >
+              Contributions in the last year
+            </p>
+          </div>
+        </div>
+
+        <div>
+          {
+            weeks.length > 0 ? (
+              <div class="flex gap-1 justify-center md:justify-start">
+                {weeks.slice(-38).map((week) => (
+                  <div class="flex flex-col gap-1">
+                    {week.contributionDays.map((day) => (
+                      <div
+                        class="w-[15px] h-[15px] rounded-sm cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-zinc-400/30 hover:scale-110 group relative gh-day"
+                        style={`background-color: ${day.color}`}
+                        data-date={day.date}
+                        data-count={day.contributionCount}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div class="flex items-center justify-center border border-dashed border-zinc-200 rounded-xl h-[100px]">
+                <p class="text-zinc-500 text-xs italic">
+                  Contribution data unavailable
+                </p>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Tech Stack -->
+    <div
+      class="group relative overflow-hidden border border-zinc-200 bg-white shadow-sm rounded-3xl pt-6 px-6 pb-4 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl flex flex-col"
+    >
+      <div
+        class="border border-zinc-200 bg-zinc-50 rounded-full px-4 py-2 w-fit"
+      >
+        <h2 class="flex items-center gap-2 m-0 leading-none text-zinc-900">
+          <Layers /> Core Tech Stack
+        </h2>
+      </div>
+
+      <div class="flex items-center grow py-4">
+        <Marquee speed={15} className="py-2" client:visible>
+          {
+            techStack.map((tech) => (
+              <div class="group/icon relative p-4 mx-1 rounded-2xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 transition-all duration-300 hover:scale-110 flex items-center justify-center min-w-[70px] min-h-[70px]">
+                <tech.icon
+                  className="w-8 h-8 text-zinc-600 transition-colors"
+                  title={tech.name}
+                />
+              </div>
+            ))
+          }
+        </Marquee>
+      </div>
+
+      <div class="mt-auto">
+        <p class="text-lg font-medium tracking-tight m-0 text-zinc-900">
+          Tech Stack I'm familiar with
+        </p>
+        <div class="text-sm text-zinc-500">
+          <p class="m-0">Innovation starts with me</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tooltip -->
+<div
+  id="gh-tooltip"
+  class="fixed z-50 hidden bg-zinc-800 text-white text-xs px-2 py-1 rounded-md shadow-lg pointer-events-none border border-zinc-700 whitespace-nowrap"
+>
+</div>
+
+<script>
+  const container =
+    document.querySelector(".gh-day")?.parentElement?.parentElement;
+  const tooltip = document.getElementById("gh-tooltip");
+
+  if (container && tooltip) {
+    container.addEventListener("mouseover", (e) => {
+      const target = e.target as HTMLElement;
+      if (!target.classList.contains("gh-day")) return;
+
+      const count = target.dataset.count;
+      const dateStr = target.dataset.date;
+      if (!dateStr) return;
+
+      const date = new Date(dateStr + "T00:00:00");
+      const formatted = date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+
+      tooltip.textContent =
+        count === "0"
+          ? `No contributions on ${formatted}`
+          : `${count} contribution${count === "1" ? "" : "s"} on ${formatted}`;
+      tooltip.classList.remove("hidden");
+    });
+
+    container.addEventListener("mousemove", (e) => {
+      const mouse = e as MouseEvent;
+      tooltip.style.left = `${mouse.clientX + 12}px`;
+      tooltip.style.top = `${mouse.clientY - 28}px`;
+    });
+
+    container.addEventListener("mouseout", (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains("gh-day")) {
+        tooltip.classList.add("hidden");
+      }
+    });
+  }
+</script>

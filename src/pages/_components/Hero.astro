@@ -1,0 +1,66 @@
+---
+import { MapPin } from "../../components/icons/MapPin";
+---
+
+<section class="relative pt-32 pb-16 px-4 md:px-10 overflow-hidden">
+  <div class="relative z-10">
+    <div class="flex flex-col gap-2">
+      <div
+        class="flex items-center gap-2 border border-zinc-200 rounded-full px-4 py-2 w-fit bg-zinc-50/50"
+      >
+        <span class="relative flex h-2 w-2">
+          <span
+            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
+          ></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
+          ></span>
+        </span>
+        <span class="text-zinc-600 text-sm font-medium">
+          Available for collaborations
+        </span>
+      </div>
+      <h1 class="text-4xl font-bold uppercase tracking-wide text-zinc-900">
+        Micah Kesiena
+      </h1>
+      <div>
+        <p class="text-sm text-zinc-500">
+          Security Focused Full Stack Developer
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-end justify-end pt-16">
+      <div
+        class="flex gap-4 border border-zinc-200 w-fit p-2 rounded-full px-4 bg-zinc-50/50"
+      >
+        <p class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
+          <a href="https://react.dev" target="_blank" rel="noopener noreferrer">React</a>
+        </p>
+        <p class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
+          <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer">Next.js</a>
+        </p>
+        <p class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
+          <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>
+        </p>
+        <p class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
+          <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer">Tailwind CSS</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="pt-16 flex flex-col items-end justify-end">
+      <h2 class="text-2xl font-bold uppercase tracking-tight text-zinc-900">
+        Full Stack Developer <br /> Penetration Tester
+      </h2>
+      <div class="flex flex-col items-end">
+        <p class="text-sm text-zinc-500">
+          Innovation for secure website start with me
+        </p>
+        <div class="flex items-center gap-2 text-zinc-600">
+          <MapPin className="animate-bounce" />
+          <span class="text-sm">Based in Lagos, Nigeria</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

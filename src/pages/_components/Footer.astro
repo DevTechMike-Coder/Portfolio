@@ -1,0 +1,114 @@
+---
+import { Github } from "../../components/icons/Github";
+import { Linkedin } from "../../components/icons/Linkedin";
+import { X } from "../../components/icons/X";
+import { Email } from "../../components/icons/Email";
+import { Instagram } from "../../components/icons/Instagram";
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer
+  class="pt-20 pb-10 px-4 md:px-10 border-t border-zinc-200 bg-white/50 backdrop-blur-sm"
+>
+  <div
+    class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12"
+  >
+    <!-- Branding & Tagline -->
+    <div class="flex flex-col gap-4 max-w-sm">
+      <h2 class="text-2xl font-bold uppercase tracking-wide text-zinc-900">
+        Micah Kingsley
+      </h2>
+      <p class="text-zinc-600 leading-relaxed font-medium">
+        Innovation for secure website start with me. Narrow your learning path
+        with me.
+      </p>
+      <div class="flex items-center gap-4 pt-2">
+        <a
+          href="https://github.com/DevTechMike-Coder"
+          aria-label="Github"
+          class="text-zinc-400 hover:text-zinc-900 transition-colors" target="_blank" rel="noopener noreferrer"
+        >
+          <Github fontSize={24} />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/%C3%B0%C9%9Bv-t%C9%9Bc%C4%A5-8a7507344/"
+          aria-label="Linkedin"
+          class="text-zinc-400 hover:text-zinc-900 transition-colors" target="_blank" rel="noopener noreferrer"
+        >
+          <Linkedin fontSize={24} />
+        </a>
+        <a
+          href="https://x.com/DevTech_Coder23"
+          aria-label="X"
+          class="text-zinc-400 hover:text-zinc-900 transition-colors" target="_blank" rel="noopener noreferrer"
+        >
+          <X fontSize={24} />
+        </a>
+        <a
+          href="https://www.instagram.com/micahkingfx2/"
+          aria-label="Instagram"
+          class="text-zinc-400 hover:text-zinc-900 transition-colors" target="_blank" rel="noopener noreferrer"
+        >
+          <Instagram fontSize={24} />
+        </a>
+      </div>
+    </div>
+
+    <!-- Links Sections -->
+    <div class="grid grid-cols-2 lg:grid-cols-2 gap-12 md:gap-24">
+      <div class="flex flex-col gap-4">
+        <h3 class="text-sm font-bold uppercase tracking-widest text-zinc-400">
+          Navigation
+        </h3>
+        <ul class="flex flex-col gap-2">
+          <li>
+            <a
+              href="/"
+              class="text-zinc-600 hover:text-zinc-900 transition-colors"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="/projects"
+              class="text-zinc-600 hover:text-zinc-900 transition-colors"
+              >Projects</a
+            >
+          </li>
+          <li>
+            <a
+              href="/blog"
+              class="text-zinc-600 hover:text-zinc-900 transition-colors"
+              >Blog</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <h3 class="text-sm font-bold uppercase tracking-widest text-zinc-400">
+          Contact
+        </h3>
+        <ul class="flex flex-col gap-2">
+          <li>
+            <a
+              href="mailto:micahkesiena@gmail.com"
+              class="text-zinc-600 hover:text-zinc-900 transition-colors break-all"
+            >
+              micahkesiena@gmail.com
+            </a>
+          </li>
+          <li class="text-zinc-600">Lagos, Nigeria</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="max-w-7xl mx-auto pt-16 mt-16 border-t border-zinc-100 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-zinc-400"
+  >
+    <p>© {currentYear} Micah Kingsley. All rights reserved.</p>
+    <p>Built with Astro & Tailwind CSS</p>
+  </div>
+</footer>
