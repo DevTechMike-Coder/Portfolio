@@ -116,18 +116,18 @@ export const GoogleMapBackground = () => {
       {/* Skeleton shimmer shown before the map tiles load */}
       {!isLoaded && (
         <div className="absolute inset-0 bg-zinc-100 animate-pulse">
-          <div className="absolute inset-0 bg-gradient-to-br from-zinc-200/60 via-zinc-100 to-zinc-200/40" />
+          <div className="absolute inset-0 bg-linear-to-br from-zinc-200/60 via-zinc-100 to-zinc-200/40" />
         </div>
       )}
 
       {/* Map container — only rendered after the card is visible */}
       {isLoaded && <div ref={mapContainer} className="h-full w-full" />}
 
-      {/* Bottom-to-top gradient: keeps "Ogun / Nigeria GMT+1" text readable */}
-      <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/40 to-transparent" />
+      {/* Bottom-to-top linear: keeps "Ogun / Nigeria GMT+1" text readable */}
+      <div className="absolute inset-0 bg-linear-to-t from-white/95 via-white/40 to-transparent" />
 
       {/* Top edge softener */}
-      <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/70 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-20 bg-linear-to-b from-white/70 to-transparent" />
 
       {/* Locate Button */}
       <button
