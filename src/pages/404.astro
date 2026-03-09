@@ -1,0 +1,49 @@
+---
+import Layout from "../layouts/Layout.astro";
+import InteractiveGrid from "../components/uicomp/InteractiveGrid.astro";
+import { Button } from "../components/reuseComp/Button";
+import { ArrowLeft } from "../components/icons/ArrowLeft";
+---
+
+<Layout>
+  <InteractiveGrid />
+  <main
+    class="min-h-screen flex flex-col items-center justify-center px-4 text-center bg-transparent relative overflow-hidden"
+  >
+    <div class="flex flex-col items-center gap-8 max-w-lg relative z-10">
+      <div
+        class="inline-block border border-zinc-200 bg-white/50 backdrop-blur-sm rounded-full px-4 py-1.5 shadow-sm"
+      >
+        <span class="text-sm font-medium tracking-wide text-zinc-900"
+          >Error 404</span
+        >
+      </div>
+
+      <h1
+        class="text-6xl md:text-8xl font-black tracking-tighter text-zinc-900"
+      >
+        Lost in Space
+      </h1>
+
+      <p class="text-lg text-zinc-600 font-medium leading-relaxed">
+        The page you are looking for doesn't exist, has been moved, or is
+        currently under construction.
+      </p>
+
+      <div class="pt-4 flex justify-center">
+        <a href="/" class="group w-fit block" aria-label="Back to Home">
+          <Button
+            variant="secondary"
+            size="md"
+            className="flex items-center gap-2 cursor-pointer border border-zinc-200 bg-white/80 backdrop-blur-md rounded-full px-6 py-3 hover:bg-white hover:border-zinc-300 hover:shadow-lg transition-all duration-300 shadow-sm text-zinc-900"
+          >
+            <ArrowLeft
+              className="w-4 h-4 transition-transform group-hover:-translate-x-1"
+            />
+            <span class="font-medium">Return to Homepage</span>
+          </Button>
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>
