@@ -12,6 +12,8 @@ import { Linkedin } from "../../components/icons/Linkedin";
 import { ChevronRight } from "../../components/icons/ChevronRight";
 import { Github } from "../../components/icons/Github";
 import { Layers } from "../../components/icons/Layers";
+import { User } from "../../components/icons/User";
+import { Availability } from "../../components/icons/Availability";
 
 import { Typescript } from "../../components/icons/Typescript";
 import { Tailwind } from "../../components/icons/Tailwind";
@@ -132,28 +134,55 @@ const techStack: TechStackProps[] = [
       </div>
     </div>
 
-    <!-- Featured Works Card -->
+    <!-- About Me & Availability Card -->
     <div
-      class="md:col-span-2 group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl hover:shadow-purple-500/5 shadow-sm"
+      class="md:col-span-2 group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl hover:shadow-blue-500/5 shadow-sm flex flex-col justify-between"
     >
-      <div class="flex flex-col h-full gap-4">
+      <div class="flex flex-col sm:flex-row justify-between items-start gap-4">
+        <!-- Badge -->
         <div
           class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit"
         >
           <h2
             class="flex items-center gap-2 text-sm font-medium tracking-wide text-zinc-900"
           >
-            <Briefcase className="w-4 h-4 text-purple-600" /> Featured Works
+            <User className="w-4 h-4 text-blue-600" /> About Me
           </h2>
         </div>
 
+        <!-- Availability Timer / Indicator -->
         <div
-          class="grow flex items-center justify-center border border-dashed border-white/10 rounded-2xl min-h-[120px]"
+          class="flex items-center gap-2 px-4 py-1.5 rounded-full w-fit border border-emerald-500/20 bg-emerald-500/5 text-emerald-600 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
         >
-          <p class="text-gray-500 text-sm italic">
-            Coming soon: Exploring innovative security solutions...
-          </p>
+          <span class="relative flex h-2 w-2">
+            <span
+              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
+            ></span>
+            <span
+              class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
+            ></span>
+          </span>
+          <Availability className="w-4 h-4" />
+          <span
+            id="live-clock"
+            class="text-xs font-semibold uppercase tracking-wider tabular-nums"
+          ></span>
         </div>
+      </div>
+
+      <!-- Description Content -->
+      <div class="mt-6 flex flex-col justify-end grow">
+        <div>
+          <h2 class="text-lg font-medium tracking-wide text-zinc-900">
+            This is me
+          </h2>
+        </div>
+        <p class="text-zinc-600 text-[15px] sm:text-base leading-relaxed">
+          I'm a Security Focused Full Stack Developer and Penetration Tester who
+          specializes in crafting high-performance, accessible, and secure web
+          applications. From building modern UIs to ensuring robust security,
+          innovation starts here.
+        </p>
       </div>
     </div>
 
@@ -248,7 +277,8 @@ const techStack: TechStackProps[] = [
 
     <!-- Learn More Card -->
     <a
-      href="/projects" aria-label="projects"
+      href="/projects"
+      aria-label="projects"
       class="group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl shadow-sm flex flex-col justify-between gap-4"
     >
       <div
@@ -300,10 +330,10 @@ const techStack: TechStackProps[] = [
           </div>
         </div>
 
-        <div>
+        <div class="overflow-x-auto pb-1">
           {
             weeks.length > 0 ? (
-              <div class="flex gap-1 justify-center md:justify-start">
+              <div class="flex gap-1 justify-start min-w-max">
                 {weeks.slice(-38).map((week) => (
                   <div class="flex flex-col gap-1">
                     {week.contributionDays.map((day) => (
@@ -374,6 +404,24 @@ const techStack: TechStackProps[] = [
   class="fixed z-50 hidden bg-zinc-800 text-white text-xs px-2 py-1 rounded-md shadow-lg pointer-events-none border border-zinc-700 whitespace-nowrap"
 >
 </div>
+
+<script>
+  (function () {
+    const clockEl = document.getElementById("live-clock");
+    if (!clockEl) return;
+    function tick() {
+      const now = new Date();
+      clockEl!.textContent = now.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      });
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
 
 <script>
   const container =

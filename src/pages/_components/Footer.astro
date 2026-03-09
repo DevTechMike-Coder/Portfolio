@@ -9,106 +9,68 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer
-  class="pt-20 pb-10 px-4 md:px-10 border-t border-zinc-200 bg-white/50 backdrop-blur-sm"
+  class="w-full border-t border-zinc-200 bg-white/50 backdrop-blur-md mt-20"
 >
   <div
-    class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12"
+    class="max-w-7xl mx-auto px-4 md:px-10 py-8 flex flex-col md:flex-row items-center justify-between gap-6"
   >
-    <!-- Branding & Tagline -->
-    <div class="flex flex-col gap-4 max-w-sm">
-      <h2 class="text-2xl font-bold uppercase tracking-wide text-zinc-900">
-        Micah Kingsley
+    <!-- Left Section: Name, Copyright, Quote -->
+    <div
+      class="flex flex-col gap-1 items-center md:items-start text-center md:text-left"
+    >
+      <h2
+        class="text-lg md:text-xl font-bold tracking-tight text-zinc-900 font-serif"
+      >
+        Micah Kesiena
       </h2>
-      <p class="text-zinc-600 leading-relaxed font-medium">
-        Innovation for secure website start with me. Narrow your learning path
-        with me.
+      <p
+        class="text-[10px] md:text-xs text-zinc-500 uppercase tracking-widest font-mono mt-2"
+      >
+        © {currentYear} Micah Kesiena. All rights reserved.
       </p>
-      <div class="flex items-center gap-4 pt-2">
-        <a
-          href="https://github.com/DevTechMike-Coder"
-          aria-label="Github"
-          class="text-zinc-400 hover:text-zinc-900 transition-colors" target="_blank" rel="noopener noreferrer"
-        >
-          <Github fontSize={24} />
-        </a>
-        <a
-          href="https://www.linkedin.com/in/micah-kesiena-a3b424361/"
-          aria-label="Linkedin"
-          class="text-zinc-400 hover:text-zinc-900 transition-colors" target="_blank" rel="noopener noreferrer"
-        >
-          <Linkedin fontSize={24} />
-        </a>
-        <a
-          href="https://x.com/DevTech_Coder23"
-          aria-label="X"
-          class="text-zinc-400 hover:text-zinc-900 transition-colors" target="_blank" rel="noopener noreferrer"
-        >
-          <X fontSize={24} />
-        </a>
-        <a
-          href="https://www.instagram.com/micahkingfx2/"
-          aria-label="Instagram"
-          class="text-zinc-400 hover:text-zinc-900 transition-colors" target="_blank" rel="noopener noreferrer"
-        >
-          <Instagram fontSize={24} />
-        </a>
-      </div>
+      <p class="text-xs text-zinc-400 italic font-serif">
+        If it works, don't touch it. If it doesn't, coffee first.
+      </p>
     </div>
 
-    <!-- Links Sections -->
-    <div class="grid grid-cols-2 lg:grid-cols-2 gap-12 md:gap-24">
-      <div class="flex flex-col gap-4">
-        <h3 class="text-sm font-bold uppercase tracking-widest text-zinc-400">
-          Navigation
-        </h3>
-        <ul class="flex flex-col gap-2">
-          <li>
-            <a
-              href="/"
-              class="text-zinc-600 hover:text-zinc-900 transition-colors" aria-label="home"
-              >Home</a
-            >
-          </li>
-          <li>
-            <a
-              href="/projects"
-              class="text-zinc-600 hover:text-zinc-900 transition-colors" aria-label="projects"
-              >Projects</a
-            >
-          </li>
-          <li>
-            <a
-              href="/blog"
-              class="text-zinc-600 hover:text-zinc-900 transition-colors" aria-label="blog"
-              >Blog</a
-            >
-          </li>
-        </ul>
-      </div>
-
-      <div class="flex flex-col gap-4">
-        <h3 class="text-sm font-bold uppercase tracking-widest text-zinc-400">
-          Contact
-        </h3>
-        <ul class="flex flex-col gap-2">
-          <li>
-            <a
-              href="mailto:micahkesiena@gmail.com"
-              class="text-zinc-600 hover:text-zinc-900 transition-colors break-all" aria-label="email"
-            >
-              micahkesiena@gmail.com
-            </a>
-          </li>
-          <li class="text-zinc-600">Ogun, Nigeria</li>
-        </ul>
-      </div>
+    <!-- Right Section: Social Icons -->
+    <div class="flex items-center gap-2">
+      <a
+        href="https://github.com/DevTechMike-Coder"
+        aria-label="Github"
+        class="w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900 transition-all shadow-sm"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Github className="w-4 h-4" />
+      </a>
+      <a
+        href="https://x.com/DevTech_Coder23"
+        aria-label="X"
+        class="w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900 transition-all shadow-sm"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <X className="w-4 h-4" />
+      </a>
+      <a
+        href="https://www.linkedin.com/in/micah-kesiena-a3b424361/"
+        aria-label="Linkedin"
+        class="w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900 transition-all shadow-sm"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Linkedin className="w-4 h-4" />
+      </a>
+      <a
+        href="https://www.instagram.com/micahkingfx2/"
+        aria-label="Instagram"
+        class="w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900 transition-all shadow-sm"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Instagram className="w-4 h-4" />
+      </a>
     </div>
-  </div>
-
-  <div
-    class="max-w-7xl mx-auto pt-16 mt-16 border-t border-zinc-100 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-zinc-400"
-  >
-    <p>© {currentYear} Micah Kesiena. All rights reserved.</p>
-    <p>Built with Astro & Tailwind CSS</p>
   </div>
 </footer>
