@@ -1,7 +1,7 @@
 ---
 import { TeamUsers } from "../../components/icons/TeamUsers";
 import { Button } from "../../components/reuseComp/Button";
-import { ChevronDown } from "../../components/icons/ChevronDown";
+import { ChevronRight } from "../../components/icons/ChevronRight";
 ---
 
 <section class="pt-32 pb-16 px-4 md:px-10">
@@ -16,7 +16,9 @@ import { ChevronDown } from "../../components/icons/ChevronDown";
 
     <div class="flex items-center gap-2">
       <a href="mailto:micahkesiena@gmail.com">
-        <Button>Send A Message <ChevronDown /> </Button>
+        <Button variant="outline" className="rounded-full px-4 py-2"
+          >Send A Message <ChevronRight />
+        </Button>
       </a>
     </div>
   </div>
