@@ -453,8 +453,36 @@ const techStack: TechStackProps[] = [
 
     container.addEventListener("mousemove", (e) => {
       const mouse = e as MouseEvent;
-      tooltip.style.left = `${mouse.clientX + 12}px`;
-      tooltip.style.top = `${mouse.clientY - 28}px`;
+      
+      // Calculate tooltip position with padding
+      const padding = 12;
+      const tooltipRect = tooltip.getBoundingClientRect();
+      
+      let left = mouse.clientX + padding;
+      let top = mouse.clientY - tooltipRect.height - 8; // Default to above cursor
+
+      // Prevent right edge overflow
+      if (left + tooltipRect.width > window.innerWidth - padding) {
+        left = mouse.clientX - tooltipRect.width - padding;
+      }
+
+      // Prevent top edge overflow
+      if (top < padding) {
+        top = mouse.clientY + padding * 2; // Position below if too high
+      }
+
+      // Prevent bottom edge overflow
+      if (top + tooltipRect.height > window.innerHeight - padding) {
+        top = window.innerHeight - tooltipRect.height - padding;
+      }
+      
+      // Prevent left edge overflow just in case
+      if (left < padding) {
+          left = padding;
+      }
+
+      tooltip.style.left = `${left}px`;
+      tooltip.style.top = `${top}px`;
     });
 
     container.addEventListener("mouseout", (e) => {
@@ -463,5 +491,43 @@ const techStack: TechStackProps[] = [
         tooltip.classList.add("hidden");
       }
     });
+
+    // Handle touch devices for better mobile experience
+    container.addEventListener("touchstart", (e) => {
+      const touch = (e as TouchEvent).touches[0];
+      const target = document.elementFromPoint(touch.clientX, touch.clientY) as HTMLElement;
+      
+      if (target && target.classList.contains("gh-day")) {
+        // Trigger mouseover logic manully for touch
+        target.dispatchEvent(new MouseEvent("mouseover", {
+          bubbles: true,
+          cancelable: true,
+          view: window
+        }));
+
+        const padding = 12;
+        const tooltipRect = tooltip.getBoundingClientRect();
+        
+        let left = touch.clientX + padding;
+        let top = touch.clientY - tooltipRect.height - 16;
+  
+        if (left + tooltipRect.width > window.innerWidth - padding) {
+          left = touch.clientX - tooltipRect.width - padding;
+        }
+  
+        if (top < padding) {
+          top = touch.clientY + padding * 2;
+        }
+        
+        if (left < padding) {
+            left = padding;
+        }
+  
+        tooltip.style.left = `${left}px`;
+        tooltip.style.top = `${top}px`;
+      } else {
+         tooltip.classList.add("hidden");
+      }
+    }, { passive: true });
   }
 </script>
