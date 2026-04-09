@@ -48,6 +48,7 @@ export async function getGitHubContributions(): Promise<ContributionData> {
 
   try {
     const res = await fetch("https://api.github.com/graphql", {
+      cache: "no-store",
       method: "POST",
       headers: {
         Authorization: `Bearer ${GITHUB_ACCESS_TOKEN}`,

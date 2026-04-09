@@ -26,12 +26,8 @@ import { Javascript } from "../../components/icons/Javascript";
 import { Nodejs } from "../../components/icons/Nodejs";
 import { Express } from "../../components/icons/Express";
 import { Postgresql } from "../../components/icons/Postgresql";
-import { getGitHubContributions } from "../../lib/contribution";
 import { GoogleMapBackground } from "../../lib/GoogleMapBackground";
 import { Marquee } from "../../components/uicomp/Marquee";
-
-const data = await getGitHubContributions();
-const { totalContributions, weeks } = data;
 
 type TechStackProps = {
   name: string;
@@ -319,42 +315,28 @@ const techStack: TechStackProps[] = [
           </div>
 
           <div class="mt-4">
-            <p class="text-3xl font-bold tracking-tight text-zinc-900">
-              {totalContributions.toLocaleString()}
+            <p
+              id="gh-total-contributions"
+              class="text-3xl font-bold tracking-tight text-zinc-900"
+            >
+              --
             </p>
             <p
               class="text-zinc-500 text-xs uppercase tracking-wider font-medium"
             >
-              Contributions in the last year
+              Live GitHub contributions in the last year
             </p>
           </div>
         </div>
 
         <div class="overflow-x-auto pb-1">
-          {
-            weeks.length > 0 ? (
-              <div class="flex gap-1 justify-start min-w-max">
-                {weeks.slice(-38).map((week) => (
-                  <div class="flex flex-col gap-1">
-                    {week.contributionDays.map((day) => (
-                      <div
-                        class="w-[15px] h-[15px] rounded-sm cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-zinc-400/30 hover:scale-110 group relative gh-day"
-                        style={`background-color: ${day.color}`}
-                        data-date={day.date}
-                        data-count={day.contributionCount}
-                      />
-                    ))}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div class="flex items-center justify-center border border-dashed border-zinc-200 rounded-xl h-[100px]">
-                <p class="text-zinc-500 text-xs italic">
-                  Contribution data unavailable
-                </p>
-              </div>
-            )
-          }
+          <div
+            id="gh-grid"
+            class="flex items-center justify-center border border-dashed border-zinc-200 rounded-xl h-[100px] min-w-full"
+            aria-live="polite"
+          >
+            <p class="text-zinc-500 text-xs italic">Loading contribution data</p>
+          </div>
         </div>
       </div>
     </div>
@@ -424,110 +406,193 @@ const techStack: TechStackProps[] = [
 </script>
 
 <script>
-  const container =
-    document.querySelector(".gh-day")?.parentElement?.parentElement;
+  type ContributionDay = {
+    date: string;
+    contributionCount: number;
+    color: string;
+  };
+
+  type ContributionWeek = {
+    contributionDays: ContributionDay[];
+  };
+
+  type ContributionData = {
+    totalContributions: number;
+    weeks: ContributionWeek[];
+  };
+
+  const totalEl = document.getElementById("gh-total-contributions");
+  const gridEl = document.getElementById("gh-grid");
   const tooltip = document.getElementById("gh-tooltip");
 
-  if (container && tooltip) {
-    container.addEventListener("mouseover", (e) => {
-      const target = e.target as HTMLElement;
-      if (!target.classList.contains("gh-day")) return;
+  function setUnavailableState() {
+    if (!totalEl || !gridEl) return;
 
-      const count = target.dataset.count;
-      const dateStr = target.dataset.date;
-      if (!dateStr) return;
+    totalEl.textContent = "--";
+    gridEl.className =
+      "flex items-center justify-center border border-dashed border-zinc-200 rounded-xl h-[100px] min-w-full";
+    gridEl.replaceChildren();
 
-      const date = new Date(dateStr + "T00:00:00");
-      const formatted = date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
+    const message = document.createElement("p");
+    message.className = "text-zinc-500 text-xs italic";
+    message.textContent = "Contribution data unavailable";
+    gridEl.append(message);
+  }
+
+  function renderContributionGrid(weeks: ContributionWeek[]) {
+    if (!gridEl) return;
+
+    if (weeks.length === 0) {
+      setUnavailableState();
+      return;
+    }
+
+    gridEl.className = "flex gap-1 justify-start min-w-max";
+    gridEl.replaceChildren();
+
+    const fragment = document.createDocumentFragment();
+
+    for (const week of weeks.slice(-38)) {
+      const weekEl = document.createElement("div");
+      weekEl.className = "flex flex-col gap-1";
+
+      for (const day of week.contributionDays) {
+        const dayEl = document.createElement("div");
+        dayEl.className =
+          "w-[15px] h-[15px] rounded-sm cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-zinc-400/30 hover:scale-110 group relative gh-day";
+        dayEl.style.backgroundColor = day.color;
+        dayEl.dataset.date = day.date;
+        dayEl.dataset.count = String(day.contributionCount);
+        weekEl.append(dayEl);
+      }
+
+      fragment.append(weekEl);
+    }
+
+    gridEl.append(fragment);
+  }
+
+  async function loadContributions() {
+    if (!totalEl || !gridEl) return;
+
+    try {
+      const response = await fetch("/api/github-contributions.json", {
+        cache: "no-store",
       });
 
-      tooltip.textContent =
-        count === "0"
-          ? `No contributions on ${formatted}`
-          : `${count} contribution${count === "1" ? "" : "s"} on ${formatted}`;
+      if (!response.ok) {
+        throw new Error(`GitHub contributions request failed: ${response.status}`);
+      }
+
+      const data = (await response.json()) as ContributionData;
+
+      totalEl.textContent = data.totalContributions.toLocaleString();
+      renderContributionGrid(data.weeks);
+    } catch (error) {
+      console.error("Unable to load GitHub contributions:", error);
+      setUnavailableState();
+    }
+  }
+
+  function getTooltipText(target: HTMLElement) {
+    const count = target.dataset.count;
+    const dateStr = target.dataset.date;
+
+    if (!dateStr) {
+      return null;
+    }
+
+    const date = new Date(`${dateStr}T00:00:00`);
+    const formatted = date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+
+    return count === "0"
+      ? `No contributions on ${formatted}`
+      : `${count} contribution${count === "1" ? "" : "s"} on ${formatted}`;
+  }
+
+  function positionTooltip(x: number, y: number) {
+    if (!tooltip) return;
+
+    const padding = 12;
+    const tooltipRect = tooltip.getBoundingClientRect();
+
+    let left = x + padding;
+    let top = y - tooltipRect.height - 8;
+
+    if (left + tooltipRect.width > window.innerWidth - padding) {
+      left = x - tooltipRect.width - padding;
+    }
+
+    if (top < padding) {
+      top = y + padding * 2;
+    }
+
+    if (top + tooltipRect.height > window.innerHeight - padding) {
+      top = window.innerHeight - tooltipRect.height - padding;
+    }
+
+    if (left < padding) {
+      left = padding;
+    }
+
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
+  }
+
+  void loadContributions();
+
+  if (gridEl && tooltip) {
+    gridEl.addEventListener("mouseover", (e) => {
+      const target = (e.target as HTMLElement).closest(".gh-day") as HTMLElement | null;
+      if (!target) return;
+
+      const text = getTooltipText(target);
+      if (!text) return;
+
+      tooltip.textContent = text;
       tooltip.classList.remove("hidden");
     });
 
-    container.addEventListener("mousemove", (e) => {
+    gridEl.addEventListener("mousemove", (e) => {
       const mouse = e as MouseEvent;
-      
-      // Calculate tooltip position with padding
-      const padding = 12;
-      const tooltipRect = tooltip.getBoundingClientRect();
-      
-      let left = mouse.clientX + padding;
-      let top = mouse.clientY - tooltipRect.height - 8; // Default to above cursor
-
-      // Prevent right edge overflow
-      if (left + tooltipRect.width > window.innerWidth - padding) {
-        left = mouse.clientX - tooltipRect.width - padding;
-      }
-
-      // Prevent top edge overflow
-      if (top < padding) {
-        top = mouse.clientY + padding * 2; // Position below if too high
-      }
-
-      // Prevent bottom edge overflow
-      if (top + tooltipRect.height > window.innerHeight - padding) {
-        top = window.innerHeight - tooltipRect.height - padding;
-      }
-      
-      // Prevent left edge overflow just in case
-      if (left < padding) {
-          left = padding;
-      }
-
-      tooltip.style.left = `${left}px`;
-      tooltip.style.top = `${top}px`;
+      positionTooltip(mouse.clientX, mouse.clientY);
     });
 
-    container.addEventListener("mouseout", (e) => {
-      const target = e.target as HTMLElement;
-      if (target.classList.contains("gh-day")) {
+    gridEl.addEventListener("mouseleave", () => {
+      tooltip.classList.add("hidden");
+    });
+
+    gridEl.addEventListener(
+      "touchstart",
+      (e) => {
+      const touch = (e as TouchEvent).touches[0];
+      const target = document
+        .elementFromPoint(touch.clientX, touch.clientY)
+        ?.closest(".gh-day") as HTMLElement | null;
+
+      if (target) {
+        const text = getTooltipText(target);
+        if (!text) return;
+
+        tooltip.textContent = text;
+        tooltip.classList.remove("hidden");
+        positionTooltip(touch.clientX, touch.clientY);
+      } else {
+        tooltip.classList.add("hidden");
+      }
+      },
+      { passive: true },
+    );
+
+    document.addEventListener("touchstart", (e) => {
+      const target = e.target as HTMLElement | null;
+      if (!target?.closest(".gh-day")) {
         tooltip.classList.add("hidden");
       }
     });
-
-    // Handle touch devices for better mobile experience
-    container.addEventListener("touchstart", (e) => {
-      const touch = (e as TouchEvent).touches[0];
-      const target = document.elementFromPoint(touch.clientX, touch.clientY) as HTMLElement;
-      
-      if (target && target.classList.contains("gh-day")) {
-        // Trigger mouseover logic manully for touch
-        target.dispatchEvent(new MouseEvent("mouseover", {
-          bubbles: true,
-          cancelable: true,
-          view: window
-        }));
-
-        const padding = 12;
-        const tooltipRect = tooltip.getBoundingClientRect();
-        
-        let left = touch.clientX + padding;
-        let top = touch.clientY - tooltipRect.height - 16;
-  
-        if (left + tooltipRect.width > window.innerWidth - padding) {
-          left = touch.clientX - tooltipRect.width - padding;
-        }
-  
-        if (top < padding) {
-          top = touch.clientY + padding * 2;
-        }
-        
-        if (left < padding) {
-            left = padding;
-        }
-  
-        tooltip.style.left = `${left}px`;
-        tooltip.style.top = `${top}px`;
-      } else {
-         tooltip.classList.add("hidden");
-      }
-    }, { passive: true });
   }
 </script>
