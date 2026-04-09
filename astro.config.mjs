@@ -11,7 +11,7 @@ import vercel from "@astrojs/vercel";
 // https://astro.build/config
 export default defineConfig({
   site: "https://micahkesiena.vercel.app", // Replace this with your actual domain when deploying
-  output: "hybrid",
+  output: "server",
   adapter: vercel(),
   vite: {
     plugins: [tailwindcss()],
