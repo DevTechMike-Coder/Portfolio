@@ -11,7 +11,7 @@
 >
   <div class="grid-pattern absolute inset-0"></div>
   <div
-    class="spotlight absolute inset-0 transition-opacity duration-500 opacity-0"
+    class="spotlight absolute inset-0 opacity-0"
     id="spotlight"
   >
   </div>
@@ -32,8 +32,9 @@
 
   .spotlight {
     background: radial-gradient(
-      circle 350px at var(--x, 50%) var(--y, 50%),
-      rgba(16, 185, 129, 0.6),
+      circle var(--radius, 350px) at var(--x, 50%) var(--y, 50%),
+      rgba(16, 185, 129, 0.75) 0%,
+      rgba(6, 182, 212, 0.45) 40%,
       transparent 80%
     );
   }
@@ -43,16 +44,134 @@
   const spotlight = document.getElementById("spotlight");
 
   if (spotlight) {
-    window.addEventListener("mousemove", (e) => {
-      spotlight.style.setProperty("--x", `${e.clientX}px`);
-      spotlight.style.setProperty("--y", `${e.clientY}px`);
-      spotlight.style.opacity = "1";
+    // Current animated values (start at center)
+    let currentX = window.innerWidth / 2;
+    let currentY = window.innerHeight / 2;
+    // Target values
+    let targetX = currentX;
+    let targetY = currentY;
+
+    // Radius (adapted to device size)
+    let isMobile = window.innerWidth < 768;
+    let currentRadius = isMobile ? 220 : 320;
+    let targetRadius = currentRadius;
+
+    // Opacity values (starts at 0, transitions to ambient/active)
+    let currentOpacity = 0;
+    let targetOpacity = 0.6; // Soft ambient glow initially
+
+    let isInteracting = false;
+    let lastInteractionTime = Date.now();
+    const IDLE_TIMEOUT = 3000; // 3 seconds before initiating idle drift
+
+    // Smoothing factor (lerp)
+    const LERP_FACTOR = 0.08;
+
+    // Keep mobile state updated on resize
+    window.addEventListener("resize", () => {
+      isMobile = window.innerWidth < 768;
     });
 
-    window.addEventListener("mouseout", (e) => {
-      if (!e.relatedTarget) {
-        spotlight.style.opacity = "0";
+    // Unified interactive updater
+    const updateTargetCoords = (x: number, y: number) => {
+      isInteracting = true;
+      lastInteractionTime = Date.now();
+      targetX = x;
+      targetY = y;
+      targetOpacity = 0.9; // Brighter active state
+      targetRadius = isMobile ? 260 : 380;
+    };
+
+    // Desktop mouse events
+    window.addEventListener("mousemove", (e) => {
+      updateTargetCoords(e.clientX, e.clientY);
+    });
+
+    window.addEventListener("mouseleave", () => {
+      isInteracting = false;
+    });
+
+    // Touch events for mobile/tablet devices
+    window.addEventListener("touchstart", (e) => {
+      if (e.touches.length > 0) {
+        updateTargetCoords(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    window.addEventListener("touchmove", (e) => {
+      if (e.touches.length > 0) {
+        updateTargetCoords(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    window.addEventListener("touchend", () => {
+      isInteracting = false;
+    }, { passive: true });
+
+    window.addEventListener("touchcancel", () => {
+      isInteracting = false;
+    }, { passive: true });
+
+    // requestAnimationFrame Loop
+    let animationId: number;
+    let isTabVisible = true;
+
+    const animate = () => {
+      if (!isTabVisible) return;
+
+      const now = Date.now();
+
+      // Check if user has gone idle or left the viewport
+      if (!isInteracting || (now - lastInteractionTime > IDLE_TIMEOUT)) {
+        isInteracting = false;
+        
+        // Dynamic Drift (Lissajous figure-8 curve)
+        const driftSpeed = 0.0008;
+        const time = now * driftSpeed;
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        const rangeX = window.innerWidth * 0.25;
+        const rangeY = window.innerHeight * 0.2;
+
+        targetX = centerX + Math.cos(time) * rangeX;
+        targetY = centerY + Math.sin(time * 2) * rangeY;
+
+        // Soft pulse (breathing effect)
+        const baseRadius = isMobile ? 200 : 300;
+        const pulseAmplitude = isMobile ? 20 : 30;
+        targetRadius = baseRadius + Math.sin(time * 2.5) * pulseAmplitude;
+        
+        // Ambient opacity
+        targetOpacity = 0.6;
+      }
+
+      // Linear Interpolation (lerp)
+      currentX += (targetX - currentX) * LERP_FACTOR;
+      currentY += (targetY - currentY) * LERP_FACTOR;
+      currentRadius += (targetRadius - currentRadius) * LERP_FACTOR;
+      currentOpacity += (targetOpacity - currentOpacity) * LERP_FACTOR;
+
+      // Apply styles
+      spotlight.style.setProperty("--x", `${currentX.toFixed(1)}px`);
+      spotlight.style.setProperty("--y", `${currentY.toFixed(1)}px`);
+      spotlight.style.setProperty("--radius", `${currentRadius.toFixed(1)}px`);
+      spotlight.style.opacity = currentOpacity.toFixed(3);
+
+      animationId = requestAnimationFrame(animate);
+    };
+
+    // Pause/Resume loop on tab visibility changes to save CPU/Battery
+    document.addEventListener("visibilitychange", () => {
+      isTabVisible = !document.hidden;
+      if (isTabVisible) {
+        lastInteractionTime = Date.now(); // reset idle time
+        animate();
+      } else {
+        cancelAnimationFrame(animationId);
       }
     });
+
+    // Initialize animation loop
+    animate();
   }
 </script>
