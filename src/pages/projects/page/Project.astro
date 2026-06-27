@@ -4,7 +4,7 @@ import { ArrowLeft } from "../../../components/icons/ArrowLeft";
 ---
 
 <main class="pt-32 pb-16 px-4 md:px-10 lg:px-20 min-h-screen bg-transparent">
-  <a href="/" class="group w-fit block" aria-label="Back to Home">
+  <a href="/" class="group w-fit block reveal-fade" aria-label="Back to Home">
     <Button
       variant="secondary"
       size="sm"
@@ -17,7 +17,7 @@ import { ArrowLeft } from "../../../components/icons/ArrowLeft";
     </Button>
   </a>
 
-  <div class="mt-12">
+  <div class="mt-12 reveal-fade">
     <h1
       class="text-5xl font-black tracking-tighter bg-linear-to-br from-black to-black/60 bg-clip-text text-transparent"
     >
@@ -29,3 +29,31 @@ import { ArrowLeft } from "../../../components/icons/ArrowLeft";
     </p>
   </div>
 </main>
+
+<script>
+  import { gsap, ease, duration } from "../../../lib/gsap";
+
+  // Above-the-fold header: fade in on load, same treatment as Hero.
+  const items = gsap.utils.toArray<HTMLElement>(".reveal-fade");
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (items.length) {
+    if (prefersReduced) {
+      gsap.set(items, { opacity: 1, y: 0 });
+    } else {
+      gsap.fromTo(
+        items,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: duration.base,
+          ease: ease.smooth,
+          stagger: 0.1,
+        },
+      );
+    }
+  }
+</script>
