@@ -30,9 +30,17 @@ export function revealOnScroll(
   opts: {
     trigger?: Element | string;
     start?: string;
+    end?: string;
     stagger?: number;
     y?: number;
     once?: boolean;
+    /**
+     * When true, the element animates back out (fade + slide) as soon as it
+     * leaves the viewport in EITHER direction — scrolled past below, or
+     * scrolled away above — then plays again on re-entry. Takes priority
+     * over `once`.
+     */
+    hideOnExit?: boolean;
   } = {},
 ) {
   if (typeof window === "undefined") {
@@ -48,6 +56,12 @@ export function revealOnScroll(
     return;
   }
 
+  const toggleActions = opts.hideOnExit
+    ? "play reverse play reverse"
+    : opts.once === false
+      ? "play none none reverse"
+      : "play none none none";
+
   gsap.fromTo(
     targets,
     { opacity: 0, y: opts.y ?? 28 },
@@ -60,8 +74,10 @@ export function revealOnScroll(
       scrollTrigger: {
         trigger: opts.trigger ?? targets,
         start: opts.start ?? "top 85%",
-        toggleActions:
-          opts.once === false ? "play none none reverse" : "play none none none",
+        // Symmetric exit threshold so the fade-out is actually visible
+        // instead of firing once the element is already off-screen.
+        end: opts.hideOnExit ? opts.end ?? "bottom 15%" : opts.end,
+        toggleActions,
         invalidateOnRefresh: true,
       },
     },
