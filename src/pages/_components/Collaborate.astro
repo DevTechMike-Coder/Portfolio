@@ -4,13 +4,14 @@ import { Button } from "../../components/reuseComp/Button";
 import { ChevronRight } from "../../components/icons/ChevronRight";
 ---
 
-<section class="pt-32 pb-16 px-4 md:px-10 lg:px-20">
+<section class="pt-32 pb-16 px-4 md:px-10">
+  <div class="max-w-7xl mx-auto">
   <div class="flex items-center gap-3">
     <TeamUsers fontSize={28} />
     <h2 class="text-3xl md:text-4xl uppercase font-bold tracking-tight">Let's Team Up</h2>
   </div>
 
-  <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+  <div id="collaborate-grid" class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
     <div class="flex flex-col justify-center gap-6 p-8 md:p-12 bg-gray-50/50 rounded-3xl border border-gray-100">
       <div class="space-y-2">
         <h1 class="text-4xl md:text-5xl font-bold leading-tight">Got A Project?</h1>
@@ -47,4 +48,20 @@ import { ChevronRight } from "../../components/icons/ChevronRight";
       </div>
     </div>
   </div>
+  </div>
 </section>
+
+<script>
+  import { revealOnScroll } from "../../lib/gsap";
+
+  const grid = document.getElementById("collaborate-grid");
+  if (grid) {
+    revealOnScroll(Array.from(grid.children) as HTMLElement[], {
+      trigger: grid,
+      start: "top 82%",
+      stagger: 0.15,
+      y: 30,
+    });
+  }
+</script>
+

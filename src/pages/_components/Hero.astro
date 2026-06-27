@@ -3,10 +3,10 @@ import { MapPin } from "../../components/icons/MapPin";
 ---
 
 <section class="relative pt-32 pb-16 px-4 md:px-10 overflow-hidden">
-  <div class="relative z-10">
+  <div class="relative z-10 max-w-7xl mx-auto">
     <div class="flex flex-col gap-2">
       <div
-        class="flex items-center gap-2 border border-zinc-200 rounded-full px-4 py-2 w-fit bg-zinc-50/50"
+        class="hero-fade flex items-center gap-2 border border-zinc-200 rounded-full px-4 py-2 w-fit bg-zinc-50/50"
       >
         <span class="relative flex h-2 w-2">
           <span
@@ -19,19 +19,19 @@ import { MapPin } from "../../components/icons/MapPin";
           Available for collaborations
         </span>
       </div>
-      <h1 class="text-4xl font-bold uppercase tracking-wide text-zinc-900">
+      <h1 class="hero-fade text-4xl font-bold uppercase tracking-wide text-zinc-900">
         Micah Kesiena
       </h1>
-      <div>
+      <div class="hero-fade">
         <p class="text-sm text-zinc-500">
           Security Focused Full Stack Developer
         </p>
       </div>
     </div>
 
-    <div class="flex flex-col items-end justify-end pt-16">
+    <div class="flex flex-col items-start md:items-end justify-end pt-16">
       <div
-        class="flex gap-4 border border-zinc-200 w-fit p-2 rounded-full px-4 bg-zinc-50/50"
+        class="hero-fade flex flex-wrap gap-x-4 gap-y-2 border border-zinc-200 w-fit p-2 rounded-full px-4 bg-zinc-50/50"
       >
         <p class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
           <a
@@ -68,13 +68,13 @@ import { MapPin } from "../../components/icons/MapPin";
       </div>
     </div>
 
-    <div class="pt-16 flex flex-col items-end justify-end">
-      <h2 class="text-2xl font-bold uppercase tracking-tight text-zinc-900">
+    <div class="hero-fade pt-16 flex flex-col items-start md:items-end justify-end">
+      <h2 class="text-2xl font-bold uppercase tracking-tight text-zinc-900 md:text-right">
         Full Stack Developer <br /> Penetration Tester
       </h2>
-      <div class="flex flex-col items-end">
+      <div class="flex flex-col items-start md:items-end">
         <p class="text-sm text-zinc-500">
-          Innovation for secure website start with me
+          Innovation for secure websites starts with me
         </p>
         <div class="flex items-center gap-2 text-zinc-600">
           <MapPin className="animate-bounce" />
@@ -84,3 +84,32 @@ import { MapPin } from "../../components/icons/MapPin";
     </div>
   </div>
 </section>
+
+<script>
+  import { gsap, ease, duration } from "../../lib/gsap";
+
+  const items = gsap.utils.toArray<HTMLElement>(".hero-fade");
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (items.length) {
+    if (prefersReduced) {
+      gsap.set(items, { opacity: 1, y: 0 });
+    } else {
+      gsap.fromTo(
+        items,
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: duration.slow,
+          ease: ease.smooth,
+          stagger: 0.12,
+          delay: 0.1,
+        },
+      );
+    }
+  }
+</script>
+

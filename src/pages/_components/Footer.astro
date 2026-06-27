@@ -12,6 +12,7 @@ const currentYear = new Date().getFullYear();
   class="w-full border-t border-zinc-200 bg-white/50 backdrop-blur-md mt-20"
 >
   <div
+    id="footer-content"
     class="max-w-7xl mx-auto px-4 md:px-10 py-8 flex flex-col md:flex-row items-center justify-between gap-6"
   >
     <!-- Left Section: Name, Copyright, Quote -->
@@ -74,3 +75,17 @@ const currentYear = new Date().getFullYear();
     </div>
   </div>
 </footer>
+
+<script>
+  import { revealOnScroll } from "../../lib/gsap";
+
+  const footerContent = document.getElementById("footer-content");
+  if (footerContent) {
+    revealOnScroll(Array.from(footerContent.children) as HTMLElement[], {
+      trigger: footerContent,
+      start: "top 90%",
+      stagger: 0.1,
+      y: 20,
+    });
+  }
+</script>

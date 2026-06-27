@@ -3,207 +3,442 @@ import { Briefcase } from "../../components/icons/BriefCase";
 import { ChevronDown } from "../../components/icons/ChevronDown";
 import { Github } from "../../components/icons/Github";
 import { Link } from "../../components/icons/Link";
+import { ArrowUpRight } from "../../components/icons/ArrowUpRight";
 import { Button } from "../../components/reuseComp/Button";
+
+// Mock/placeholder projects revealed by the "Explore" button.
+// Swap these out for real repos/links whenever they're ready to ship.
+type MockProject = {
+  title: string;
+  status: "In Progress" | "Planned";
+  description: string;
+};
+
+const mockProjects: MockProject[] = [
+  {
+    title: "DevSec Scanner CLI",
+    status: "In Progress",
+    description:
+      "A Python command-line tool that scans a local network for open ports and known vulnerable services, then prints a quick security report.",
+  },
+  {
+    title: "Auth Vault",
+    status: "Planned",
+    description:
+      "A drop-in Node/Next.js auth microservice extracted from Vertex Canvas: HMAC-signed sessions, route guarding, and rate limiting out of the box.",
+  },
+  {
+    title: "Astro Blog Engine",
+    status: "In Progress",
+    description:
+      "A markdown/MDX-driven blog engine built on Astro with syntax highlighting, reading-time estimates, and RSS feed generation.",
+  },
+];
+
+const statusStyles: Record<MockProject["status"], string> = {
+  "In Progress":
+    "border-amber-500/20 bg-amber-500/5 text-amber-700 shadow-[0_0_15px_rgba(245,158,11,0.1)]",
+  Planned: "border-zinc-300 bg-zinc-100 text-zinc-600",
+};
+
+const statusDot: Record<MockProject["status"], string> = {
+  "In Progress": "bg-amber-500",
+  Planned: "bg-zinc-400",
+};
 ---
 
 <section class="pt-32 pb-16 px-4 md:px-10">
-  <div class="flex items-center gap-2">
-    <Briefcase fontSize={30} />
-    <h2 class="text-4xl uppercase font-semibold">Project_Log</h2>
-  </div>
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center gap-2">
+      <Briefcase fontSize={30} />
+      <h2 class="text-4xl uppercase font-semibold">Project_Log</h2>
+    </div>
 
-  <div class="pt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Project Card 1 -->
     <div
-      class="group relative overflow-hidden rounded-xl bg-white border border-zinc-200 p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/30 shadow-sm"
+      id="project-grid"
+      class="pt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
     >
+      <!-- Project Card 1 -->
       <div
-        class="absolute inset-0 bg-linear-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        class="project-card group relative h-full overflow-hidden rounded-xl bg-white border border-zinc-200 p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/30 shadow-sm"
       >
-      </div>
-
-      <div class="relative z-10 flex flex-col gap-4">
-        <div class="flex items-center justify-between">
-          <h2
-            class="text-2xl font-bold tracking-tight text-zinc-900 group-hover:text-emerald-600 transition-colors duration-300"
-          >
-            Next Hub Ecommerce
-          </h2>
-          <span
-            class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border border-emerald-500/20 bg-emerald-500/5 text-emerald-700 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
-          >
-            <span class="relative flex h-2 w-2">
-              <span
-                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
-              ></span>
-              <span
-                class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
-              ></span>
-            </span>
-            Completed
-          </span>
+        <div
+          class="absolute inset-0 bg-linear-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        >
         </div>
 
-        <div class="h-px w-full bg-linear-to-r from-zinc-200 to-transparent">
-        </div>
-
-        <p class="text-zinc-600 text-sm leading-relaxed">
-          A high-performance e-commerce platform built with Next.js, featuring a
-          seamless shopping experience and robust backend integration.
-        </p>
-
-        <div class="pt-2 flex items-center gap-3">
-          <a href="https://github.com/DevTechMike-Coder/Ecommerce">
-            <Github
-              className="text-zinc-600 hover:text-zinc-900 transition-colors"
-            />
-          </a>
+        <div class="relative z-10 flex h-full flex-col gap-4">
           <div
-            class="h-8 w-8 rounded-lg bg-zinc-50 border border-zinc-200 flex items-center justify-center hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all cursor-pointer text-zinc-600 hover:text-emerald-600"
+            class="flex flex-col items-start gap-3 sm:flex-row sm:justify-between"
           >
-            <a href="https://ecommerce-three-omega-39.vercel.app/">
-              <Link />
+            <h2
+              class="text-2xl font-bold tracking-tight text-zinc-900 group-hover:text-emerald-600 transition-colors duration-300"
+            >
+              Next Hub Ecommerce
+            </h2>
+            <span
+              class="flex shrink-0 items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border border-emerald-500/20 bg-emerald-500/5 text-emerald-700 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
+            >
+              <span class="relative flex h-2 w-2">
+                <span
+                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
+                ></span>
+                <span
+                  class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
+                ></span>
+              </span>
+              Completed
+            </span>
+          </div>
+
+          <div class="h-px w-full bg-linear-to-r from-zinc-200 to-transparent">
+          </div>
+
+          <p class="text-zinc-600 text-sm leading-relaxed">
+            A high-performance e-commerce platform built with Next.js, featuring
+            a seamless shopping experience and robust backend integration.
+          </p>
+
+          <div class="mt-auto pt-2 flex items-center gap-3">
+            <a
+              href="https://github.com/DevTechMike-Coder/Ecommerce"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-zinc-600 hover:text-zinc-900 transition-colors"
+            >
+              <Github />
+            </a>
+            <a
+              href="https://ecommerce-three-omega-39.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm font-medium text-zinc-700 transition-all hover:border-emerald-500/30 hover:bg-emerald-500/10 hover:text-emerald-600"
+              aria-label="Open project live link"
+            >
+              Open Link
+              <ArrowUpRight className="h-4 w-4" />
             </a>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Project Card 2 -->
-    <div
-      class="group relative overflow-hidden rounded-xl bg-white border border-zinc-200 p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/30 shadow-sm"
-    >
+      <!-- Project Card 2 -->
       <div
-        class="absolute inset-0 bg-linear-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        class="project-card group relative h-full overflow-hidden rounded-xl bg-white border border-zinc-200 p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/30 shadow-sm"
       >
-      </div>
-
-      <div class="relative z-10 flex flex-col gap-4">
-        <div class="flex items-center justify-between">
-          <h2
-            class="text-2xl font-bold tracking-tight text-zinc-900 group-hover:text-emerald-600 transition-colors duration-300"
-          >
-            Vertex Canvas
-          </h2>
-          <span
-            class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border border-emerald-500/20 bg-emerald-500/5 text-emerald-700 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
-          >
-            <span class="relative flex h-2 w-2">
-              <span
-                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
-              ></span>
-              <span
-                class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
-              ></span>
-            </span>
-            Completed
-          </span>
+        <div
+          class="absolute inset-0 bg-linear-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        >
         </div>
 
-        <div class="h-px w-full bg-linear-to-r from-zinc-200 to-transparent">
-        </div>
-
-        <p class="text-zinc-600 text-sm leading-relaxed">
-          This is a premium, high-performance workspace and productivity
-          application designed for developers, creators, and teams to map
-          workflows, track tasks, and collaborate in real-time.
-        </p>
-
-        <div class="pt-2 flex items-center gap-3">
-          <a
-            href="https://github.com/DevTechMike-Coder/KanbanTool"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Github
-              className="text-zinc-600 hover:text-zinc-900 transition-colors"
-            />
-          </a>
+        <div class="relative z-10 flex h-full flex-col gap-4">
           <div
-            class="h-8 w-8 rounded-lg bg-zinc-50 border border-zinc-200 flex items-center justify-center hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all cursor-pointer text-zinc-600 hover:text-emerald-600"
+            class="flex flex-col items-start gap-3 sm:flex-row sm:justify-between"
           >
+            <h2
+              class="text-2xl font-bold tracking-tight text-zinc-900 group-hover:text-emerald-600 transition-colors duration-300"
+            >
+              Vertex Canvas
+            </h2>
+            <span
+              class="flex shrink-0 items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border border-emerald-500/20 bg-emerald-500/5 text-emerald-700 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
+            >
+              <span class="relative flex h-2 w-2">
+                <span
+                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
+                ></span>
+                <span
+                  class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
+                ></span>
+              </span>
+              Completed
+            </span>
+          </div>
+
+          <div class="h-px w-full bg-linear-to-r from-zinc-200 to-transparent">
+          </div>
+
+          <p class="text-zinc-600 text-sm leading-relaxed">
+            This is a premium, high-performance workspace and productivity
+            application designed for developers, creators, and teams to map
+            workflows, track tasks, and collaborate in real-time.
+          </p>
+
+          <div class="mt-auto pt-2 flex items-center gap-3">
+            <a
+              href="https://github.com/DevTechMike-Coder/KanbanTool"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-zinc-600 hover:text-zinc-900 transition-colors"
+            >
+              <Github />
+            </a>
             <a
               href="https://vertexcanvas.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm font-medium text-zinc-700 transition-all hover:border-emerald-500/30 hover:bg-emerald-500/10 hover:text-emerald-600"
+              aria-label="Open project live link"
             >
-              <Link />
+              Open Link
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project Card 3 -->
+      <div
+        class="project-card group relative h-full overflow-hidden rounded-xl bg-white border border-zinc-200 p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/30 shadow-sm"
+      >
+        <div
+          class="absolute inset-0 bg-linear-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        >
+        </div>
+
+        <div class="relative z-10 flex h-full flex-col gap-4">
+          <div
+            class="flex flex-col items-start gap-3 sm:flex-row sm:justify-between"
+          >
+            <h2
+              class="text-2xl font-bold tracking-tight text-zinc-900 group-hover:text-emerald-600 transition-colors duration-300"
+            >
+              Next Hub Ecommerce
+            </h2>
+            <span
+              class="flex shrink-0 items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border border-emerald-500/20 bg-emerald-500/5 text-emerald-700 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
+            >
+              <span class="relative flex h-2 w-2">
+                <span
+                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
+                ></span>
+                <span
+                  class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
+                ></span>
+              </span>
+              Completed
+            </span>
+          </div>
+
+          <div class="h-px w-full bg-linear-to-r from-zinc-200 to-transparent">
+          </div>
+
+          <p class="text-zinc-600 text-sm leading-relaxed">
+            A high-performance e-commerce platform built with Next.js, featuring
+            a seamless shopping experience and robust backend integration.
+          </p>
+
+          <div class="mt-auto pt-2 flex items-center gap-3">
+            <a
+              href="https://github.com/DevTechMike-Coder/Ecommerce"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-zinc-600 hover:text-zinc-900 transition-colors"
+            >
+              <Github />
+            </a>
+            <a
+              href="https://ecommerce-three-omega-39.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm font-medium text-zinc-700 transition-all hover:border-emerald-500/30 hover:bg-emerald-500/10 hover:text-emerald-600"
+              aria-label="Open project live link"
+            >
+              Open Link
+              <ArrowUpRight className="h-4 w-4" />
             </a>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Project Card 3 -->
+    <!-- Mock projects revealed by the Explore button. Collapsed by default. -->
     <div
-      class="group relative overflow-hidden rounded-xl bg-white border border-zinc-200 p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/10 hover:border-emerald-500/30 shadow-sm"
+      id="mock-projects-wrapper"
+      class="overflow-hidden"
+      style="height: 0px;"
     >
       <div
-        class="absolute inset-0 bg-linear-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        id="mock-projects-grid"
+        class="pt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
       >
-      </div>
+        {
+          mockProjects.map((project) => (
+            <div class="mock-card group relative h-full overflow-hidden rounded-xl bg-white border border-dashed border-zinc-300 p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-zinc-500/10 shadow-sm">
+              <div class="relative z-10 flex h-full flex-col gap-4">
+                <div class="flex flex-col items-start gap-3 sm:flex-row sm:justify-between">
+                  <h2 class="text-2xl font-bold tracking-tight text-zinc-900 transition-colors duration-300">
+                    {project.title}
+                  </h2>
+                  <span
+                    class={`flex shrink-0 items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border ${statusStyles[project.status]}`}
+                  >
+                    <span
+                      class={`h-2 w-2 rounded-full ${statusDot[project.status]}`}
+                    />
+                    {project.status}
+                  </span>
+                </div>
 
-      <div class="relative z-10 flex flex-col gap-4">
-        <div class="flex items-center justify-between">
-          <h2
-            class="text-2xl font-bold tracking-tight text-zinc-900 group-hover:text-emerald-600 transition-colors duration-300"
-          >
-            Next Hub Ecommerce
-          </h2>
-          <span
-            class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border border-emerald-500/20 bg-emerald-500/5 text-emerald-700 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
-          >
-            <span class="relative flex h-2 w-2">
-              <span
-                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
-              ></span>
-              <span
-                class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
-              ></span>
-            </span>
-            Completed
-          </span>
-        </div>
+                <div class="h-px w-full bg-linear-to-r from-zinc-200 to-transparent" />
 
-        <div class="h-px w-full bg-linear-to-r from-zinc-200 to-transparent">
-        </div>
+                <p class="text-zinc-600 text-sm leading-relaxed">
+                  {project.description}
+                </p>
 
-        <p class="text-zinc-600 text-sm leading-relaxed">
-          A high-performance e-commerce platform built with Next.js, featuring a
-          seamless shopping experience and robust backend integration.
-        </p>
-
-        <div class="pt-2 flex items-center gap-3">
-          <Github
-            className="text-zinc-600 hover:text-zinc-900 transition-colors"
-          />
-          <div
-            class="h-8 w-8 rounded-lg bg-zinc-50 border border-zinc-200 flex items-center justify-center hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all cursor-pointer text-zinc-600 hover:text-emerald-600"
-          >
-            <Link />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="pt-16 flex items-center gap-3">
-    <div class="h-px w-full bg-linear-to-r from-gray-400 to-transparent"></div>
-
-    <div class="flex flex-col items-center gap-2">
-      <p class="text-lg font-medium uppercase">Explore</p>
-
-      <div>
-        <Button
-          variant="emerald"
-          className="flex items-center"
-          aria-label="Explore"
-        >
-          <ChevronDown className="animate-bounce" />
-        </Button>
+                <div class="mt-auto pt-2 flex items-center gap-3">
+                  <span
+                    title="Repository coming soon"
+                    class="text-zinc-400 cursor-not-allowed"
+                  >
+                    <Github />
+                  </span>
+                  <div
+                    title="Live link coming soon"
+                    class="h-8 w-8 rounded-lg bg-zinc-50 border border-zinc-200 flex items-center justify-center text-zinc-400 cursor-not-allowed"
+                  >
+                    <Link />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
       </div>
     </div>
 
-    <div class="h-px w-full bg-linear-to-r to-gray-400 from-transparent"></div>
+    <div class="pt-16 flex items-center gap-3">
+      <div class="h-px w-full bg-linear-to-r from-gray-400 to-transparent">
+      </div>
+
+      <div class="flex flex-col items-center gap-2">
+        <p id="explore-label" class="text-lg font-medium uppercase">Explore</p>
+
+        <div>
+          <Button
+            id="explore-btn"
+            variant="emerald"
+            className="flex items-center"
+            aria-label="Explore more projects"
+            aria-expanded="false"
+          >
+            <ChevronDown id="explore-chevron" />
+          </Button>
+        </div>
+      </div>
+
+      <div class="h-px w-full bg-linear-to-r to-gray-400 from-transparent">
+      </div>
+    </div>
   </div>
 </section>
+
+<script>
+  import { gsap, ease, duration, revealOnScroll } from "../../lib/gsap";
+
+  // Stagger-reveal the visible project cards as the section scrolls in.
+  const projectGrid = document.getElementById("project-grid");
+  if (projectGrid) {
+    revealOnScroll(Array.from(projectGrid.children) as HTMLElement[], {
+      trigger: projectGrid,
+      start: "top 80%",
+      stagger: 0.12,
+      y: 28,
+    });
+  }
+
+  // Explore button: reveal/hide the mock project cards.
+  const exploreBtn = document.getElementById("explore-btn");
+  const chevron = document.getElementById("explore-chevron");
+  const label = document.getElementById("explore-label");
+  const wrapper = document.getElementById("mock-projects-wrapper");
+  const mockGrid = document.getElementById("mock-projects-grid");
+
+  if (exploreBtn && chevron && label && wrapper && mockGrid) {
+    const cards = Array.from(mockGrid.children) as HTMLElement[];
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    gsap.set(cards, { opacity: 0, y: prefersReduced ? 0 : 20 });
+
+    let isOpen = false;
+    let isAnimating = false;
+
+    const setButtonBusy = (busy: boolean) => {
+      isAnimating = busy;
+      exploreBtn.toggleAttribute("disabled", busy);
+      exploreBtn.setAttribute("aria-busy", String(busy));
+    };
+
+    exploreBtn.addEventListener("click", () => {
+      if (isAnimating) return;
+      setButtonBusy(true);
+      isOpen = !isOpen;
+
+      exploreBtn.setAttribute("aria-expanded", String(isOpen));
+      label.textContent = isOpen ? "Show Less" : "Explore";
+
+      gsap.to(chevron, {
+        rotate: isOpen ? 180 : 0,
+        duration: duration.fast,
+        ease: ease.snappy,
+      });
+
+      if (isOpen) {
+        wrapper.style.height = "0px";
+        const targetHeight = mockGrid.scrollHeight;
+
+        gsap.killTweensOf([wrapper, cards]);
+        gsap.to(wrapper, {
+          height: targetHeight,
+          duration: duration.base,
+          ease: ease.smooth,
+          onComplete: () => {
+            // Let the grid breathe at "auto" so it stays correct on resize.
+            wrapper.style.height = "auto";
+            setButtonBusy(false);
+          },
+        });
+
+        gsap.to(cards, {
+          opacity: 1,
+          y: 0,
+          duration: duration.base,
+          ease: ease.smooth,
+          stagger: 0.12,
+          delay: 0.1,
+        });
+      } else {
+        gsap.killTweensOf([wrapper, cards]);
+        wrapper.style.height = `${mockGrid.scrollHeight}px`;
+
+        gsap.to(cards, {
+          opacity: 0,
+          y: 12,
+          duration: duration.fast,
+          ease: ease.soft,
+          stagger: 0.05,
+        });
+
+        gsap.to(wrapper, {
+          height: 0,
+          duration: duration.base,
+          ease: ease.smooth,
+          delay: 0.1,
+          onComplete: () => {
+            setButtonBusy(false);
+          },
+        });
+      }
+    });
+
+    // Keep the open grid sized correctly if the viewport changes (e.g.
+    // rotating a phone, or the 3-col layout collapsing to 1-col).
+    window.addEventListener("resize", () => {
+      if (isOpen && wrapper.style.height !== "auto") {
+        wrapper.style.height = `${mockGrid.scrollHeight}px`;
+      }
+    });
+  }
+</script>
