@@ -1,5 +1,5 @@
 ---
-import { MapPin } from "../../components/icons/MapPin";
+import { Quote as QuoteIcon } from "../../components/icons/Quote";
 import { Minus } from "../../components/icons/Minus";
 import { Briefcase } from "../../components/icons/BriefCase";
 import { Keyboard } from "../../components/icons/KeyBoard";
@@ -26,7 +26,9 @@ import { Javascript } from "../../components/icons/Javascript";
 import { Nodejs } from "../../components/icons/Nodejs";
 import { Express } from "../../components/icons/Express";
 import { Postgresql } from "../../components/icons/Postgresql";
-import { GoogleMapBackground } from "../../lib/GoogleMapBackground";
+import {RedisCloud} from "../../components/icons/RedisCloud";
+import {Git} from "../../components/icons/Git";
+import {Supabase} from "../../components/icons/Supabase";
 import { Marquee } from "../../components/uicomp/Marquee";
 
 type TechStackProps = {
@@ -36,142 +38,66 @@ type TechStackProps = {
 };
 
 const techStack: TechStackProps[] = [
-  {
-    name: "Typescript",
-    icon: Typescript,
-    description: "",
-  },
-  {
-    name: "Javascript",
-    icon: Javascript,
-    description: "",
-  },
-  {
-    name: "React",
-    icon: ReactIcon,
-    description: "",
-  },
-  {
-    name: "Nextjs",
-    icon: Nextjs,
-    description: "",
-  },
-  {
-    name: "Nodejs",
-    icon: Nodejs,
-    description: "",
-  },
-  {
-    name: "Tailwind",
-    icon: Tailwind,
-    description: "",
-  },
-  {
-    name: "Astro",
-    icon: AstroLogo,
-    description: "",
-  },
-  {
-    name: "Express",
-    icon: Express,
-    description: "",
-  },
-  {
-    name: "Prisma",
-    icon: Prisma,
-    description: "",
-  },
-  {
-    name: "Mongodb",
-    icon: Mongodb,
-    description: "",
-  },
-  {
-    name: "Postgresql",
-    icon: Postgresql,
-    description: "",
-  },
+  { name: "Typescript", icon: Typescript, description: "" },
+  { name: "Javascript", icon: Javascript, description: "" },
+  { name: "React", icon: ReactIcon, description: "" },
+  { name: "Nextjs", icon: Nextjs, description: "" },
+  { name: "Nodejs", icon: Nodejs, description: "" },
+  { name: "Tailwind", icon: Tailwind, description: "" },
+  { name: "Astro", icon: AstroLogo, description: "" },
+  { name: "Express", icon: Express, description: "" },
+  { name: "Prisma", icon: Prisma, description: "" },
+  { name: "Mongodb", icon: Mongodb, description: "" },
+  { name: "Postgresql", icon: Postgresql, description: "" },
+  { name: "RedisCloud", icon: RedisCloud, description: "" },
+  { name: "Git", icon: Git, description: "" },
+  { name: "Supabase", icon: Supabase, description: "" },
 ];
 ---
 
 <section class="pt-30 pb-16 px-4 md:px-10 max-w-7xl mx-auto">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <!-- Location Card Component -->
-    <div
-      class="group relative h-full overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl hover:shadow-emerald-500/5 shadow-sm"
-    >
-      <!-- Google Maps Background Layer -->
-      <GoogleMapBackground client:visible />
-
-      <!-- Foreground Content -->
+  <div id="bento-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <div class="group relative h-full overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl hover:shadow-violet-500/5 shadow-sm">
+      <QuoteIcon className="absolute -bottom-4 -right-4 w-32 h-32 text-violet-50 rotate-12 pointer-events-none" />
       <div class="relative z-10 flex flex-col justify-between h-full">
         <div class="flex items-center justify-between">
-          <div
-            class="bg-zinc-50/80 backdrop-blur-md rounded-full px-4 py-2 w-fit border border-zinc-200"
-          >
+          <div class="bg-zinc-50/80 backdrop-blur-md rounded-full px-4 py-2 w-fit border border-zinc-200">
             <span class="flex items-center gap-2 text-zinc-900 font-medium">
-              <MapPin className="text-emerald-600" /> Location</span
-            >
+              <QuoteIcon className="text-violet-600" /> Quote
+            </span>
           </div>
-
-          <span
-            class="border border-zinc-200 bg-zinc-50/80 backdrop-blur-md rounded-full p-1 text-zinc-900"
-          >
-            <Minus /></span
-          >
+          <span class="border border-zinc-200 bg-zinc-50/80 backdrop-blur-md rounded-full p-1 text-zinc-900">
+            <Minus />
+          </span>
         </div>
-
         <div class="mt-auto">
-          <h2 class="text-4xl font-black tracking-tighter text-zinc-900">
-            Ogun
-          </h2>
-          <p class="text-zinc-600 font-medium">Nigeria, GMT +1</p>
+          <p class="text-xl font-bold tracking-tight text-zinc-900 leading-snug">
+            "Move fast, break nothing — patch what you break."
+          </p>
+          <p class="text-zinc-600 font-medium mt-2">— My dev philosophy</p>
         </div>
       </div>
     </div>
 
-    <!-- About Me & Availability Card -->
-    <div
-      class="md:col-span-2 group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl hover:shadow-blue-500/5 shadow-sm flex flex-col"
-    >
+    <div class="sm:col-span-2 group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl hover:shadow-blue-500/5 shadow-sm flex flex-col">
       <div class="flex flex-col sm:flex-row justify-between items-start gap-4">
-        <!-- Badge -->
-        <div
-          class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit"
-        >
-          <h2
-            class="flex items-center gap-2 text-sm font-medium tracking-wide text-zinc-900"
-          >
+        <div class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit">
+          <h2 class="flex items-center gap-2 text-sm font-medium tracking-wide text-zinc-900">
             <User className="w-4 h-4 text-blue-600" /> About Me
           </h2>
         </div>
-
-        <!-- Availability Timer / Indicator -->
-        <div
-          class="flex items-center gap-2 px-4 py-1.5 rounded-full w-fit border border-emerald-500/20 bg-emerald-500/5 text-emerald-700 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
-        >
+        <div class="flex items-center gap-2 px-4 py-1.5 rounded-full w-fit border border-emerald-500/20 bg-emerald-500/5 text-emerald-700 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
           <span class="relative flex h-2 w-2">
-            <span
-              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
-            ></span>
-            <span
-              class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
-            ></span>
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
           <Availability className="w-4 h-4" />
-          <span
-            id="live-clock"
-            class="text-xs font-semibold uppercase tracking-wider tabular-nums"
-          ></span>
+          <span id="live-clock" class="text-xs font-semibold uppercase tracking-wider tabular-nums"></span>
         </div>
       </div>
-
-      <!-- Description Content -->
       <div class="mt-6 flex flex-col">
         <div>
-          <h2 class="text-lg font-medium tracking-wide text-zinc-900">
-            This is me
-          </h2>
+          <h2 class="text-lg font-medium tracking-wide text-zinc-900">This is me</h2>
         </div>
         <p class="text-zinc-600 text-[15px] sm:text-base leading-relaxed">
           I'm a Security Focused Full Stack Developer and Penetration Tester who
@@ -182,43 +108,28 @@ const techStack: TechStackProps[] = [
       </div>
     </div>
 
-    <!-- Typing Speed Card -->
-    <div
-      class="group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl hover:shadow-emerald-500/5 shadow-sm"
-    >
+    <div class="group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl hover:shadow-emerald-500/5 shadow-sm">
       <div class="flex flex-col h-full justify-between gap-6">
-        <div
-          class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit"
-        >
-          <h2
-            class="flex items-center gap-2 text-sm font-medium tracking-wide text-zinc-900"
-          >
+        <div class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit">
+          <h2 class="flex items-center gap-2 text-sm font-medium tracking-wide text-zinc-900">
             <Keyboard className="w-4 h-4 text-emerald-600" /> Typing Speed
           </h2>
         </div>
-
         <div>
           <div class="flex items-baseline gap-2">
             <p class="text-4xl font-bold tracking-tighter text-zinc-900">50</p>
             <p class="text-zinc-500 font-medium">WPM</p>
           </div>
-
           <div class="flex items-center gap-4 mt-6">
-            <div
-              class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-xs font-medium text-zinc-700"
-            >
+            <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-xs font-medium text-zinc-700">
               <Timer className="w-3.5 h-3.5 text-orange-600" />
               <span>15s</span>
             </div>
-            <div
-              class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-xs font-medium text-zinc-700"
-            >
+            <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-xs font-medium text-zinc-700">
               <Accuracy className="w-3.5 h-3.5 text-yellow-600" />
               <span>99%</span>
             </div>
-            <div
-              class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-xs font-medium text-zinc-700"
-            >
+            <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-xs font-medium text-zinc-700">
               <Globe className="w-3.5 h-3.5 text-cyan-600" />
               <span>En</span>
             </div>
@@ -227,141 +138,85 @@ const techStack: TechStackProps[] = [
       </div>
     </div>
 
-    <!-- Social Media Card -->
-    <div
-      class="group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl shadow-sm"
-    >
+    <div class="group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl shadow-sm">
       <div class="flex flex-col h-full justify-between gap-6">
-        <div
-          class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit"
-        >
-          <h2 class="text-sm font-medium tracking-wide text-zinc-900">
-            Connect
-          </h2>
+        <div class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit">
+          <h2 class="text-sm font-medium tracking-wide text-zinc-900">Connect</h2>
         </div>
         <div class="flex items-center gap-4">
-          <a
-            href="https://x.com/DevTech_Coder23"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="X"
-            class="p-3 rounded-2xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-900 transition-all duration-300 hover:scale-110"
-          >
+          <a href="https://x.com/DevTech_Coder23" target="_blank" rel="noopener noreferrer" aria-label="X" class="p-3 rounded-2xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-900 transition-all duration-300 hover:scale-110">
             <X className="w-6 h-6" />
           </a>
-          <a
-            href="https://www.instagram.com/micahkingfx2/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
-            class="p-3 rounded-2xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-900 transition-all duration-300 hover:scale-110"
-          >
+          <a href="https://www.instagram.com/micahkingfx2/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="p-3 rounded-2xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-900 transition-all duration-300 hover:scale-110">
             <Instagram className="w-6 h-6" />
           </a>
-          <a
-            href="https://www.linkedin.com/in/micah-kesiena-a3b424361/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            class="p-3 rounded-2xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-900 transition-all duration-300 hover:scale-110"
-          >
+          <a href="https://www.linkedin.com/in/micah-kesiena-a3b424361/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="p-3 rounded-2xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-900 transition-all duration-300 hover:scale-110">
             <Linkedin className="w-6 h-6" />
           </a>
         </div>
       </div>
     </div>
 
-    <!-- Learn More Card -->
-    <a
-      href="/projects"
-      aria-label="projects"
-      class="group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl shadow-sm flex flex-col justify-between gap-4"
-    >
-      <div
-        class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit"
-      >
-        <h2
-          class="flex items-center gap-2 text-sm font-medium tracking-wide text-zinc-900"
-        >
-          Projects
-        </h2>
+    <a href="/projects" aria-label="projects" class="group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl shadow-sm flex flex-col justify-between gap-4">
+      <div class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit">
+        <h2 class="flex items-center gap-2 text-sm font-medium tracking-wide text-zinc-900">Projects</h2>
       </div>
       <div class="flex items-center justify-between">
-        <p class="text-lg font-medium tracking-tight text-zinc-900">
-          Explore my latest projects & tools
-        </p>
-        <div
-          class="w-10 h-10 rounded-full border border-zinc-200 flex items-center justify-center group-hover:bg-zinc-50 transition-all duration-300 group-hover:translate-x-1 text-zinc-900"
-        >
+        <p class="text-lg font-medium tracking-tight text-zinc-900">Explore my latest projects & tools</p>
+        <div class="w-10 h-10 rounded-full border border-zinc-200 flex items-center justify-center group-hover:bg-zinc-50 transition-all duration-300 group-hover:translate-x-1 text-zinc-900">
           <ChevronRight className="w-5 h-5" />
         </div>
       </div>
     </a>
 
-    <!-- Github Contributions -->
-    <div
-      class="md:col-span-2 group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl shadow-sm"
-    >
+    <div class="sm:col-span-2 group relative overflow-hidden border border-zinc-200 bg-white rounded-3xl p-6 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl shadow-sm">
       <div class="flex flex-col h-full justify-between gap-6">
         <div>
-          <div
-            class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit"
-          >
-            <h2
-              class="flex items-center gap-2 text-sm font-medium tracking-wide text-zinc-900"
-            >
+          <div class="border border-zinc-200 bg-zinc-50 px-4 py-1.5 rounded-full w-fit">
+            <h2 class="flex items-center gap-2 text-sm font-medium tracking-wide text-zinc-900">
               <Github className="w-4 h-4 text-emerald-600" /> Github Contributions
             </h2>
           </div>
-
           <div class="mt-4">
-            <p
-              id="gh-total-contributions"
-              class="text-3xl font-bold tracking-tight text-zinc-900"
-            >
-              --
-            </p>
-            <p
-              class="text-zinc-500 text-xs uppercase tracking-wider font-medium"
-            >
-              Live GitHub contributions in the last year
-            </p>
+            <p id="gh-total-contributions" class="text-3xl font-bold tracking-tight text-zinc-900">--</p>
+            <p class="text-zinc-500 text-xs uppercase tracking-wider font-medium">Live GitHub contributions in the last year</p>
           </div>
         </div>
-
         <div class="overflow-x-auto pb-1">
-          <div
-            id="gh-grid"
-            class="flex items-center justify-center border border-dashed border-zinc-200 rounded-xl h-[100px] min-w-full"
-            aria-live="polite"
-          >
+          <div id="gh-grid" class="flex items-center justify-center border border-dashed border-zinc-200 rounded-xl h-[100px] min-w-full" aria-live="polite">
             <p class="text-zinc-500 text-xs italic">Loading contribution data</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Tech Stack -->
-    <div
-      class="group relative overflow-hidden border border-zinc-200 bg-white shadow-sm rounded-3xl pt-6 px-6 pb-4 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl flex flex-col"
-    >
-      <div
-        class="border border-zinc-200 bg-zinc-50 rounded-full px-4 py-2 w-fit"
-      >
-        <h2 class="flex items-center gap-2 m-0 leading-none text-zinc-900">
-          <Layers /> Core Tech Stack
-        </h2>
+    {/* Core Tech Stack Section With Layout Clip Fix */}
+    <div class="group relative overflow-hidden border border-zinc-200 bg-white shadow-sm rounded-3xl pt-6 px-6 pb-4 transition-all duration-300 hover:border-zinc-300 hover:shadow-xl flex flex-col">
+      <div class="border border-zinc-200 bg-zinc-50 rounded-full px-4 py-2 w-fit">
+        <h2 class="flex items-center gap-2 m-0 leading-none text-zinc-900"><Layers /> Core Tech Stack</h2>
       </div>
 
-      <div class="flex items-center grow py-4">
-        <Marquee speed={15} className="py-2" client:visible>
+      {/* Added clear vertical padding spaces for the text elements inside Marquee boundaries */}
+      <div id="tech-marquee" class="flex items-center grow pt-6 pb-2">
+        <Marquee speed={15} className="py-6" client:visible>
           {
             techStack.map((tech) => (
-              <div class="group/icon relative p-4 mx-1 rounded-2xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 transition-all duration-300 hover:scale-110 flex items-center justify-center min-w-[70px] min-h-[70px]">
-                <tech.icon
-                  className="w-8 h-8 text-zinc-600 transition-colors"
-                  title={tech.name}
-                />
+              <div
+                class="tech-chip group/item flex flex-col items-center mx-2.5 cursor-pointer select-none h-24 justify-start"
+                data-tech-name={tech.name}
+                role="button"
+                tabindex="0"
+                aria-label={tech.name}
+              >
+                <div class="w-16 h-16 rounded-2xl border border-zinc-200 bg-zinc-50 flex items-center justify-center transition-all duration-300 group-hover/item:border-emerald-500 group-hover/item:bg-emerald-50/30 group-hover/item:scale-105">
+                  <tech.icon className="w-8 h-8 text-zinc-600 transition-colors pointer-events-none group-hover/item:text-emerald-600" title={tech.name} />
+                </div>
+
+                <div class="tech-chip-label opacity-0 pointer-events-none transition-all duration-200 text-center h-4 mt-2 group-hover/item:opacity-100">
+                  <span class="text-xs font-mono font-bold tracking-wide text-emerald-600 block">
+                    {tech.name}
+                  </span>
+                </div>
               </div>
             ))
           }
@@ -369,9 +224,7 @@ const techStack: TechStackProps[] = [
       </div>
 
       <div class="mt-auto">
-        <p class="text-lg font-medium tracking-tight m-0 text-zinc-900">
-          Tech Stack I'm familiar with
-        </p>
+        <p class="text-lg font-medium tracking-tight m-0 text-zinc-900">Tech Stack I'm familiar with</p>
         <div class="text-sm text-zinc-500">
           <p class="m-0">Innovation starts with me</p>
         </div>
@@ -380,12 +233,27 @@ const techStack: TechStackProps[] = [
   </div>
 </section>
 
-<!-- Tooltip -->
-<div
-  id="gh-tooltip"
-  class="fixed z-50 hidden bg-zinc-800 text-white text-xs px-2 py-1 rounded-md shadow-lg pointer-events-none border border-zinc-700 whitespace-nowrap"
->
-</div>
+<div id="gh-tooltip" class="fixed z-50 hidden bg-zinc-800 text-white text-xs px-2 py-1 rounded-md shadow-lg pointer-events-none border border-zinc-700 whitespace-nowrap"></div>
+
+<style>
+  /* Touch-device fallback: hover never fires on touch, so toggle this class via JS */
+  .tech-chip.force-reveal .tech-chip-label {
+    opacity: 1 !important;
+  }
+</style>
+
+<script>
+  import { revealOnScroll } from "../../lib/gsap";
+  const grid = document.getElementById("bento-grid");
+  if (grid) {
+    revealOnScroll(Array.from(grid.children) as HTMLElement[], {
+      trigger: grid,
+      start: "top 80%",
+      stagger: 0.1,
+      y: 24,
+    });
+  }
+</script>
 
 <script>
   (function () {
@@ -406,20 +274,84 @@ const techStack: TechStackProps[] = [
 </script>
 
 <script>
-  type ContributionDay = {
-    date: string;
-    contributionCount: number;
-    color: string;
-  };
+  (function () {
+    const marqueeWrapper = document.getElementById("tech-marquee");
+    if (!marqueeWrapper) return;
 
-  type ContributionWeek = {
-    contributionDays: ContributionDay[];
-  };
+    const marqueeTrack = marqueeWrapper.querySelector('[class*="marquee"], [class*="track"]') as HTMLElement | null;
 
-  type ContributionData = {
-    totalContributions: number;
-    weeks: ContributionWeek[];
-  };
+    function setMarqueePaused(paused: boolean) {
+      if (marqueeTrack) {
+        marqueeTrack.style.animationPlayState = paused ? "paused" : "running";
+      } else {
+        marqueeWrapper.querySelectorAll('*').forEach((el) => {
+          const style = window.getComputedStyle(el);
+          if (style.animationName && style.animationName !== 'none') {
+            (el as HTMLElement).style.animationPlayState = paused ? "paused" : "running";
+          }
+        });
+      }
+    }
+
+    // Detect touch/coarse-pointer devices where :hover never fires
+    const isTouchDevice = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+    marqueeWrapper.addEventListener("mouseover", (event) => {
+      if (isTouchDevice) return;
+      const target = event.target as HTMLElement;
+      if (target.closest(".tech-chip")) {
+        setMarqueePaused(true);
+      }
+    });
+
+    marqueeWrapper.addEventListener("mouseout", (event) => {
+      if (isTouchDevice) return;
+      const target = event.target as HTMLElement;
+      if (target.closest(".tech-chip")) {
+        setMarqueePaused(false);
+      }
+    });
+
+    // Touch/click fallback: tap a chip to reveal its label, tap elsewhere to clear
+    function toggleReveal(chip: HTMLElement) {
+      const wasActive = chip.classList.contains("force-reveal");
+      marqueeWrapper!.querySelectorAll(".tech-chip.force-reveal").forEach((el) => {
+        el.classList.remove("force-reveal");
+      });
+      if (!wasActive) {
+        chip.classList.add("force-reveal");
+        setMarqueePaused(true);
+        // Auto-clear after a beat so the marquee doesn't stay paused forever on touch
+        window.setTimeout(() => {
+          chip.classList.remove("force-reveal");
+          setMarqueePaused(false);
+        }, 1800);
+      } else {
+        setMarqueePaused(false);
+      }
+    }
+
+    marqueeWrapper.addEventListener("click", (event) => {
+      const chip = (event.target as HTMLElement).closest(".tech-chip") as HTMLElement | null;
+      if (!chip) return;
+      toggleReveal(chip);
+    });
+
+    marqueeWrapper.addEventListener("keydown", (event) => {
+      const ke = event as KeyboardEvent;
+      if (ke.key !== "Enter" && ke.key !== " ") return;
+      const chip = (ke.target as HTMLElement).closest(".tech-chip") as HTMLElement | null;
+      if (!chip) return;
+      ke.preventDefault();
+      toggleReveal(chip);
+    });
+  })();
+</script>
+
+<script>
+  type ContributionDay = { date: string; contributionCount: number; color: string; };
+  type ContributionWeek = { contributionDays: ContributionDay[]; };
+  type ContributionData = { totalContributions: number; weeks: ContributionWeek[]; };
 
   const totalEl = document.getElementById("gh-total-contributions");
   const gridEl = document.getElementById("gh-grid");
@@ -427,12 +359,9 @@ const techStack: TechStackProps[] = [
 
   function setUnavailableState() {
     if (!totalEl || !gridEl) return;
-
     totalEl.textContent = "--";
-    gridEl.className =
-      "flex items-center justify-center border border-dashed border-zinc-200 rounded-xl h-[100px] min-w-full";
+    gridEl.className = "flex items-center justify-center border border-dashed border-zinc-200 rounded-xl h-[100px] min-w-full";
     gridEl.replaceChildren();
-
     const message = document.createElement("p");
     message.className = "text-zinc-500 text-xs italic";
     message.textContent = "Contribution data unavailable";
@@ -441,55 +370,38 @@ const techStack: TechStackProps[] = [
 
   function renderContributionGrid(weeks: ContributionWeek[]) {
     if (!gridEl) return;
-
-    if (weeks.length === 0) {
-      setUnavailableState();
-      return;
-    }
+    if (weeks.length === 0) { setUnavailableState(); return; }
 
     gridEl.className = "flex gap-1 justify-start min-w-max";
     gridEl.replaceChildren();
-
     const fragment = document.createDocumentFragment();
 
     for (const week of weeks.slice(-38)) {
       const weekEl = document.createElement("div");
       weekEl.className = "flex flex-col gap-1";
-
       for (const day of week.contributionDays) {
         const dayEl = document.createElement("div");
-        dayEl.className =
-          "w-[15px] h-[15px] rounded-sm cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-zinc-400/30 hover:scale-110 group relative gh-day";
+        dayEl.className = "w-[15px] h-[15px] rounded-sm cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-zinc-400/30 hover:scale-110 group relative gh-day";
         dayEl.style.backgroundColor = day.color;
         dayEl.dataset.date = day.date;
         dayEl.dataset.count = String(day.contributionCount);
         weekEl.append(dayEl);
       }
-
       fragment.append(weekEl);
     }
-
     gridEl.append(fragment);
   }
 
   async function loadContributions() {
     if (!totalEl || !gridEl) return;
-
     try {
-      const response = await fetch("/api/github-contributions.json", {
-        cache: "no-store",
-      });
-
-      if (!response.ok) {
-        throw new Error(`GitHub contributions request failed: ${response.status}`);
-      }
-
+      const response = await fetch("/api/github-contributions.json", { cache: "no-store" });
+      if (!response.ok) throw new Error(`GitHub request failed: ${response.status}`);
       const data = (await response.json()) as ContributionData;
-
       totalEl.textContent = data.totalContributions.toLocaleString();
       renderContributionGrid(data.weeks);
     } catch (error) {
-      console.error("Unable to load GitHub contributions:", error);
+      console.error(error);
       setUnavailableState();
     }
   }
@@ -497,48 +409,22 @@ const techStack: TechStackProps[] = [
   function getTooltipText(target: HTMLElement) {
     const count = target.dataset.count;
     const dateStr = target.dataset.date;
-
-    if (!dateStr) {
-      return null;
-    }
-
+    if (!dateStr) return null;
     const date = new Date(`${dateStr}T00:00:00`);
-    const formatted = date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
-
-    return count === "0"
-      ? `No contributions on ${formatted}`
-      : `${count} contribution${count === "1" ? "" : "s"} on ${formatted}`;
+    const formatted = date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    return count === "0" ? `No contributions on ${formatted}` : `${count} contribution${count === "1" ? "" : "s"} on ${formatted}`;
   }
 
   function positionTooltip(x: number, y: number) {
     if (!tooltip) return;
-
     const padding = 12;
     const tooltipRect = tooltip.getBoundingClientRect();
-
     let left = x + padding;
     let top = y - tooltipRect.height - 8;
-
-    if (left + tooltipRect.width > window.innerWidth - padding) {
-      left = x - tooltipRect.width - padding;
-    }
-
-    if (top < padding) {
-      top = y + padding * 2;
-    }
-
-    if (top + tooltipRect.height > window.innerHeight - padding) {
-      top = window.innerHeight - tooltipRect.height - padding;
-    }
-
-    if (left < padding) {
-      left = padding;
-    }
-
+    if (left + tooltipRect.width > window.innerWidth - padding) left = x - tooltipRect.width - padding;
+    if (top < padding) top = y + padding * 2;
+    if (top + tooltipRect.height > window.innerHeight - padding) top = window.innerHeight - tooltipRect.height - padding;
+    if (left < padding) left = padding;
     tooltip.style.left = `${left}px`;
     tooltip.style.top = `${top}px`;
   }
@@ -549,50 +435,12 @@ const techStack: TechStackProps[] = [
     gridEl.addEventListener("mouseover", (e) => {
       const target = (e.target as HTMLElement).closest(".gh-day") as HTMLElement | null;
       if (!target) return;
-
       const text = getTooltipText(target);
       if (!text) return;
-
       tooltip.textContent = text;
       tooltip.classList.remove("hidden");
     });
-
-    gridEl.addEventListener("mousemove", (e) => {
-      const mouse = e as MouseEvent;
-      positionTooltip(mouse.clientX, mouse.clientY);
-    });
-
-    gridEl.addEventListener("mouseleave", () => {
-      tooltip.classList.add("hidden");
-    });
-
-    gridEl.addEventListener(
-      "touchstart",
-      (e) => {
-      const touch = (e as TouchEvent).touches[0];
-      const target = document
-        .elementFromPoint(touch.clientX, touch.clientY)
-        ?.closest(".gh-day") as HTMLElement | null;
-
-      if (target) {
-        const text = getTooltipText(target);
-        if (!text) return;
-
-        tooltip.textContent = text;
-        tooltip.classList.remove("hidden");
-        positionTooltip(touch.clientX, touch.clientY);
-      } else {
-        tooltip.classList.add("hidden");
-      }
-      },
-      { passive: true },
-    );
-
-    document.addEventListener("touchstart", (e) => {
-      const target = e.target as HTMLElement | null;
-      if (!target?.closest(".gh-day")) {
-        tooltip.classList.add("hidden");
-      }
-    });
+    gridEl.addEventListener("mousemove", (e) => { positionTooltip((e as MouseEvent).clientX, (e as MouseEvent).clientY); });
+    gridEl.addEventListener("mouseleave", () => { tooltip.classList.add("hidden"); });
   }
 </script>
