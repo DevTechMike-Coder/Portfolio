@@ -27,7 +27,7 @@ export const Marquee: React.FC<MarqueeProps> = ({
         }}
       >
         <div className="flex gap-4 pr-4">{children}</div>
-        <div className="flex gap-4 pr-4" aria-hidden="true">
+        <div className="flex gap-4 pr-4" inert>
           {children}
         </div>
       </div>
