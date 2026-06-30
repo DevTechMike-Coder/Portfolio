@@ -1,6 +1,57 @@
 ---
 import { Button } from "../../../components/reuseComp/Button";
 import { ArrowLeft } from "../../../components/icons/ArrowLeft";
+import ProjectCard, { type TechItem } from "./ProjectCard.astro";
+
+import { Nextjs } from "../../../components/icons/Nextjs";
+import { Typescript } from "../../../components/icons/Typescript";
+import { Tailwind } from "../../../components/icons/Tailwind";
+import { Prisma } from "../../../components/icons/Prisma";
+import { Postgresql } from "../../../components/icons/Postgresql";
+import { React as ReactIcon } from "../../../components/icons/React";
+
+type LiveProject = {
+  title: string;
+  description: string;
+  tech: TechItem[];
+  live: string;
+  github?: string;
+  monogram: string;
+  gradient: string;
+};
+
+const liveProjects: LiveProject[] = [
+  {
+    title: "Vertex Canvas",
+    description:
+      "A premium, high-performance workspace and productivity app for developers, creators, and teams to map workflows, track tasks, and collaborate in real-time.",
+    tech: [
+      { name: "Next.js", icon: Nextjs },
+      { name: "TypeScript", icon: Typescript },
+      { name: "Prisma", icon: Prisma },
+      { name: "PostgreSQL", icon: Postgresql },
+    ],
+    live: "https://vertexcanvas.vercel.app",
+    github: "https://github.com/DevTechMike-Coder/KanbanTool",
+    monogram: "VC",
+    gradient: "from-emerald-400 via-teal-500 to-cyan-600",
+  },
+  {
+    title: "Next Hub Ecommerce",
+    description:
+      "A high-performance e-commerce platform built with Next.js, featuring a seamless shopping experience and robust backend integration.",
+    tech: [
+      { name: "Next.js", icon: Nextjs },
+      { name: "TypeScript", icon: Typescript },
+      { name: "Tailwind", icon: Tailwind },
+      { name: "React", icon: ReactIcon },
+    ],
+    live: "https://ecommerce-three-omega-39.vercel.app/",
+    github: "https://github.com/DevTechMike-Coder/Ecommerce",
+    monogram: "NH",
+    gradient: "from-violet-500 via-indigo-500 to-blue-600",
+  },
+];
 ---
 
 <main class="pt-32 pb-16 px-4 md:px-10 lg:px-20 min-h-screen bg-transparent">
@@ -28,10 +79,26 @@ import { ArrowLeft } from "../../../components/icons/ArrowLeft";
       contributions.
     </p>
   </div>
+
+  <div id="live-project-grid" class="mt-10 flex flex-col gap-6">
+    {
+      liveProjects.map((project) => (
+        <ProjectCard
+          title={project.title}
+          description={project.description}
+          tech={project.tech}
+          live={project.live}
+          github={project.github}
+          monogram={project.monogram}
+          gradient={project.gradient}
+        />
+      ))
+    }
+  </div>
 </main>
 
 <script>
-  import { gsap, ease, duration } from "../../../lib/gsap";
+  import { gsap, ease, duration, revealOnScroll } from "../../../lib/gsap";
 
   // Above-the-fold header: fade in on load, same treatment as Hero.
   const items = gsap.utils.toArray<HTMLElement>(".reveal-fade");
@@ -55,5 +122,16 @@ import { ArrowLeft } from "../../../components/icons/ArrowLeft";
         },
       );
     }
+  }
+
+  const liveGrid = document.getElementById("live-project-grid");
+  if (liveGrid) {
+    revealOnScroll(Array.from(liveGrid.children) as HTMLElement[], {
+      trigger: liveGrid,
+      start: "top 85%",
+      stagger: 0.12,
+      y: 28,
+      hideOnExit: true,
+    });
   }
 </script>
