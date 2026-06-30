@@ -1,0 +1,122 @@
+---
+import { Github } from "../../../components/icons/Github";
+import { ArrowUpRight } from "../../../components/icons/ArrowUpRight";
+
+export type TechItem = {
+  name: string;
+  icon: any;
+};
+
+interface Props {
+  title: string;
+  description: string;
+  tech: TechItem[];
+  live: string;
+  github?: string;
+  /** Two-letter monogram shown in the placeholder preview until a real screenshot exists. */
+  monogram: string;
+  /** Tailwind gradient classes for the preview panel, e.g. "from-emerald-400 via-teal-500 to-cyan-600". */
+  gradient: string;
+}
+
+const { title, description, tech, live, github, monogram, gradient } =
+  Astro.props as Props;
+---
+
+<article
+  class="project-card group relative overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-emerald-500/30 hover:shadow-2xl hover:shadow-emerald-500/10"
+>
+  <div class="flex flex-col md:flex-row">
+    <!-- Preview panel -->
+    <div
+      class={`relative h-48 w-full shrink-0 overflow-hidden bg-linear-to-br md:h-auto md:w-[42%] ${gradient}`}
+    >
+      <div
+        class="absolute inset-0 opacity-20 mix-blend-overlay [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:16px_16px]"
+      >
+      </div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <span
+          class="font-[var(--font-bauhaus)] text-6xl font-black tracking-tighter text-white/90 drop-shadow-sm"
+        >
+          {monogram}
+        </span>
+      </div>
+      <span
+        class="absolute top-3 left-3 flex items-center gap-1.5 rounded-full border border-white/30 bg-black/20 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-sm"
+      >
+        <span class="relative flex h-1.5 w-1.5">
+          <span
+            class="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75"
+          ></span>
+          <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-white"
+          ></span>
+        </span>
+        Live
+      </span>
+    </div>
+
+    <!-- Content -->
+    <div class="flex flex-1 flex-col gap-4 p-6">
+      <div class="flex items-start justify-between gap-3">
+        <h2
+          class="text-2xl font-bold tracking-tight text-zinc-900 transition-colors duration-300 group-hover:text-emerald-600"
+        >
+          {title}
+        </h2>
+        {
+          github && (
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="shrink-0 text-zinc-400 transition-colors hover:text-zinc-900"
+              aria-label={`View ${title} source on GitHub`}
+            >
+              <Github className="h-5 w-5" />
+            </a>
+          )
+        }
+      </div>
+
+      <p class="text-sm leading-relaxed text-zinc-600">
+        {description}
+      </p>
+
+      <div class="h-px w-full bg-linear-to-r from-zinc-200 to-transparent">
+      </div>
+
+      <div>
+        <p class="mb-2 text-xs font-medium tracking-wide text-zinc-400 uppercase">
+          Tech Stack
+        </p>
+        <div class="flex flex-wrap gap-2">
+          {
+            tech.map((t) => (
+              <span class="flex items-center gap-1.5 rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-700">
+                <t.icon className="h-3.5 w-3.5" />
+                {t.name}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="h-px w-full bg-linear-to-r from-zinc-200 to-transparent">
+      </div>
+
+      <div class="flex justify-end">
+        <a
+          href={live}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group/link inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 transition-colors hover:text-emerald-600"
+          aria-label={`Open ${title} live link`}
+        >
+          Open Live
+          <ArrowUpRight className="h-4 w-4 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+        </a>
+      </div>
+    </div>
+  </div>
+</article>

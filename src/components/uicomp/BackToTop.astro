@@ -1,0 +1,68 @@
+---
+import { ArrowUp } from "../icons/ArrowUp";
+---
+
+<button
+  id="back-to-top"
+  type="button"
+  aria-label="Back to top"
+  data-visible="false"
+  class="back-to-top fixed bottom-6 right-4 md:right-8 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-zinc-700 shadow-lg shadow-zinc-900/5 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-500/30 hover:text-emerald-600 hover:shadow-emerald-500/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-500 focus-visible:outline-offset-2"
+>
+  <ArrowUp className="h-5 w-5" />
+</button>
+
+<style>
+  .back-to-top {
+    opacity: 0;
+    transform: translateY(12px) scale(0.9);
+    pointer-events: none;
+  }
+
+  .back-to-top[data-visible="true"] {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+  const btn = document.getElementById("back-to-top");
+
+  if (btn) {
+    const SHOW_AFTER_PX = 400;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    let ticking = false;
+
+    const updateVisibility = () => {
+      const visible = window.scrollY > SHOW_AFTER_PX;
+      btn.dataset.visible = String(visible);
+      ticking = false;
+    };
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(updateVisibility);
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+
+    // Set correct state on load (e.g. page refreshed mid-scroll).
+    updateVisibility();
+
+    btn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: prefersReduced ? "auto" : "smooth",
+      });
+      btn.blur();
+    });
+  }
+</script>
