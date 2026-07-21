@@ -1,5 +1,6 @@
 ---
 import { MapPin } from "../../components/icons/MapPin";
+import { Download } from "../../components/icons/Download";
 ---
 
 <section class="relative pt-32 pb-16 px-4 md:px-10 overflow-hidden">
@@ -19,7 +20,9 @@ import { MapPin } from "../../components/icons/MapPin";
           Available for collaborations
         </span>
       </div>
-      <h1 class="hero-fade text-4xl font-bold uppercase tracking-wide text-zinc-900">
+      <h1
+        class="hero-fade text-4xl font-bold uppercase tracking-wide text-zinc-900"
+      >
         Micah Kesiena
       </h1>
       <div class="hero-fade">
@@ -68,8 +71,12 @@ import { MapPin } from "../../components/icons/MapPin";
       </div>
     </div>
 
-    <div class="hero-fade pt-16 flex flex-col items-start md:items-end justify-end">
-      <h2 class="text-2xl font-bold uppercase tracking-tight text-zinc-900 md:text-right">
+    <div
+      class="hero-fade pt-16 flex flex-col items-start md:items-end justify-end"
+    >
+      <h2
+        class="text-2xl font-bold uppercase tracking-tight text-zinc-900 md:text-right"
+      >
         Full Stack Developer <br /> Penetration Tester
       </h2>
       <div class="flex flex-col items-start md:items-end">
@@ -81,6 +88,18 @@ import { MapPin } from "../../components/icons/MapPin";
           <span class="text-sm">Based in Ogun State, Nigeria</span>
         </div>
       </div>
+    </div>
+
+    <div class="hero-fade pt-6 flex flex-col items-start md:items-end">
+      <a
+        href="/Micah_Kesiena_Resume.pdf"
+        download
+        aria-label="Download CV"
+        class="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-700"
+      >
+        <Download className="w-4 h-4" />
+        Download CV
+      </a>
     </div>
   </div>
 </section>
@@ -112,4 +131,3 @@ import { MapPin } from "../../components/icons/MapPin";
     }
   }
 </script>
-
