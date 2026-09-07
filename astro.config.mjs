@@ -15,6 +15,10 @@ export default defineConfig({
   adapter: vercel(),
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      // Allow the Arena live-preview proxy host during development.
+      allowedHosts: true,
+    },
   },
 
   integrations: [react(), sitemap()],

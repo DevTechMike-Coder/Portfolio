@@ -27,12 +27,15 @@ The persistent hero still has an `IntersectionObserver`: persistence preserves t
 
 There are no global pointer-move invalidation listeners. Technology hover damping only invalidates while the node is moving, snaps to its target at a small epsilon, then stops. Idle auto-rotation and floating pause while inspecting a node. Manual orbit dragging remains available in reduced-motion mode, without inertial damping.
 
+> Note: a `THREE.WebGLRenderer: Context Lost.` line appears in the console whenever a non-persistent canvas unmounts. React Three Fiber calls `gl.forceContextLoss()` on unmount to release GPU memory, and three.js logs it unconditionally. This is expected cleanup, not a crash — the canvas is unmounted and recreated when scrolled back into view.
+
 ## Quality budget
 
 - Start at DPR 1.
 - Cap DPR at 1 for coarse pointers or widths up to 767px; otherwise cap at 1.5 and the actual device DPR, whichever is smaller.
 - Adaptive resolution runs only during continuous animation. A bounded performance monitor falls back to DPR 1 rather than adjusting indefinitely.
 - Disable MSAA (`antialias: false`); thin edges can be less smooth, especially at DPR 1.
+- Renderer `powerPreference` is `default`, not `high-performance`. Multiple concurrent canvases then share the integrated GPU on mobile instead of exhausting the discrete context pool (which triggers "Context Lost").
 - Hero particles: 50 instead of 100; hero torus segments: 12 × 48 instead of 16 × 100.
 - Security torus segments: 12 × 64 instead of 16 × 80.
 - Technology spheres use 16 × 16 segments, with hover scaling instead of rebuilding geometry. Network-line geometry is declarative so R3F disposes it on unmount.

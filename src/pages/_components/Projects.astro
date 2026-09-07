@@ -141,7 +141,7 @@ const allProjectLogs = [
                 href={featuredProject.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-5 py-2.5 text-xs transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-6 py-3 text-sm min-h-[44px] transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]"
               >
                 Launch Demo
                 <ArrowUpRight className="w-4 h-4" />
@@ -151,7 +151,7 @@ const allProjectLogs = [
                 href={featuredProject.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-zinc-900 hover:bg-zinc-800 text-white font-medium px-5 py-2.5 text-xs transition-all"
+                class="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-zinc-900 hover:bg-zinc-800 text-white font-medium px-6 py-3 text-sm min-h-[44px] transition-all"
               >
                 <Github className="w-4 h-4" />
                 Source Code
@@ -234,10 +234,10 @@ const allProjectLogs = [
                     href={p.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-zinc-400 hover:text-white transition-colors"
+                    class="inline-flex items-center justify-center w-11 h-11 -my-2 -ml-2 rounded-xl text-zinc-400 hover:text-white hover:bg-white/5 transition-colors"
                     aria-label={`View ${p.title} source on GitHub`}
                   >
-                    <Github className="w-4 h-4" />
+                    <Github className="w-5 h-5" />
                   </a>
                 ) : (
                   <span class="text-xs font-mono text-zinc-400 italic">Codebase in staging</span>
@@ -248,10 +248,10 @@ const allProjectLogs = [
                     href={p.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-400 hover:text-emerald-300 font-medium"
+                    class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 min-h-[44px] text-sm font-mono text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 font-medium transition-colors"
                   >
                     Live Preview
-                    <ArrowUpRight className="w-3.5 h-3.5" />
+                    <ArrowUpRight className="w-4 h-4" />
                   </a>
                 ) : (
                   <span class="text-xs font-mono text-zinc-400">Internal tool</span>
