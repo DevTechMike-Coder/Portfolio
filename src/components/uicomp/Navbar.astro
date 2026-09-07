@@ -1,0 +1,215 @@
+---
+import { Download } from "../icons/Download";
+---
+
+<header
+  id="main-navbar"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-4 sm:px-8 border-b border-transparent"
+>
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <!-- Brand -->
+    <a
+      href="#home"
+      aria-label="Micah Kesiena Home"
+      class="group flex items-center gap-3 text-white transition-opacity hover:opacity-90"
+    >
+      <div
+        class="w-9 h-9 rounded-xl bg-linear-to-br from-emerald-500/20 to-cyan-500/10 border border-emerald-500/30 flex items-center justify-center font-mono font-bold text-sm text-emerald-400 group-hover:border-emerald-400 transition-colors shadow-[0_0_15px_rgba(16,185,129,0.15)]"
+      >
+        MK
+      </div>
+      <div class="flex flex-col">
+        <span class="font-bold text-sm tracking-wide text-white flex items-center gap-1.5">
+          MICAH KESIENA
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        </span>
+        <span class="text-[10px] font-mono text-zinc-400 tracking-wider">SEC_DEV // FULLSTACK</span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-1 bg-zinc-900/60 backdrop-blur-md border border-white/10 rounded-full px-4 py-1.5 shadow-lg shadow-black/40">
+      <a
+        href="#home"
+        class="px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5"
+      >
+        Home
+      </a>
+      <a
+        href="#about"
+        class="px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5"
+      >
+        About
+      </a>
+      <a
+        href="#stack"
+        class="px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5"
+      >
+        Stack
+      </a>
+      <a
+        href="#projects"
+        class="px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5"
+      >
+        Projects
+      </a>
+      <a
+        href="#journey"
+        class="px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5"
+      >
+        Journey
+      </a>
+      <a
+        href="#contact"
+        class="px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5"
+      >
+        Contact
+      </a>
+    </nav>
+
+    <!-- Desktop Action -->
+    <div class="hidden md:flex items-center gap-3">
+      <a
+        href="/MIcah_Kesiena_Resume.pdf"
+        download
+        aria-label="Download CV"
+        class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-zinc-900/80 px-4 py-2 text-xs font-medium text-zinc-200 transition-all hover:bg-zinc-800 hover:border-emerald-500/40 hover:text-emerald-300 shadow-sm"
+      >
+        <Download className="w-3.5 h-3.5 text-emerald-400" />
+        Resume
+      </a>
+      <a
+        href="#contact"
+        class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 px-4 py-2 text-xs font-medium text-emerald-300 transition-all hover:bg-emerald-500/20 hover:border-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.15)]"
+      >
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        Connect
+      </a>
+    </div>
+
+    <!-- Mobile Menu Toggle Button -->
+    <button
+      id="mobile-nav-toggle"
+      type="button"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      class="md:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-zinc-900/80 border border-white/10 text-zinc-300 hover:text-white focus:outline-none"
+    >
+      <svg id="hamburger-icon" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="close-icon" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden mt-3 mx-auto max-w-7xl rounded-2xl bg-zinc-950/95 backdrop-blur-xl border border-white/10 p-5 shadow-2xl transition-all duration-300"
+  >
+    <div class="flex flex-col gap-3">
+      <a
+        href="#home"
+        class="mobile-nav-link text-sm font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5 transition-colors"
+      >
+        Home
+      </a>
+      <a
+        href="#about"
+        class="mobile-nav-link text-sm font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5 transition-colors"
+      >
+        About
+      </a>
+      <a
+        href="#stack"
+        class="mobile-nav-link text-sm font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5 transition-colors"
+      >
+        Stack
+      </a>
+      <a
+        href="#projects"
+        class="mobile-nav-link text-sm font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5 transition-colors"
+      >
+        Projects
+      </a>
+      <a
+        href="#journey"
+        class="mobile-nav-link text-sm font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5 transition-colors"
+      >
+        Journey
+      </a>
+      <a
+        href="#contact"
+        class="mobile-nav-link text-sm font-medium text-zinc-200 hover:text-emerald-400 py-2 border-b border-white/5 transition-colors"
+      >
+        Contact
+      </a>
+      <div class="pt-2 flex flex-col gap-2">
+        <a
+          href="/MIcah_Kesiena_Resume.pdf"
+          download
+          class="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-zinc-900 py-2.5 text-xs font-medium text-zinc-200 hover:bg-zinc-800"
+        >
+          <Download className="w-3.5 h-3.5 text-emerald-400" />
+          Download Resume
+        </a>
+        <a
+          href="#contact"
+          class="flex items-center justify-center gap-2 rounded-xl bg-emerald-500 text-zinc-950 py-2.5 text-xs font-semibold hover:bg-emerald-400"
+        >
+          Let's Connect
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const navbar = document.getElementById("main-navbar");
+  const toggleBtn = document.getElementById("mobile-nav-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const hamburgerIcon = document.getElementById("hamburger-icon");
+  const closeIcon = document.getElementById("close-icon");
+  const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+
+  // Scroll effect
+  const handleScroll = () => {
+    if (!navbar) return;
+    if (window.scrollY > 20) {
+      navbar.classList.add("bg-zinc-950/80", "backdrop-blur-lg", "border-zinc-800/60", "shadow-lg", "py-3");
+      navbar.classList.remove("py-4", "border-transparent");
+    } else {
+      navbar.classList.remove("bg-zinc-950/80", "backdrop-blur-lg", "border-zinc-800/60", "shadow-lg", "py-3");
+      navbar.classList.add("py-4", "border-transparent");
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  handleScroll();
+
+  // Mobile menu toggle
+  let isMenuOpen = false;
+  const toggleMenu = () => {
+    isMenuOpen = !isMenuOpen;
+    toggleBtn?.setAttribute("aria-expanded", String(isMenuOpen));
+    if (isMenuOpen) {
+      mobileMenu?.classList.remove("hidden");
+      hamburgerIcon?.classList.add("hidden");
+      closeIcon?.classList.remove("hidden");
+    } else {
+      mobileMenu?.classList.add("hidden");
+      hamburgerIcon?.classList.remove("hidden");
+      closeIcon?.classList.add("hidden");
+    }
+  };
+
+  toggleBtn?.addEventListener("click", toggleMenu);
+
+  mobileLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (isMenuOpen) toggleMenu();
+    });
+  });
+</script>

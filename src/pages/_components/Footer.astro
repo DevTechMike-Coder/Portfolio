@@ -2,91 +2,97 @@
 import { Github } from "../../components/icons/Github";
 import { Linkedin } from "../../components/icons/Linkedin";
 import { X } from "../../components/icons/X";
-import { Email } from "../../components/icons/Email";
 import { Instagram } from "../../components/icons/Instagram";
+import { ArrowUp } from "../../components/icons/ArrowUp";
 
 const currentYear = new Date().getFullYear();
 ---
 
-<footer
-  class="w-full border-t border-zinc-200 bg-white/50 backdrop-blur-md mt-20"
->
+<footer class="w-full border-t border-white/10 bg-zinc-950/80 backdrop-blur-xl mt-20 relative z-10">
   <div
     id="footer-content"
-    class="max-w-7xl mx-auto px-4 md:px-10 py-8 flex flex-col md:flex-row items-center justify-between gap-6"
+    class="max-w-7xl mx-auto px-4 md:px-10 py-12 flex flex-col md:flex-row items-center justify-between gap-8"
   >
-    <!-- Left Section: Name, Copyright, Quote -->
-    <div
-      class="flex flex-col gap-1 items-center md:items-start text-center md:text-left"
-    >
-      <h2
-        class="text-lg md:text-xl font-bold tracking-tight text-zinc-900 font-serif"
-      >
-        Micah Kesiena
-      </h2>
-      <p
-        class="text-[10px] md:text-xs text-zinc-500 uppercase tracking-widest font-mono mt-2"
-      >
-        © {currentYear} Micah Kesiena. All rights reserved.
+    <!-- Left Section: Monogram, Identity, Copyright, Philosophy -->
+    <div class="flex flex-col gap-2 items-center md:items-start text-center md:text-left">
+      <div class="flex items-center gap-2.5">
+        <span class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center font-mono font-bold text-xs text-emerald-400">
+          MK
+        </span>
+        <h3 class="text-lg font-bold tracking-tight text-white uppercase">
+          Micah Kesiena
+        </h3>
+      </div>
+
+      <p class="text-xs text-zinc-400 font-mono">
+        Security Focused Full Stack Developer • Penetration Tester
       </p>
-      <p class="text-xs text-zinc-500 italic font-serif">
-        If it works, don't touch it. If it doesn't, coffee first.
+
+      <p class="text-[11px] text-zinc-400 font-mono mt-1">
+        © {currentYear} Micah Kesiena. Built with Astro & React Three Fiber.
+      </p>
+
+      <p class="text-xs text-zinc-400 italic mt-1 font-mono">
+        "Move fast, break nothing — patch what you break."
       </p>
     </div>
 
-    <!-- Right Section: Social Icons -->
-    <div class="flex items-center gap-2">
+    <!-- Center Section: System Status Indicator -->
+    <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900/60 border border-white/5 text-xs font-mono text-zinc-400">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+      </span>
+      <span>SYSTEM STATUS: OPERATIONAL</span>
+      <span class="text-zinc-600">|</span>
+      <span class="text-emerald-400">ASTRO_ISLANDS: OK</span>
+    </div>
+
+    <!-- Right Section: Social Links & Back to Top -->
+    <div class="flex items-center gap-3">
       <a
         href="https://github.com/DevTechMike-Coder"
-        aria-label="Github"
-        class="w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900 transition-all shadow-sm"
+        aria-label="GitHub"
+        class="w-10 h-10 flex items-center justify-center rounded-xl border border-white/10 bg-zinc-900/80 hover:bg-zinc-800 hover:border-emerald-400 text-zinc-400 hover:text-emerald-400 transition-all shadow-sm"
         target="_blank"
         rel="noopener noreferrer"
       >
         <Github className="w-4 h-4" />
       </a>
       <a
-        href="https://x.com/DevTech_Coder23"
-        aria-label="X"
-        class="w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900 transition-all shadow-sm"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <X className="w-4 h-4" />
-      </a>
-      <a
         href="https://www.linkedin.com/in/micah-kesiena-a3b424361/"
-        aria-label="Linkedin"
-        class="w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900 transition-all shadow-sm"
+        aria-label="LinkedIn"
+        class="w-10 h-10 flex items-center justify-center rounded-xl border border-white/10 bg-zinc-900/80 hover:bg-zinc-800 hover:border-cyan-400 text-zinc-400 hover:text-cyan-400 transition-all shadow-sm"
         target="_blank"
         rel="noopener noreferrer"
       >
         <Linkedin className="w-4 h-4" />
       </a>
       <a
+        href="https://x.com/DevTech_Coder23"
+        aria-label="X"
+        class="w-10 h-10 flex items-center justify-center rounded-xl border border-white/10 bg-zinc-900/80 hover:bg-zinc-800 hover:border-zinc-300 text-zinc-400 hover:text-white transition-all shadow-sm"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <X className="w-4 h-4" />
+      </a>
+      <a
         href="https://www.instagram.com/micahkingfx2/"
         aria-label="Instagram"
-        class="w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900 transition-all shadow-sm"
+        class="w-10 h-10 flex items-center justify-center rounded-xl border border-white/10 bg-zinc-900/80 hover:bg-zinc-800 hover:border-violet-400 text-zinc-400 hover:text-violet-400 transition-all shadow-sm"
         target="_blank"
         rel="noopener noreferrer"
       >
         <Instagram className="w-4 h-4" />
       </a>
+      <a
+        href="#home"
+        aria-label="Back to Top"
+        class="w-10 h-10 flex items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500 hover:text-zinc-950 transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)] ml-2"
+      >
+        <ArrowUp className="w-4 h-4" />
+      </a>
     </div>
   </div>
 </footer>
-
-<script>
-  import { revealOnScroll } from "../../lib/gsap";
-
-  const footerContent = document.getElementById("footer-content");
-  if (footerContent) {
-    revealOnScroll(Array.from(footerContent.children) as HTMLElement[], {
-      trigger: footerContent,
-      start: "top 90%",
-      stagger: 0.1,
-      y: 20,
-      hideOnExit: true,
-    });
-  }
-</script>

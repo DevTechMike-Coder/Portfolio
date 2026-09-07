@@ -19,23 +19,23 @@
 
 <style>
   .interactive-grid-container {
-    mask-image: radial-gradient(circle at center, black, transparent 80%);
+    mask-image: radial-gradient(circle at 50% 30%, black 40%, transparent 90%);
   }
 
   .grid-pattern {
     background-image:
-      linear-gradient(to right, currentColor 1px, transparent 1px),
-      linear-gradient(to bottom, currentColor 1px, transparent 1px);
-    background-size: 50px 50px;
-    opacity: 0.1;
+      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.8;
   }
 
   .spotlight {
     background: radial-gradient(
-      circle var(--radius, 350px) at var(--x, 50%) var(--y, 50%),
-      rgba(16, 185, 129, 0.75) 0%,
-      rgba(6, 182, 212, 0.45) 40%,
-      transparent 80%
+      circle var(--radius, 400px) at var(--x, 50%) var(--y, 50%),
+      rgba(16, 185, 129, 0.18) 0%,
+      rgba(6, 182, 212, 0.08) 45%,
+      transparent 75%
     );
   }
 </style>

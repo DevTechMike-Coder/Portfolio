@@ -1,0 +1,123 @@
+---
+const journeyMilestones = [
+  {
+    date: "2025 — PRESENT",
+    role: "Security Focused Full Stack Developer & Penetration Tester",
+    organization: "Independent Practice & Security Research",
+    description:
+      "Specializing in engineering resilient, high-throughput web applications with security by design. Performing penetration testing, vulnerability discovery, and modern full-stack development across modern frameworks.",
+    technologies: ["TypeScript", "Next.js", "Astro", "Node.js", "PenTesting", "API Hardening"],
+    status: "CURRENT",
+  },
+  {
+    date: "2024 — 2025",
+    role: "Full-Stack Architect & Creator",
+    organization: "Vertex Canvas Platform",
+    description:
+      "Architected and deployed Vertex Canvas, a real-time developer workspace tool for mapping workflows and task collaboration. Implemented type-safe database schemas with Prisma and PostgreSQL, along with concurrent state handling.",
+    technologies: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Tailwind CSS"],
+    status: "SHIPPED",
+  },
+  {
+    date: "2024",
+    role: "Frontend & Full-Stack Developer",
+    organization: "Next Hub E-Commerce System",
+    description:
+      "Engineered an end-to-end modern e-commerce web platform featuring dynamic catalog filtering, responsive cart pipelines, and cloud deployment pipelines.",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+    status: "SHIPPED",
+  },
+  {
+    date: "2023 — 2024",
+    role: "Developer & Systems Explorer",
+    organization: "Core Web Engineering & Security Foundations",
+    description:
+      "Deep dive into asynchronous JavaScript/TypeScript, server architectures with Node.js and Express, relational and NoSQL database modeling, and fundamental network security concepts.",
+    technologies: ["JavaScript (ES6+)", "Node.js", "Express", "MongoDB", "Git", "Linux"],
+    status: "COMPLETED",
+  },
+];
+---
+
+<section id="journey" class="pt-28 pb-16 px-4 md:px-10 max-w-7xl mx-auto">
+  <!-- Section Title -->
+  <div class="flex items-center gap-3 mb-4">
+    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-mono font-bold text-sm">
+      05
+    </div>
+    <div>
+      <span class="text-xs font-mono uppercase tracking-widest text-cyan-400">CHRONOLOGY // 05</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">Developer Journey</h2>
+    </div>
+  </div>
+
+  <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mb-12">
+    A verifiable timeline of software architecture, engineering milestones, and security practice.
+  </p>
+
+  <!-- Vertical Timeline Track -->
+  <div class="relative border-l border-zinc-800 ml-4 sm:ml-6 pl-6 sm:pl-10 space-y-12">
+    {
+      journeyMilestones.map((item, index) => (
+        <div class="journey-item relative group">
+          <!-- Glowing Node on Timeline -->
+          <div class="absolute -left-[31px] sm:-left-[47px] top-1.5 w-3.5 h-3.5 rounded-full bg-zinc-950 border-2 border-emerald-400 group-hover:bg-emerald-400 group-hover:scale-125 transition-all shadow-[0_0_12px_rgba(16,185,129,0.5)]"></div>
+
+          <!-- Milestone Card -->
+          <div class="p-6 sm:p-8 rounded-2xl bg-zinc-900/60 border border-white/10 group-hover:border-emerald-500/40 backdrop-blur-md transition-all shadow-lg flex flex-col gap-3">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-3">
+              <span class="text-xs font-mono text-emerald-400 tracking-wider">
+                {item.date}
+              </span>
+              <span
+                class={`px-2.5 py-0.5 rounded-full text-[10px] font-mono tracking-wider ${
+                  item.status === "CURRENT"
+                    ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/30"
+                    : "bg-zinc-800 text-zinc-400 border border-zinc-700"
+                }`}
+              >
+                {item.status}
+              </span>
+            </div>
+
+            <div>
+              <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                {item.role}
+              </h3>
+              <p class="text-xs sm:text-sm font-mono text-cyan-400 mt-1">
+                {item.organization}
+              </p>
+            </div>
+
+            <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
+              {item.description}
+            </p>
+
+            <!-- Technologies Tags -->
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              {item.technologies.map((t) => (
+                <span class="px-2.5 py-1 rounded-md bg-zinc-950/80 border border-white/5 text-xs font-mono text-zinc-300">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  import { revealOnScroll } from "../../lib/gsap";
+  const journeyItems = document.querySelectorAll(".journey-item");
+  if (journeyItems.length) {
+    revealOnScroll(Array.from(journeyItems) as HTMLElement[], {
+      trigger: "#journey",
+      start: "top 80%",
+      stagger: 0.15,
+      y: 28,
+      hideOnExit: true,
+    });
+  }
+</script>

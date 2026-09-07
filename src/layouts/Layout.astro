@@ -1,22 +1,92 @@
 ---
 import "../styles/global.css";
+import Navbar from "../components/uicomp/Navbar.astro";
 import BackToTop from "../components/uicomp/BackToTop.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = "Micah Kesiena | Security Focused Full Stack Developer & Penetration Tester",
+  description = "Security Focused Full Stack Developer and Penetration Tester specializing in crafting high-performance, accessible, and secure web applications.",
+  image = "/favicon.svg",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://micahkesiena.vercel.app");
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
-    <link rel="preconnect" href="https://api.maptiler.com" />
-    <link rel="dns-prefetch" href="https://api.maptiler.com" />
-    <meta name="description" content="Portfolio of Micah Kingsley" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Primary SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content="Micah Kesiena" />
+    <meta
+      name="keywords"
+      content="Micah Kesiena, Security Developer, Penetration Tester, Full Stack Developer, React, Three.js, React Three Fiber, Next.js, Astro, TypeScript, Node.js, Web Security, Portfolio"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Micah Kesiena Portfolio" />
+    <meta property="og:image" content={new URL(image, canonicalURL)} />
+
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:creator" content="@DevTech_Coder23" />
+    <meta property="twitter:image" content={new URL(image, canonicalURL)} />
+
+    <!-- Performance & Preconnects -->
+    <meta name="theme-color" content="#07090e" />
     <meta name="generator" content={Astro.generator} />
-    <title>Micah</title>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Micah Kesiena",
+        "url": "https://micahkesiena.vercel.app",
+        "jobTitle": "Security Focused Full Stack Developer & Penetration Tester",
+        "sameAs": [
+          "https://github.com/DevTechMike-Coder",
+          "https://www.linkedin.com/in/micah-kesiena-a3b424361/",
+          "https://x.com/DevTech_Coder23",
+          "https://www.instagram.com/micahkingfx2/"
+        ],
+        "knowsAbout": [
+          "Full Stack Development",
+          "Penetration Testing",
+          "Web Application Security",
+          "TypeScript",
+          "React",
+          "Next.js",
+          "Astro",
+          "Node.js",
+          "PostgreSQL"
+        ]
+      }
+    </script>
   </head>
-  <body>
+  <body class="bg-[#07090e] text-slate-100 antialiased selection:bg-emerald-500/30 selection:text-emerald-300">
+    <Navbar />
     <slot />
     <BackToTop />
   </body>
@@ -27,6 +97,7 @@ import BackToTop from "../components/uicomp/BackToTop.astro";
   body {
     margin: 0;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
+    background-color: #07090e;
   }
 </style>

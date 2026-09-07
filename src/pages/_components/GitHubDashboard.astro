@@ -1,0 +1,221 @@
+---
+import { Github } from "../../components/icons/Github";
+import { ArrowUpRight } from "../../components/icons/ArrowUpRight";
+---
+
+<section id="github" class="pt-28 pb-16 px-4 md:px-10 max-w-7xl mx-auto">
+  <!-- Section Title -->
+  <div class="flex items-center gap-3 mb-8">
+    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+      <Github className="w-5 h-5" />
+    </div>
+    <div>
+      <span class="text-xs font-mono uppercase tracking-widest text-emerald-400">TELEMETRY // 03</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">GitHub Operations</h2>
+    </div>
+  </div>
+
+  <!-- Dashboard Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <!-- Card 1: Handle & Profile -->
+    <a
+      href="https://github.com/DevTechMike-Coder"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="p-5 rounded-2xl bg-zinc-900/60 border border-white/10 hover:border-emerald-500/40 backdrop-blur-md transition-all group flex flex-col justify-between gap-4"
+    >
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-mono text-zinc-400">GITHUB_ID</span>
+        <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-emerald-400 transition-colors" />
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-white font-mono group-hover:text-emerald-300 transition-colors">
+          @DevTechMike-Coder
+        </h3>
+        <p class="text-xs text-zinc-400">Open-source & production repos</p>
+      </div>
+    </a>
+
+    <!-- Card 2: Total Contributions -->
+    <div class="p-5 rounded-2xl bg-zinc-900/60 border border-white/10 backdrop-blur-md flex flex-col justify-between gap-4">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-mono text-zinc-400">TOTAL_CONTRIBUTIONS</span>
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      </div>
+      <div>
+        <p id="gh-total-contributions" class="text-3xl font-extrabold text-white font-mono">
+          --
+        </p>
+        <p class="text-xs text-zinc-400">Recorded across the past year</p>
+      </div>
+    </div>
+
+    <!-- Card 3: Repositories link -->
+    <a
+      href="https://github.com/DevTechMike-Coder?tab=repositories"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="p-5 rounded-2xl bg-zinc-900/60 border border-white/10 hover:border-cyan-500/40 backdrop-blur-md transition-all group flex flex-col justify-between gap-4"
+    >
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-mono text-zinc-400">REPOSITORIES</span>
+        <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-cyan-400 transition-colors" />
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-white font-mono group-hover:text-cyan-300 transition-colors">
+          Public Repos
+        </h3>
+        <p class="text-xs text-zinc-400">View codebases & contributions</p>
+      </div>
+    </a>
+
+    <!-- Card 4: Architecture Focus -->
+    <div class="p-5 rounded-2xl bg-zinc-900/60 border border-white/10 backdrop-blur-md flex flex-col justify-between gap-4">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-mono text-zinc-400">ENGINEERING_FOCUS</span>
+        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded-md border border-cyan-500/20">
+          PROD_READY
+        </span>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-white font-mono">Sec & Full-Stack</h3>
+        <p class="text-xs text-zinc-400">Next.js • Astro • Node • TypeScript</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contributions Activity Heatmap Panel -->
+  <div class="p-6 rounded-3xl bg-zinc-900/50 border border-white/10 backdrop-blur-md relative overflow-hidden">
+    <div class="flex items-center justify-between mb-4 border-b border-white/5 pb-3">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span class="text-xs font-mono uppercase tracking-wider text-zinc-300">ANNUAL_COMMIT_HEATMAP</span>
+      </div>
+      <div class="flex items-center gap-1.5 text-[10px] font-mono text-zinc-400">
+        <span>Less</span>
+        <span class="w-2.5 h-2.5 rounded-xs bg-[#161b22]"></span>
+        <span class="w-2.5 h-2.5 rounded-xs bg-[#0e4429]"></span>
+        <span class="w-2.5 h-2.5 rounded-xs bg-[#006d32]"></span>
+        <span class="w-2.5 h-2.5 rounded-xs bg-[#26a641]"></span>
+        <span class="w-2.5 h-2.5 rounded-xs bg-[#39d353]"></span>
+        <span>More</span>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto pb-2">
+      <div
+        id="gh-grid"
+        class="flex items-center justify-center border border-dashed border-zinc-800 rounded-xl h-[120px] min-w-full"
+        aria-live="polite"
+      >
+        <div class="flex items-center gap-2 text-zinc-400 text-xs font-mono">
+          <div class="w-3 h-3 rounded-full border-2 border-emerald-400 border-t-transparent animate-spin"></div>
+          <span>Synchronizing GitHub API telemetry...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Floating Tooltip for Heatmap Day -->
+<div
+  id="gh-tooltip"
+  class="fixed z-50 hidden bg-zinc-900 text-zinc-100 text-xs px-3 py-1.5 rounded-lg shadow-xl pointer-events-none border border-zinc-700/80 font-mono whitespace-nowrap backdrop-blur-md"
+></div>
+
+<script>
+  type ContributionDay = { date: string; contributionCount: number; color: string };
+  type ContributionWeek = { contributionDays: ContributionDay[] };
+  type ContributionData = { totalContributions: number; weeks: ContributionWeek[] };
+
+  const totalEl = document.getElementById("gh-total-contributions");
+  const gridEl = document.getElementById("gh-grid");
+  const tooltip = document.getElementById("gh-tooltip");
+
+  function setUnavailableState() {
+    if (!totalEl || !gridEl) return;
+    totalEl.textContent = "--";
+    gridEl.className = "flex items-center justify-center border border-dashed border-zinc-800 rounded-xl h-[120px] min-w-full";
+    gridEl.replaceChildren();
+    const msg = document.createElement("p");
+    msg.className = "text-zinc-400 text-xs font-mono";
+    msg.textContent = "Telemetry temporarily offline — visit profile directly";
+    gridEl.append(msg);
+  }
+
+  function renderContributionGrid(weeks: ContributionWeek[]) {
+    if (!gridEl) return;
+    if (weeks.length === 0) {
+      setUnavailableState();
+      return;
+    }
+
+    gridEl.className = "flex gap-1 justify-start min-w-max py-2";
+    gridEl.replaceChildren();
+    const fragment = document.createDocumentFragment();
+
+    for (const week of weeks.slice(-44)) {
+      const weekEl = document.createElement("div");
+      weekEl.className = "flex flex-col gap-1";
+      for (const day of week.contributionDays) {
+        const dayEl = document.createElement("div");
+        dayEl.className =
+          "w-[13px] h-[13px] rounded-xs cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-emerald-400 hover:scale-125 gh-day";
+        dayEl.style.backgroundColor = day.color || "#161b22";
+        dayEl.dataset.date = day.date;
+        dayEl.dataset.count = String(day.contributionCount);
+        weekEl.append(dayEl);
+      }
+      fragment.append(weekEl);
+    }
+    gridEl.append(fragment);
+  }
+
+  async function loadContributions() {
+    if (!totalEl || !gridEl) return;
+    try {
+      const response = await fetch("/api/github-contributions.json", { cache: "no-store" });
+      if (!response.ok) throw new Error(`GitHub telemetry status: ${response.status}`);
+      const data = (await response.json()) as ContributionData;
+      totalEl.textContent = data.totalContributions.toLocaleString();
+      renderContributionGrid(data.weeks);
+    } catch (error) {
+      console.warn("GitHub contributions fetch fallback:", error);
+      setUnavailableState();
+    }
+  }
+
+  function positionTooltip(x: number, y: number) {
+    if (!tooltip) return;
+    const padding = 12;
+    const rect = tooltip.getBoundingClientRect();
+    let left = x + padding;
+    let top = y - rect.height - 8;
+    if (left + rect.width > window.innerWidth - padding) left = x - rect.width - padding;
+    if (top < padding) top = y + padding * 2;
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
+  }
+
+  void loadContributions();
+
+  if (gridEl && tooltip) {
+    gridEl.addEventListener("mouseover", (e) => {
+      const target = (e.target as HTMLElement).closest(".gh-day") as HTMLElement | null;
+      if (!target) return;
+      const count = target.dataset.count;
+      const dateStr = target.dataset.date;
+      if (!dateStr) return;
+      const date = new Date(`${dateStr}T00:00:00`);
+      const formatted = date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      tooltip.textContent = count === "0" ? `No contributions on ${formatted}` : `${count} contribution${count === "1" ? "" : "s"} on ${formatted}`;
+      tooltip.classList.remove("hidden");
+    });
+    gridEl.addEventListener("mousemove", (e) => {
+      positionTooltip((e as MouseEvent).clientX, (e as MouseEvent).clientY);
+    });
+    gridEl.addEventListener("mouseleave", () => {
+      tooltip.classList.add("hidden");
+    });
+  }
+</script>

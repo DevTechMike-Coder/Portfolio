@@ -1,104 +1,123 @@
 ---
 import { MapPin } from "../../components/icons/MapPin";
 import { Download } from "../../components/icons/Download";
+import { ChevronDown } from "../../components/icons/ChevronDown";
+import { ArrowUpRight } from "../../components/icons/ArrowUpRight";
+import HeroScene from "../../components/3d/HeroScene";
 ---
 
-<section class="relative pt-32 pb-16 px-4 md:px-10 overflow-hidden">
-  <div class="relative z-10 max-w-7xl mx-auto">
-    <div class="flex flex-col gap-2">
-      <div
-        class="hero-fade flex items-center gap-2 border border-zinc-200 rounded-full px-4 py-2 w-fit bg-zinc-50/50"
-      >
-        <span class="relative flex h-2 w-2">
-          <span
-            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
-          ></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
-          ></span>
-        </span>
-        <span class="text-zinc-600 text-sm font-medium">
-          Available for collaborations
-        </span>
-      </div>
-      <h1
-        class="hero-fade text-4xl font-bold uppercase tracking-wide text-zinc-900"
-      >
-        Micah Kesiena
-      </h1>
-      <div class="hero-fade">
-        <p class="text-sm text-zinc-500">
-          Security Focused Full Stack Developer
-        </p>
-      </div>
-    </div>
+<section id="home" class="relative min-h-[90vh] pt-32 pb-20 px-4 md:px-10 overflow-hidden flex flex-col justify-center">
+  <div class="relative z-10 max-w-7xl mx-auto w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <!-- Left Column: Hero Content & Positioning -->
+      <div class="lg:col-span-7 flex flex-col gap-6">
+        <!-- Status Indicator Pill -->
+        <div class="hero-fade flex items-center gap-2.5 border border-emerald-500/30 bg-emerald-500/10 rounded-full px-4 py-1.5 w-fit backdrop-blur-md shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+          </span>
+          <span class="text-emerald-300 text-xs font-mono font-medium tracking-wide uppercase">
+            Available for collaborations
+          </span>
+        </div>
 
-    <div class="flex flex-col items-start md:items-end justify-end pt-16">
-      <div
-        class="hero-fade flex flex-wrap gap-x-4 gap-y-2 border border-zinc-200 w-fit p-2 rounded-full px-4 bg-zinc-50/50"
-      >
-        <p class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
-          <a
-            href="https://react.dev"
-            aria-label="react"
-            target="_blank"
-            rel="noopener noreferrer">React</a
-          >
-        </p>
-        <p class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
-          <a
-            href="https://nextjs.org"
-            aria-label="nextjs"
-            target="_blank"
-            rel="noopener noreferrer">Next.js</a
-          >
-        </p>
-        <p class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
-          <a
-            href="https://astro.build"
-            aria-label="astro"
-            target="_blank"
-            rel="noopener noreferrer">Astro</a
-          >
-        </p>
-        <p class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
-          <a
-            href="https://tailwindcss.com"
-            aria-label="tailwindcss"
-            target="_blank"
-            rel="noopener noreferrer">Tailwind CSS</a
-          >
-        </p>
-      </div>
-    </div>
+        <!-- Main Heading -->
+        <div class="hero-fade space-y-2">
+          <p class="text-zinc-400 text-base md:text-lg font-mono tracking-wider">
+            Hi, I'm
+          </p>
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight text-white leading-none">
+            Micah <span class="text-transparent bg-clip-text bg-linear-to-r from-emerald-400 via-teal-300 to-cyan-400">Kesiena</span>
+          </h1>
+          <h2 class="text-xl sm:text-2xl font-bold uppercase tracking-wide text-zinc-300 font-mono pt-1">
+            Security Focused Full Stack Developer
+          </h2>
+        </div>
 
-    <div
-      class="hero-fade pt-16 flex flex-col items-start md:items-end justify-end"
-    >
-      <h2
-        class="text-2xl font-bold uppercase tracking-tight text-zinc-900 md:text-right"
-      >
-        Full Stack Developer <br /> Penetration Tester
-      </h2>
-      <div class="flex flex-col items-start md:items-end">
-        <p class="text-sm text-zinc-500">
-          Innovation for secure websites starts with me
-        </p>
-        <div class="flex items-center gap-2 text-zinc-600">
-          <MapPin className="animate-bounce" />
-          <span class="text-sm">Based in Ogun State, Nigeria</span>
+        <!-- Short Description & Positioning -->
+        <div class="hero-fade max-w-xl">
+          <p class="text-zinc-400 text-base sm:text-lg leading-relaxed font-sans">
+            I build modern, high-performance web applications with security and scalability at the core. Specialized in full-stack architecture, penetration testing, and robust digital systems.
+          </p>
+        </div>
+
+        <!-- Philosophy quote snippet -->
+        <div class="hero-fade pl-4 border-l-2 border-emerald-500/40 py-1">
+          <p class="text-sm font-mono text-zinc-400 italic">
+            "Move fast, break nothing — patch what you break."
+          </p>
+        </div>
+
+        <!-- Call To Action Buttons -->
+        <div class="hero-fade flex flex-wrap items-center gap-4 pt-2">
+          <a
+            href="#projects"
+            class="inline-flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-6 py-3 text-sm transition-all shadow-[0_0_20px_rgba(16,185,129,0.25)] hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] hover:scale-105"
+          >
+            View Projects
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
+
+          <a
+            href="#contact"
+            class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-zinc-900/80 hover:bg-zinc-800 text-white font-medium px-6 py-3 text-sm transition-all hover:border-emerald-500/40"
+          >
+            Let's Connect
+          </a>
+
+          <a
+            href="/MIcah_Kesiena_Resume.pdf"
+            download
+            aria-label="Download CV"
+            class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-transparent hover:bg-white/5 text-zinc-400 hover:text-white font-mono px-4 py-3 text-xs transition-colors"
+          >
+            <Download className="w-3.5 h-3.5 text-emerald-400" />
+            Resume
+          </a>
+        </div>
+
+        <!-- Meta tags & Location -->
+        <div class="hero-fade flex flex-wrap items-center gap-6 pt-4 text-xs font-mono text-zinc-400">
+          <div class="flex items-center gap-2 text-zinc-300">
+            <MapPin className="w-4 h-4 text-emerald-400" />
+            <span>Based in Ogun State, Nigeria</span>
+          </div>
+          <div class="hidden sm:flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+            <span>Penetration Tester</span>
+          </div>
+          <div class="hidden sm:flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span>Full-Stack Architecture</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive 3D Hero Scene -->
+      <div class="lg:col-span-5 relative flex items-center justify-center">
+        <!-- Ambient Backing Glow -->
+        <div class="absolute w-72 h-72 rounded-full bg-emerald-500/15 blur-3xl pointer-events-none -z-10"></div>
+        <div class="absolute w-60 h-60 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none -z-10"></div>
+
+        <!-- Client-only 3D Canvas Island -->
+        <div class="w-full relative z-10">
+          <HeroScene client:only="react" />
         </div>
       </div>
     </div>
 
-    <div class="hero-fade pt-6 flex flex-col items-start md:items-end">
+    <!-- Scroll Indicator -->
+    <div class="mt-16 sm:mt-24 flex flex-col items-center justify-center gap-2">
       <a
-        href="/Micah_Kesiena_Resume.pdf"
-        download
-        aria-label="Download CV"
-        class="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-700"
+        href="#about"
+        aria-label="Scroll down to About section"
+        class="group flex flex-col items-center gap-1.5 text-zinc-400 hover:text-emerald-400 transition-colors"
       >
-        <Download className="w-4 h-4" />
-        Download CV
+        <span class="text-[11px] font-mono tracking-widest uppercase">EXPLORE_SYSTEM</span>
+        <div class="w-6 h-10 rounded-full border border-zinc-700 group-hover:border-emerald-500/60 flex items-start justify-center p-1.5 transition-colors">
+          <div class="w-1 h-2 rounded-full bg-emerald-400 animate-bounce"></div>
+        </div>
       </a>
     </div>
   </div>
@@ -108,9 +127,7 @@ import { Download } from "../../components/icons/Download";
   import { gsap, ease, duration } from "../../lib/gsap";
 
   const items = gsap.utils.toArray<HTMLElement>(".hero-fade");
-  const prefersReduced = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (items.length) {
     if (prefersReduced) {
@@ -124,9 +141,9 @@ import { Download } from "../../components/icons/Download";
           y: 0,
           duration: duration.slow,
           ease: ease.smooth,
-          stagger: 0.12,
+          stagger: 0.1,
           delay: 0.1,
-        },
+        }
       );
     }
   }

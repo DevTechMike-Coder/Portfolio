@@ -3,6 +3,7 @@
 @theme {
   --font-bauhaus: "Bauhaus", sans-serif;
   --font-lora: "Lora", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
 }
 
 @font-face {
@@ -17,15 +18,101 @@
   font-display: swap;
 }
 
+:root {
+  --bg-main: #07090e;
+  --bg-surface: #0e131f;
+  --bg-surface-elevated: #141b2d;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-highlight: rgba(16, 185, 129, 0.3);
+  --accent-emerald: #10b981;
+  --accent-cyan: #06b6d4;
+  --accent-violet: #8b5cf6;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  background-color: var(--bg-main);
+  color: #f1f5f9;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: #f1f5f9;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
-h6, span, .house p {
+h6 {
   font-family: var(--font-bauhaus);
+  letter-spacing: -0.02em;
 }
 
-p, ul, li{
-    font-family: var(--font-lora)
+p, ul, li {
+  font-family: var(--font-lora);
+}
+
+.font-mono-code {
+  font-family: var(--font-mono);
+}
+
+/* Glassmorphism primitives */
+.glass-panel {
+  background: rgba(13, 18, 29, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(18, 25, 41, 0.85);
+  border-color: rgba(16, 185, 129, 0.25);
+  box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.1);
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #07090e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Subtle glow utilities */
+.glow-emerald {
+  box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+}
+
+.glow-violet {
+  box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.25);
+}
+
+/* Canvas container helper */
+.r3f-canvas-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }

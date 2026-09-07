@@ -1,68 +1,216 @@
 ---
 import { TeamUsers } from "../../components/icons/TeamUsers";
-import { Button } from "../../components/reuseComp/Button";
-import { ChevronRight } from "../../components/icons/ChevronRight";
+import { Github } from "../../components/icons/Github";
+import { Linkedin } from "../../components/icons/Linkedin";
+import { X } from "../../components/icons/X";
+import { Instagram } from "../../components/icons/Instagram";
+import { Email } from "../../components/icons/Email";
+import { ArrowUpRight } from "../../components/icons/ArrowUpRight";
 ---
 
-<section class="pt-32 pb-16 px-4 md:px-10">
-  <div class="max-w-7xl mx-auto">
-  <div class="flex items-center gap-3">
-    <TeamUsers fontSize={28} />
-    <h2 class="text-3xl md:text-4xl uppercase font-bold tracking-tight">Let's Team Up</h2>
+<section id="contact" class="pt-28 pb-20 px-4 md:px-10 max-w-7xl mx-auto">
+  <!-- Section Title -->
+  <div class="flex items-center gap-3 mb-8">
+    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+      <TeamUsers className="w-5 h-5" />
+    </div>
+    <div>
+      <span class="text-xs font-mono uppercase tracking-widest text-emerald-400">COMMUNICATION // 06</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">Initialize Contact</h2>
+    </div>
   </div>
 
-  <div id="collaborate-grid" class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-    <div class="flex flex-col justify-center gap-6 p-8 md:p-12 bg-gray-50/50 rounded-3xl border border-gray-100">
-      <div class="space-y-2">
-        <h1 class="text-4xl md:text-5xl font-bold leading-tight">Got A Project?</h1>
-        <p class="text-lg text-gray-500 max-w-md">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+    <!-- Left Column: Premium Contact Header & Quick Connects -->
+    <div class="lg:col-span-5 p-8 sm:p-10 rounded-3xl bg-zinc-900/60 border border-white/10 backdrop-blur-md flex flex-col justify-between gap-8 shadow-xl">
+      <div class="space-y-3">
+        <h3 class="text-4xl sm:text-5xl font-black text-white leading-tight">
+          Got A Project?
+        </h3>
+        <p class="text-zinc-400 text-base sm:text-lg leading-relaxed">
           Let's work together and build something truly amazing.
+        </p>
+        <p class="text-zinc-400 text-sm leading-relaxed">
+          Available for full-stack web applications, security reviews, penetration testing, and modern frontend architectures.
         </p>
       </div>
 
-      <div class="flex items-center">
-        <a
-          href="mailto:micahkesiena@gmail.com"
-          class="inline-flex items-center group"
-        >
-          <div class="flex bg-black text-white items-center gap-2 rounded-full px-1 py-1 pr-4 transition-all duration-300 hover:bg-gray-800">
-            <Button variant="ghost" className="text-white hover:text-white pointer-events-none">
-              Send A Message
-            </Button>
-            <div class="bg-white/20 p-2 rounded-full group-hover:translate-x-1 transition-transform">
-              <ChevronRight />
-            </div>
+      <div class="space-y-6">
+        <!-- Direct Email Snippet -->
+        <div class="p-4 rounded-2xl bg-zinc-950/70 border border-white/5 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <Email className="w-5 h-5" />
           </div>
-        </a>
+          <div class="flex flex-col">
+            <span class="text-[10px] font-mono uppercase text-zinc-400">DIRECT_INBOX</span>
+            <a href="mailto:micahkesiena@gmail.com" class="text-sm font-mono font-bold text-white hover:text-emerald-400 transition-colors">
+              micahkesiena@gmail.com
+            </a>
+          </div>
+        </div>
+
+        <!-- Social Channels & Buttons -->
+        <div>
+          <span class="text-xs font-mono uppercase tracking-wider text-zinc-400 block mb-3">
+            VERIFIED_CHANNELS
+          </span>
+          <div class="flex items-center gap-3">
+            <a
+              href="https://github.com/DevTechMike-Coder"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub Profile"
+              class="w-11 h-11 rounded-xl bg-zinc-950 border border-white/10 hover:border-emerald-400 text-zinc-300 hover:text-emerald-400 flex items-center justify-center transition-all hover:scale-110 shadow-sm"
+            >
+              <Github className="w-5 h-5" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/micah-kesiena-a3b424361/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn Profile"
+              class="w-11 h-11 rounded-xl bg-zinc-950 border border-white/10 hover:border-cyan-400 text-zinc-300 hover:text-cyan-400 flex items-center justify-center transition-all hover:scale-110 shadow-sm"
+            >
+              <Linkedin className="w-5 h-5" />
+            </a>
+            <a
+              href="https://x.com/DevTech_Coder23"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X (Twitter) Profile"
+              class="w-11 h-11 rounded-xl bg-zinc-950 border border-white/10 hover:border-zinc-300 text-zinc-300 hover:text-white flex items-center justify-center transition-all hover:scale-110 shadow-sm"
+            >
+              <X className="w-5 h-5" />
+            </a>
+            <a
+              href="https://www.instagram.com/micahkingfx2/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram Profile"
+              class="w-11 h-11 rounded-xl bg-zinc-950 border border-white/10 hover:border-violet-400 text-zinc-300 hover:text-violet-400 flex items-center justify-center transition-all hover:scale-110 shadow-sm"
+            >
+              <Instagram className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Action Buttons -->
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <a
+            href="https://github.com/DevTechMike-Coder"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-zinc-950 px-4 py-2 text-xs font-mono text-zinc-300 hover:text-white hover:border-emerald-500/40 transition-all"
+          >
+            <Github className="w-3.5 h-3.5 text-emerald-400" />
+            View GitHub
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/micah-kesiena-a3b424361/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-zinc-950 px-4 py-2 text-xs font-mono text-zinc-300 hover:text-cyan-300 hover:border-cyan-500/40 transition-all"
+          >
+            Connect
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </a>
+        </div>
       </div>
     </div>
 
-    <div class="bg-white border-2 border-gray-100 rounded-3xl p-8 md:p-16 flex flex-col items-center justify-center text-center gap-6">
-      <div class="flex items-center px-4 py-2 rounded-full border border-gray-200 bg-gray-50">
-        <h2 class="text-sm font-semibold uppercase tracking-wider text-gray-600">Featured Projects</h2>
+    <!-- Right Column: Interactive Contact Form Panel -->
+    <div class="lg:col-span-7 p-8 sm:p-10 rounded-3xl bg-zinc-900/40 border border-white/10 backdrop-blur-md shadow-2xl relative">
+      <div class="flex items-center justify-between border-b border-white/5 pb-4 mb-6">
+        <span class="text-xs font-mono text-zinc-400 uppercase tracking-wider">SECURE_DISPATCH_PORTAL</span>
+        <span class="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">
+          READY
+        </span>
       </div>
 
-      <div class="space-y-2">
-        <p class="text-gray-500 italic font-medium">Contributions unavailable for now</p>
-        <p class="text-xs text-gray-500 uppercase tracking-widest">Stay Tuned</p>
-      </div>
+      <form
+        id="contact-form"
+        action="mailto:micahkesiena@gmail.com"
+        method="GET"
+        enctype="text/plain"
+        class="space-y-5"
+      >
+        <div>
+          <label for="contact-name" class="block text-xs font-mono text-zinc-300 uppercase tracking-wider mb-2">
+            Your Name
+          </label>
+          <input
+            type="text"
+            id="contact-name"
+            name="name"
+            required
+            placeholder="e.g. Alex Morgan"
+            class="w-full px-4 py-3 rounded-xl bg-zinc-950/80 border border-white/10 text-white placeholder-zinc-400 text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-sans"
+          />
+        </div>
+
+        <div>
+          <label for="contact-email" class="block text-xs font-mono text-zinc-300 uppercase tracking-wider mb-2">
+            Your Email
+          </label>
+          <input
+            type="email"
+            id="contact-email"
+            name="email"
+            required
+            placeholder="alex@company.com"
+            class="w-full px-4 py-3 rounded-xl bg-zinc-950/80 border border-white/10 text-white placeholder-zinc-400 text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-sans"
+          />
+        </div>
+
+        <div>
+          <label for="contact-message" class="block text-xs font-mono text-zinc-300 uppercase tracking-wider mb-2">
+            Message
+          </label>
+          <textarea
+            id="contact-message"
+            name="body"
+            rows="4"
+            required
+            placeholder="Tell me about your project, timeline, or security review requirements..."
+            class="w-full px-4 py-3 rounded-xl bg-zinc-950/80 border border-white/10 text-white placeholder-zinc-400 text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-sans resize-none"
+          ></textarea>
+        </div>
+
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <button
+            type="submit"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-8 py-3.5 text-sm transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] cursor-pointer"
+          >
+            Send Message
+            <ArrowUpRight className="w-4 h-4" />
+          </button>
+
+          <span class="text-xs font-mono text-zinc-400">
+            Encrypted transmission • Direct response
+          </span>
+        </div>
+      </form>
     </div>
-  </div>
   </div>
 </section>
 
 <script>
-  import { revealOnScroll } from "../../lib/gsap";
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const nameInput = document.getElementById("contact-name") as HTMLInputElement;
+      const emailInput = document.getElementById("contact-email") as HTMLInputElement;
+      const messageInput = document.getElementById("contact-message") as HTMLTextAreaElement;
 
-  const grid = document.getElementById("collaborate-grid");
-  if (grid) {
-    revealOnScroll(Array.from(grid.children) as HTMLElement[], {
-      trigger: grid,
-      start: "top 82%",
-      stagger: 0.15,
-      y: 30,
-      hideOnExit: true,
+      const subject = encodeURIComponent(`Portfolio Inquiry from ${nameInput?.value || "Client"}`);
+      const body = encodeURIComponent(
+        `Name: ${nameInput?.value}\nEmail: ${emailInput?.value}\n\nMessage:\n${messageInput?.value}`
+      );
+
+      window.location.href = `mailto:micahkesiena@gmail.com?subject=${subject}&body=${body}`;
     });
   }
 </script>
-

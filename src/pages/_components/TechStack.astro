@@ -1,0 +1,85 @@
+---
+import { Layers } from "../../components/icons/Layers";
+import TechNetworkScene from "../../components/3d/TechNetworkScene";
+
+import { Typescript } from "../../components/icons/Typescript";
+import { Tailwind } from "../../components/icons/Tailwind";
+import { React as ReactIcon } from "../../components/icons/React";
+import { Prisma } from "../../components/icons/Prisma";
+import { Mongodb } from "../../components/icons/Mongodb";
+import { Nextjs } from "../../components/icons/Nextjs";
+import { Astro as AstroLogo } from "../../components/icons/Astro";
+import { Javascript } from "../../components/icons/Javascript";
+import { Nodejs } from "../../components/icons/Nodejs";
+import { Express } from "../../components/icons/Express";
+import { Postgresql } from "../../components/icons/Postgresql";
+import { RedisCloud } from "../../components/icons/RedisCloud";
+import { Git } from "../../components/icons/Git";
+import { Supabase } from "../../components/icons/Supabase";
+
+const stackList = [
+  { name: "TypeScript", icon: Typescript, category: "Language" },
+  { name: "JavaScript", icon: Javascript, category: "Language" },
+  { name: "React", icon: ReactIcon, category: "Frontend" },
+  { name: "Next.js", icon: Nextjs, category: "Full-Stack" },
+  { name: "Node.js", icon: Nodejs, category: "Backend" },
+  { name: "Tailwind CSS", icon: Tailwind, category: "Styling" },
+  { name: "Astro", icon: AstroLogo, category: "Framework" },
+  { name: "Express", icon: Express, category: "Backend" },
+  { name: "Prisma", icon: Prisma, category: "ORM" },
+  { name: "PostgreSQL", icon: Postgresql, category: "Database" },
+  { name: "MongoDB", icon: Mongodb, category: "Database" },
+  { name: "Redis", icon: RedisCloud, category: "Cache / Queue" },
+  { name: "Git", icon: Git, category: "DevOps" },
+  { name: "Supabase", icon: Supabase, category: "BaaS" },
+];
+---
+
+<section id="stack" class="pt-28 pb-16 px-4 md:px-10 max-w-7xl mx-auto">
+  <!-- Section Title -->
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+      <Layers className="w-5 h-5" />
+    </div>
+    <div>
+      <span class="text-xs font-mono uppercase tracking-widest text-cyan-400">SYS_ARCHITECTURE // 02</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">Tech Ecosystem</h2>
+    </div>
+  </div>
+
+  <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mb-8">
+    An interactive 3D topology of modern frameworks, type systems, and database engines. Hover and explore the connected nodes to inspect system architecture.
+  </p>
+
+  <!-- 3D Tech Network Canvas Container -->
+  <div class="rounded-3xl bg-zinc-900/40 border border-white/10 p-4 sm:p-8 backdrop-blur-md relative overflow-hidden shadow-2xl">
+    <div class="absolute inset-0 bg-radial from-cyan-500/5 via-transparent to-transparent pointer-events-none"></div>
+    <TechNetworkScene client:only="react" />
+  </div>
+
+  <!-- Accessible Technology Grid (Ensures Screen Readers and Quick Browsing have full access) -->
+  <div class="mt-8">
+    <div class="flex items-center justify-between mb-4">
+      <span class="text-xs font-mono uppercase tracking-wider text-zinc-400">STACK_INVENTORY</span>
+      <span class="text-xs font-mono text-zinc-400">14 MODULES LOADED</span>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3">
+      {
+        stackList.map((tech) => (
+          <div class="p-3 rounded-xl bg-zinc-900/50 border border-white/5 hover:border-emerald-500/30 hover:bg-zinc-800/60 transition-all flex flex-col items-center justify-center gap-2 group">
+            <div class="w-8 h-8 rounded-lg bg-zinc-950 flex items-center justify-center text-zinc-400 group-hover:text-emerald-400 transition-colors">
+              <tech.icon className="w-5 h-5 pointer-events-none" />
+            </div>
+            <span class="text-xs font-medium text-zinc-300 group-hover:text-white transition-colors text-center truncate w-full">
+              {tech.name}
+            </span>
+            <span class="text-[9px] font-mono text-zinc-400 uppercase">
+              {tech.category}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

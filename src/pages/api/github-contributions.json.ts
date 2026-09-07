@@ -10,7 +10,7 @@ export const GET: APIRoute = async () => {
   return new Response(JSON.stringify(data), {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "no-store",
+      "Cache-Control": "public, max-age=1800, s-maxage=3600, stale-while-revalidate=86400",
     },
   });
 };
