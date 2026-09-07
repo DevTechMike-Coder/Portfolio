@@ -71,7 +71,14 @@ export function SceneCanvas({
         frameloop={frameloop}
         camera={camera}
         dpr={Math.min(dpr, maxDpr)}
-        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
+        gl={{
+          antialias: false,
+          alpha: true,
+          // "high-performance" asks for the discrete GPU on every canvas; on mobile
+          // that exhausts the context pool and triggers "Context Lost". Default lets
+          // the browser share the integrated GPU across the page's multiple canvases.
+          powerPreference: "default",
+        }}
         style={{ width: "100%", height: "100%" }}
         fallback={<ScenePlaceholder label={placeholderLabel} unavailable />}
         data-frameloop={frameloop}
