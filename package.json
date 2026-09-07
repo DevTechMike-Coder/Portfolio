@@ -6,7 +6,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "test:scenes": "playwright test"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
@@ -32,6 +34,7 @@
   },
   "devDependencies": {
     "@astrojs/vercel": "^11.0.10",
+    "@playwright/test": "^1.63.0",
     "@types/google.maps": "^3.58.1"
   }
 }
