@@ -1,108 +1,118 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Component, useEffect, useRef, useState } from "react";
+import { ScenePlaceholder } from "./ScenePlaceholder";
+
+export interface SceneActivity {
+  isActive: boolean;
+  isReducedMotion: boolean;
+}
 
 interface LazyCanvasWrapperProps {
-  children: (props: { isReducedMotion: boolean }) => React.ReactNode;
+  children: (props: SceneActivity) => React.ReactNode;
   fallback?: React.ReactNode;
   className?: string;
-  rootMargin?: string;
+  /** Preserve a mounted canvas, but never keep an offscreen animation running. */
   persistent?: boolean;
 }
 
-export const LazyCanvasWrapper: React.FC<LazyCanvasWrapperProps> = ({
+let webGLSupport: boolean | undefined;
+
+function supportsWebGL2() {
+  if (webGLSupport !== undefined) return webGLSupport;
+
+  // Current Three.js requires WebGL2. Release this temporary context rather than
+  // leaving a capability-test context allocated for every island.
+  try {
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl2");
+    webGLSupport = Boolean(gl);
+    gl?.getExtension("WEBGL_lose_context")?.loseContext();
+  } catch {
+    webGLSupport = false;
+  }
+
+  return webGLSupport;
+}
+
+class SceneErrorBoundary extends Component<{
+  children: React.ReactNode;
+  fallback: React.ReactNode;
+}, { failed: boolean }> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children;
+  }
+}
+
+export function LazyCanvasWrapper({
   children,
-  fallback,
-  className = "w-full h-full relative",
-  rootMargin = "100px",
+  fallback = <ScenePlaceholder />,
+  className = "relative h-full w-full",
   persistent = false,
-}) => {
+}: LazyCanvasWrapperProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isInView, setIsInView] = useState(persistent);
-  const [isReducedMotion, setIsReducedMotion] = useState(false);
-  const [hasWebGL, setHasWebGL] = useState(true);
+  // SSR and the first hydration render deliberately contain only the fallback.
+  const [isInView, setIsInView] = useState(false);
+  const [hasBeenActive, setHasBeenActive] = useState(false);
+  const [isPageVisible, setIsPageVisible] = useState(false);
+  const [isReducedMotion, setIsReducedMotion] = useState(true);
+  const [hasWebGL, setHasWebGL] = useState<boolean | null>(null);
+  const isActive = isInView && isPageVisible;
 
-  // Check WebGL capability
   useEffect(() => {
-    try {
-      const canvas = document.createElement("canvas");
-      const gl =
-        canvas.getContext("webgl2") ||
-        canvas.getContext("webgl") ||
-        canvas.getContext("experimental-webgl");
-      setHasWebGL(Boolean(gl));
-    } catch {
-      setHasWebGL(false);
-    }
-  }, []);
-
-  // Check reduced motion preference
-  useEffect(() => {
-    if (typeof window === "undefined") return;
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setIsReducedMotion(mediaQuery.matches);
+    const updateMotion = () => setIsReducedMotion(mediaQuery.matches);
+    const updateVisibility = () => setIsPageVisible(!document.hidden);
 
-    const handler = (e: MediaQueryListEvent) => {
-      setIsReducedMotion(e.matches);
+    updateMotion();
+    updateVisibility();
+    mediaQuery.addEventListener("change", updateMotion);
+    document.addEventListener("visibilitychange", updateVisibility);
+    return () => {
+      mediaQuery.removeEventListener("change", updateMotion);
+      document.removeEventListener("visibilitychange", updateVisibility);
     };
-
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
-  // IntersectionObserver for strict mount/unmount lifecycle to protect WebGL contexts
   useEffect(() => {
-    if (persistent) {
-      setIsInView(true);
-      return;
-    }
-
     const element = containerRef.current;
-    if (!element || typeof IntersectionObserver === "undefined") {
+    if (!element) return;
+    if (typeof IntersectionObserver === "undefined") {
       setIsInView(true);
       return;
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // True unmount when out of view to release WebGL context
-        setIsInView(entry.isIntersecting);
-      },
-      {
-        root: null,
-        rootMargin,
-        threshold: 0.05,
-      }
-    );
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsInView(entry.isIntersecting && entry.intersectionRatio > 0);
+    }, { threshold: 0.01 });
 
+    // Always observe, including persistent canvases. Astro's client:visible may
+    // preload an island nearby; GPU work only starts in the actual viewport.
     observer.observe(element);
-    return () => {
-      observer.disconnect();
-    };
-  }, [rootMargin, persistent]);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isActive) return;
+    setHasBeenActive(true);
+    setHasWebGL(supportsWebGL2());
+  }, [isActive]);
+
+  const shouldMount = hasWebGL === true && (isActive || (persistent && hasBeenActive));
 
   return (
     <div ref={containerRef} className={className}>
-      {!hasWebGL ? (
-        fallback || (
-          <div className="w-full h-full flex items-center justify-center border border-dashed border-zinc-800 rounded-2xl bg-zinc-950/40 p-6 text-center">
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-8 h-8 rounded-full border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-mono text-xs">
-                3D
-              </div>
-              <p className="text-zinc-400 text-xs font-mono">
-                WebGL unavailable — standard view active
-              </p>
-            </div>
-          </div>
-        )
-      ) : isInView ? (
-        children({ isReducedMotion })
-      ) : (
-        fallback || (
-          <div className="w-full h-full flex items-center justify-center opacity-30">
-            <div className="w-12 h-12 rounded-full border border-emerald-500/20 animate-pulse"></div>
-          </div>
-        )
-      )}
+      {hasWebGL === false ? (
+        <ScenePlaceholder unavailable />
+      ) : shouldMount ? (
+        <SceneErrorBoundary fallback={<ScenePlaceholder unavailable />}>
+          {children({ isActive, isReducedMotion })}
+        </SceneErrorBoundary>
+      ) : fallback}
     </div>
   );
-};
+}

@@ -128,9 +128,9 @@ import SecurityCoreScene from "../../components/3d/SecurityCoreScene";
         </span>
       </div>
 
-      <!-- 3D Security Core Island (Client Only, Auto-disposes offscreen) -->
+      <!-- Hydrate near the viewport; mount the canvas only while actually visible. -->
       <div class="w-full flex items-center justify-center my-4">
-        <SecurityCoreScene client:only="react" />
+        <SecurityCoreScene client:visible={{ rootMargin: "150px" }} />
       </div>
 
       <div class="p-3.5 rounded-xl bg-zinc-950/60 border border-white/5 z-10">

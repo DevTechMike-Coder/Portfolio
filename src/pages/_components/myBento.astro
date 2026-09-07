@@ -285,7 +285,7 @@ const techStack: TechStackProps[] = [
       if (marqueeTrack) {
         marqueeTrack.style.animationPlayState = paused ? "paused" : "running";
       } else {
-        marqueeWrapper.querySelectorAll('*').forEach((el) => {
+        marqueeWrapper?.querySelectorAll('*').forEach((el) => {
           const style = window.getComputedStyle(el);
           if (style.animationName && style.animationName !== 'none') {
             (el as HTMLElement).style.animationPlayState = paused ? "paused" : "running";

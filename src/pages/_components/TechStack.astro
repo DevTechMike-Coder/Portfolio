@@ -54,7 +54,7 @@ const stackList = [
   <!-- 3D Tech Network Canvas Container -->
   <div class="rounded-3xl bg-zinc-900/40 border border-white/10 p-4 sm:p-8 backdrop-blur-md relative overflow-hidden shadow-2xl">
     <div class="absolute inset-0 bg-radial from-cyan-500/5 via-transparent to-transparent pointer-events-none"></div>
-    <TechNetworkScene client:only="react" />
+    <TechNetworkScene client:visible={{ rootMargin: "150px" }} />
   </div>
 
   <!-- Accessible Technology Grid (Ensures Screen Readers and Quick Browsing have full access) -->

@@ -30,6 +30,9 @@
 }
 
 html {
+  /* Prevent wide content from enlarging the mobile layout viewport and making
+     IntersectionObserver treat physically offscreen canvases as visible. */
+  overflow-x: clip;
   color-scheme: dark;
   scroll-behavior: smooth;
   background-color: var(--bg-main);

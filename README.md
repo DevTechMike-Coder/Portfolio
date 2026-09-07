@@ -41,6 +41,13 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
+## 3D performance checks
+
+The scenes use deferred imports, static placeholders, and visibility-aware rendering. See [the 3D performance guide](docs/3d-performance.md) for the loading policy, quality settings, and regression tests.
+
+- `npm run check` — Astro and TypeScript checks.
+- `npm run test:scenes` — browser regression tests (run `npx playwright install chromium` first).
+
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
