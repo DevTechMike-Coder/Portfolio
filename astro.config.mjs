@@ -12,7 +12,9 @@ import vercel from "@astrojs/vercel";
 export default defineConfig({
   site: "https://micahkesiena.vercel.app", // Replace this with your actual domain when deploying
   output: "server",
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: { enabled: true }
+  }),
   vite: {
     plugins: [tailwindcss()],
     server: {
