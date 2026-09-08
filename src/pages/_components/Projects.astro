@@ -279,23 +279,23 @@ const allProjectLogs = [
         ──────────────────────────────────────────────────────────────────────────
       </div>
 
-      <div class="grid grid-cols-12 gap-2 text-xs font-bold text-zinc-400 border-b border-zinc-900 pb-2">
-        <span class="col-span-2 sm:col-span-1">INDEX</span>
-        <span class="col-span-6 sm:col-span-6">PROJECT_NAME</span>
-        <span class="col-span-4 sm:col-span-3 text-right sm:text-left">STATUS</span>
-        <span class="hidden sm:inline-block sm:col-span-2 text-right">TYPE</span>
+      <div class="grid grid-cols-12 gap-2 text-xs font-bold text-zinc-400 border-b border-zinc-900 pb-2 min-w-0">
+        <span class="col-span-2 sm:col-span-1 min-w-0 truncate">INDEX</span>
+        <span class="col-span-6 sm:col-span-6 min-w-0 truncate">PROJECT_NAME</span>
+        <span class="col-span-4 sm:col-span-3 min-w-0 truncate text-right sm:text-left">STATUS</span>
+        <span class="hidden sm:inline-block sm:col-span-2 min-w-0 truncate text-right">TYPE</span>
       </div>
 
       {
         allProjectLogs.map((log) => (
-          <div class="grid grid-cols-12 gap-2 text-xs py-2 border-b border-zinc-900/80 hover:bg-zinc-900/50 px-2 rounded-lg transition-colors items-center">
-            <span class="col-span-2 sm:col-span-1 text-zinc-400">{log.id}</span>
-            <span class="col-span-6 sm:col-span-6 font-bold text-zinc-200 truncate">
+          <div class="grid grid-cols-12 gap-2 text-xs py-2 border-b border-zinc-900/80 hover:bg-zinc-900/50 px-2 rounded-lg transition-colors items-center min-w-0">
+            <span class="col-span-2 sm:col-span-1 text-zinc-400 min-w-0 truncate">{log.id}</span>
+            <span class="col-span-6 sm:col-span-6 font-bold text-zinc-200 min-w-0 truncate">
               {log.name}
             </span>
-            <span class="col-span-4 sm:col-span-3 text-right sm:text-left">
+            <span class="col-span-4 sm:col-span-3 min-w-0 text-right sm:text-left">
               <span
-                class={`px-2 py-0.5 rounded-sm text-[10px] uppercase font-bold tracking-wider ${
+                class={`inline-block max-w-full truncate align-middle px-2 py-0.5 rounded-sm text-[10px] uppercase font-bold tracking-wider ${
                   log.status === "COMPLETED"
                     ? "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20"
                     : log.status === "IN PROGRESS"
@@ -306,7 +306,7 @@ const allProjectLogs = [
                 {log.status}
               </span>
             </span>
-            <span class="hidden sm:inline-block sm:col-span-2 text-right text-zinc-400 text-[11px]">
+            <span class="hidden sm:inline-block sm:col-span-2 min-w-0 text-right text-zinc-400 text-[11px] truncate">
               {log.type}
             </span>
           </div>
