@@ -150,17 +150,17 @@ import { ArrowUpRight } from "../../components/icons/ArrowUpRight";
       return;
     }
 
-    gridEl.className = "flex gap-1 justify-start min-w-max py-2";
+    gridEl.className = "flex w-full gap-1 py-2";
     gridEl.replaceChildren();
     const fragment = document.createDocumentFragment();
 
     for (const week of weeks.slice(-44)) {
       const weekEl = document.createElement("div");
-      weekEl.className = "flex flex-col gap-1";
+      weekEl.className = "flex flex-1 flex-col gap-1";
       for (const day of week.contributionDays) {
         const dayEl = document.createElement("div");
         dayEl.className =
-          "w-[13px] h-[13px] rounded-xs cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-emerald-400 hover:scale-125 gh-day";
+          "w-full aspect-square rounded-xs cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-emerald-400 hover:scale-125 gh-day";
         dayEl.style.backgroundColor = day.color || "#161b22";
         dayEl.dataset.date = day.date;
         dayEl.dataset.count = String(day.contributionCount);
