@@ -12,6 +12,43 @@ interface LazyCanvasWrapperProps {
   className?: string;
   /** Preserve a mounted canvas, but never keep an offscreen animation running. */
   persistent?: boolean;
+  /**
+   * When to allow the heavy canvas chunk to load.
+   * - "visible" (default): as soon as the wrapper is near the viewport.
+   * - "interaction": only after the visitor's first engagement signal
+   *   (pointer, wheel, touch, keyboard, focus, or scroll) — with a fallback
+   *   timer so completely idle visitors still see the scene eventually.
+   *   Intended for above-the-fold scenes whose chunk would otherwise
+   *   download and evaluate during initial page load.
+   */
+  engageOn?: "visible" | "interaction";
+}
+
+/** Signals that count as engagement for `engageOn="interaction"`. */
+const ENGAGEMENT_EVENTS: Array<[string, AddEventListenerOptions]> = [
+  ["pointermove", { passive: true }],
+  ["pointerdown", { passive: true }],
+  ["wheel", { passive: true }],
+  ["touchstart", { passive: true }],
+  ["keydown", { passive: true }],
+  ["focusin", { passive: true }],
+  ["scroll", { passive: true, capture: true }],
+];
+
+/** Idle visitors still get the scene after this delay. */
+const ENGAGEMENT_FALLBACK_MS = 15_000;
+
+/**
+ * Opt out of the engagement gate — used by the automated scene tests, which
+ * drive the page programmatically and would otherwise race the hydration.
+ */
+function engagementForced() {
+  if (typeof window === "undefined") return false;
+  try {
+    return new URLSearchParams(window.location.search).has("engageNow");
+  } catch {
+    return false;
+  }
 }
 
 let webGLSupport: boolean | undefined;
@@ -53,6 +90,7 @@ export function LazyCanvasWrapper({
   fallback = <ScenePlaceholder />,
   className = "relative h-full w-full",
   persistent = false,
+  engageOn = "visible",
 }: LazyCanvasWrapperProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   // SSR and the first hydration render deliberately contain only the fallback.
@@ -61,7 +99,8 @@ export function LazyCanvasWrapper({
   const [isPageVisible, setIsPageVisible] = useState(false);
   const [isReducedMotion, setIsReducedMotion] = useState(true);
   const [hasWebGL, setHasWebGL] = useState<boolean | null>(null);
-  const isActive = isInView && isPageVisible;
+  const [isEngaged, setIsEngaged] = useState(engageOn === "visible" || engagementForced());
+  const isActive = isEngaged && isInView && isPageVisible;
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -77,6 +116,25 @@ export function LazyCanvasWrapper({
       document.removeEventListener("visibilitychange", updateVisibility);
     };
   }, []);
+
+  // Engagement gate: keep the heavy canvas chunk off the network (and off the
+  // main thread) until the visitor shows intent, then load it immediately.
+  useEffect(() => {
+    if (engageOn === "visible" || isEngaged) return;
+
+    const engage = () => setIsEngaged(true);
+    for (const [type, options] of ENGAGEMENT_EVENTS) {
+      window.addEventListener(type, engage, { ...options, once: true });
+    }
+    const fallbackTimer = window.setTimeout(engage, ENGAGEMENT_FALLBACK_MS);
+
+    return () => {
+      for (const [type, options] of ENGAGEMENT_EVENTS) {
+        window.removeEventListener(type, engage, options);
+      }
+      window.clearTimeout(fallbackTimer);
+    };
+  }, [engageOn, isEngaged]);
 
   useEffect(() => {
     const element = containerRef.current;

@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import type { CanvasProps } from "@react-three/fiber";
-import { PerformanceMonitor } from "@react-three/drei";
 import type { SceneActivity } from "./LazyCanvasWrapper";
 import { ScenePlaceholder } from "./ScenePlaceholder";
 
@@ -25,6 +24,100 @@ function FirstFrame({ onReady }: { onReady: () => void }) {
   return null;
 }
 
+/**
+ * Target rate for continuously animating scenes. The decorative motion does
+ * not need display-rate rendering; capping at 30 fps halves the main-thread
+ * and GPU cost — an even bigger win on 90/120 Hz displays — while remaining
+ * visually smooth for slow ambient motion.
+ */
+export const CONTINUOUS_FPS = 30;
+
+/**
+ * Drives a demand-mode canvas at a capped rate. The "always" policy is
+ * implemented as `frameloop="demand"` plus this driver: R3F only renders when
+ * invalidated, so continuous animation runs at CONTINUOUS_FPS instead of the
+ * display refresh rate.
+ */
+function FrameDriver({ fps }: { fps: number }) {
+  const invalidate = useThree((state) => state.invalidate);
+
+  useEffect(() => {
+    let raf = 0;
+    let last = 0;
+    const minInterval = 1000 / fps;
+
+    const tick = (now: number) => {
+      raf = requestAnimationFrame(tick);
+      if (now - last >= minInterval) {
+        last = now;
+        invalidate();
+      }
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [fps, invalidate]);
+
+  return null;
+}
+
+/**
+ * Minimal local replacement for drei's `PerformanceMonitor`. Watches an
+ * exponential moving average of the frame rate and reports sustained declines
+ * or recoveries a bounded number of times, so adaptive DPR cannot oscillate.
+ * Thresholds are relative to the capped frame rate so the autotuner can still
+ * recover while the driver limits fps.
+ */
+function DprAutotuner({
+  fps,
+  onDecline,
+  onIncline,
+}: {
+  fps: number;
+  onDecline: () => void;
+  onIncline: () => void;
+}) {
+  const monitor = useRef({
+    emaFps: fps,
+    slowFor: 0,
+    fastFor: 0,
+    flipflops: 0,
+    declined: false,
+  });
+
+  useFrame((_, delta) => {
+    const m = monitor.current;
+    if (m.flipflops > 3) return;
+
+    m.emaFps += (1 / Math.max(delta, 0.0001) - m.emaFps) * 0.08;
+
+    if (m.emaFps < fps * 0.72) {
+      m.slowFor += delta;
+      m.fastFor = 0;
+    } else if (m.emaFps > fps * 0.88) {
+      m.fastFor += delta;
+      m.slowFor = 0;
+    } else {
+      m.slowFor = Math.max(0, m.slowFor - delta);
+      m.fastFor = Math.max(0, m.fastFor - delta);
+    }
+
+    if (m.slowFor > 1) {
+      m.slowFor = 0;
+      m.flipflops += 1;
+      m.declined = true;
+      onDecline();
+    } else if (m.fastFor > 2 && m.declined) {
+      m.fastFor = 0;
+      m.flipflops += 1;
+      m.declined = false;
+      onIncline();
+    }
+  });
+
+  return null;
+}
+
 /** Shared render policy. Only dynamically imported canvas modules import this file. */
 export function SceneCanvas({
   children,
@@ -39,9 +132,13 @@ export function SceneCanvas({
   const [maxDpr, setMaxDpr] = useState(1);
   const isAnimating = isActive && !isReducedMotion && animate;
 
-  // Continuous animation really is continuous. Reserve demand mode for static
-  // scenes/interactions, and prevent even invalidated draws while offscreen.
-  const frameloop = !isActive ? "never" : isAnimating ? "always" : "demand";
+  // The reported policy keeps its three states ("always" = continuously
+  // animating, "demand" = redraw on interaction/state change, "never" =
+  // offscreen/hidden). The "always" state is implemented as a demand-mode
+  // canvas driven by FrameDriver at a capped rate instead of R3F's native
+  // "always", which would render at the full display refresh rate.
+  const policy = !isActive ? "never" : isAnimating ? "always" : "demand";
+  const frameloop = policy === "never" ? "never" : "demand";
 
   useEffect(() => {
     const mobile = window.matchMedia("(pointer: coarse), (max-width: 767px)");
@@ -81,15 +178,17 @@ export function SceneCanvas({
         }}
         style={{ width: "100%", height: "100%" }}
         fallback={<ScenePlaceholder label={placeholderLabel} unavailable />}
-        data-frameloop={frameloop}
+        data-frameloop={policy}
       >
-        {/* Don't interpret a paused/on-demand canvas as poor frame-rate performance. */}
+        {/* The "always" policy renders through a capped driver instead of the
+            display-rate loop. Don't interpret the capped pace as poor frame-rate
+            performance: the autotuner thresholds track the same cap. */}
+        {policy === "always" && <FrameDriver fps={CONTINUOUS_FPS} />}
         {isAnimating && (
-          <PerformanceMonitor
-            flipflops={3}
+          <DprAutotuner
+            fps={CONTINUOUS_FPS}
             onDecline={() => setDpr(1)}
             onIncline={() => setDpr(maxDpr)}
-            onFallback={() => setDpr(1)}
           />
         )}
         {!hasRenderedFrame && <FirstFrame onReady={() => setHasRenderedFrame(true)} />}

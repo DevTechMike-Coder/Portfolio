@@ -1,17 +1,18 @@
 import React, { useRef, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Float } from "@react-three/drei";
-import * as THREE from "three";
+import { AdditiveBlending, MathUtils } from "three";
+import type { Group, Mesh, Points } from "three";
 import type { SceneActivity } from "./LazyCanvasWrapper";
 import { SceneCanvas } from "./SceneCanvas";
+import { SceneFloat } from "./SceneFloat";
 
 // Central Security Cyber-Core
 const GeometricSecurityCore: React.FC<{ isReducedMotion: boolean }> = ({ isReducedMotion }) => {
-  const coreRef = useRef<THREE.Group>(null);
-  const innerMeshRef = useRef<THREE.Mesh>(null);
-  const outerWireRef = useRef<THREE.Mesh>(null);
-  const ringRef1 = useRef<THREE.Mesh>(null);
-  const ringRef2 = useRef<THREE.Mesh>(null);
+  const coreRef = useRef<Group>(null);
+  const innerMeshRef = useRef<Mesh>(null);
+  const outerWireRef = useRef<Mesh>(null);
+  const ringRef1 = useRef<Mesh>(null);
+  const ringRef2 = useRef<Mesh>(null);
   const pointer = useThree((state) => state.pointer);
 
   // Smooth mouse tilt targets
@@ -26,13 +27,13 @@ const GeometricSecurityCore: React.FC<{ isReducedMotion: boolean }> = ({ isReduc
     targetRotation.current.y = pointer.x * 0.4;
 
     if (coreRef.current) {
-      coreRef.current.rotation.x = THREE.MathUtils.damp(
+      coreRef.current.rotation.x = MathUtils.damp(
         coreRef.current.rotation.x,
         targetRotation.current.x,
         4,
         delta
       );
-      coreRef.current.rotation.y = THREE.MathUtils.damp(
+      coreRef.current.rotation.y = MathUtils.damp(
         coreRef.current.rotation.y,
         targetRotation.current.y,
         4,
@@ -110,17 +111,17 @@ const GeometricSecurityCore: React.FC<{ isReducedMotion: boolean }> = ({ isReduc
         />
       </mesh>
 
-      {/* Translucent Solid Geometric Core */}
+      {/* Translucent Solid Geometric Core. A standard material keeps the look
+          without physical transmission, which forces an extra full-scene
+          render pass every frame. */}
       <mesh ref={innerMeshRef}>
         <octahedronGeometry args={[1.0, 0]} />
-        <meshPhysicalMaterial
+        <meshStandardMaterial
           color="#042f2e"
           emissive="#064e3b"
           emissiveIntensity={0.8}
           roughness={0.1}
           metalness={0.8}
-          transmission={0.4}
-          ior={1.4}
           transparent
           opacity={0.85}
         />
@@ -140,7 +141,7 @@ const FloatingDataParticles: React.FC<{ count?: number; isReducedMotion: boolean
   count = 50,
   isReducedMotion,
 }) => {
-  const pointsRef = useRef<THREE.Points>(null);
+  const pointsRef = useRef<Points>(null);
 
   const positions = useMemo(() => {
     const pos = new Float32Array(count * 3);
@@ -177,7 +178,7 @@ const FloatingDataParticles: React.FC<{ count?: number; isReducedMotion: boolean
         transparent
         opacity={0.65}
         sizeAttenuation
-        blending={THREE.AdditiveBlending}
+        blending={AdditiveBlending}
       />
     </points>
   );
@@ -192,9 +193,9 @@ const SceneRoot: React.FC<{ isReducedMotion: boolean }> = ({ isReducedMotion }) 
       <pointLight position={[-4, -3, 2]} intensity={2.0} color="#06b6d4" distance={10} />
       <pointLight position={[3, 4, 3]} intensity={2.5} color="#10b981" distance={12} />
 
-      <Float enabled={!isReducedMotion} speed={1.4} rotationIntensity={0.3} floatIntensity={0.6}>
+      <SceneFloat enabled={!isReducedMotion} speed={1.4} rotationIntensity={0.3} floatIntensity={0.6}>
         <GeometricSecurityCore isReducedMotion={isReducedMotion} />
-      </Float>
+      </SceneFloat>
 
       <FloatingDataParticles count={50} isReducedMotion={isReducedMotion} />
     </>

@@ -109,15 +109,10 @@ const journeyMilestones = [
 </section>
 
 <script>
-  import { revealOnScroll } from "../../lib/gsap";
-  const journeyItems = document.querySelectorAll(".journey-item");
-  if (journeyItems.length) {
-    revealOnScroll(Array.from(journeyItems) as HTMLElement[], {
-      trigger: "#journey",
-      start: "top 80%",
-      stagger: 0.15,
-      y: 28,
-      hideOnExit: true,
-    });
-  }
+  import { revealOnScroll } from "../../lib/reveal";
+  revealOnScroll(document.querySelectorAll(".journey-item"), {
+    stagger: 0.15,
+    y: 28,
+    hideOnExit: true,
+  });
 </script>
