@@ -177,7 +177,13 @@ export function SceneCanvas({
           powerPreference: "default",
         }}
         style={{ width: "100%", height: "100%" }}
-        fallback={<ScenePlaceholder label={placeholderLabel} unavailable />}
+        // R3F v9 renders `fallback` as DOM children of the <canvas> element,
+        // shown only by browsers that cannot paint a canvas at all. It must
+        // not carry role="status": while WebGL works the node still sits in
+        // the accessibility tree and would falsely announce "3D unavailable".
+        // Real WebGL failures are caught by the wrapper's capability gate and
+        // SceneErrorBoundary, both rendering ScenePlaceholder with unavailable.
+        fallback={<ScenePlaceholder label={placeholderLabel} />}
         data-frameloop={policy}
       >
         {/* The "always" policy renders through a capped driver instead of the
