@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import type { ReactNode } from "react";
-import { createPortal } from "react-dom";
+import { createRoot } from "react-dom/client";
+import type { Root } from "react-dom/client";
 import { useFrame, useThree } from "@react-three/fiber";
 import { MathUtils, Vector3 } from "three";
 import type { Group, PerspectiveCamera } from "three";
@@ -25,6 +26,12 @@ const projected = new Vector3();
  * Minimal local replacement for drei's `Html` (centered, distance-scaled).
  * Renders DOM children into an overlay div that tracks a 3D anchor point,
  * without importing the drei package.
+ *
+ * IMPORTANT: the DOM content is rendered with a *separate* react-dom root.
+ * react-dom's `createPortal` cannot be returned inside the R3F tree — R3F's
+ * reconciler host config treats portal containers as three.js root stores
+ * (`container.getState().scene`), so a plain HTML element makes it throw on
+ * commit, which trips the canvas error boundary into its unavailable state.
  */
 export function HtmlLabel({ position = [0, 0, 0], distanceFactor, className, children }: HtmlLabelProps) {
   const { camera, size, gl } = useThree();
@@ -45,11 +52,28 @@ export function HtmlLabel({ position = [0, 0, 0], distanceFactor, className, chi
   }, []);
 
   const parent = gl.domElement.parentElement;
+  const domRootRef = useRef<Root | null>(null);
 
-  useEffect(() => {
-    parent?.appendChild(overlay);
-    return () => overlay.remove();
+  // Mount the independent react-dom root once the overlay is attached to the
+  // canvas wrapper; tear it down (unmount + remove node) on unmount.
+  useLayoutEffect(() => {
+    if (!parent) return;
+
+    const domRoot = createRoot(overlay);
+    domRootRef.current = domRoot;
+    parent.appendChild(overlay);
+
+    return () => {
+      domRootRef.current = null;
+      domRoot.unmount();
+      overlay.remove();
+    };
   }, [overlay, parent]);
+
+  // Keep the DOM output in sync with every R3F commit (hover styles, etc.).
+  useEffect(() => {
+    domRootRef.current?.render(<div className={className}>{children}</div>);
+  });
 
   useFrame(() => {
     const anchor = anchorRef.current;
@@ -78,10 +102,5 @@ export function HtmlLabel({ position = [0, 0, 0], distanceFactor, className, chi
     overlay.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) translate(-50%, -50%) scale(${scale.toFixed(4)})`;
   });
 
-  return (
-    <>
-      <group ref={anchorRef} position={position} />
-      {createPortal(<div className={className}>{children}</div>, overlay)}
-    </>
-  );
+  return <group ref={anchorRef} position={position} />;
 }
