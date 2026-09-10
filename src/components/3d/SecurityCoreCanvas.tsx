@@ -1,19 +1,20 @@
 import React, { useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Float } from "@react-three/drei";
-import * as THREE from "three";
+import { MathUtils } from "three";
+import type { Group, Mesh } from "three";
 import type { SceneActivity } from "./LazyCanvasWrapper";
 import { SceneCanvas } from "./SceneCanvas";
+import { SceneFloat } from "./SceneFloat";
 
 // Cryptographic Security Gimbal
 const SecurityShieldMesh: React.FC<{ isReducedMotion: boolean; isHovered: boolean }> = ({
   isReducedMotion,
   isHovered,
 }) => {
-  const groupRef = useRef<THREE.Group>(null);
-  const ring1Ref = useRef<THREE.Mesh>(null);
-  const ring2Ref = useRef<THREE.Mesh>(null);
-  const coreRef = useRef<THREE.Mesh>(null);
+  const groupRef = useRef<Group>(null);
+  const ring1Ref = useRef<Mesh>(null);
+  const ring2Ref = useRef<Mesh>(null);
+  const coreRef = useRef<Mesh>(null);
   const pointer = useThree((state) => state.pointer);
 
   useFrame((_, delta) => {
@@ -24,13 +25,13 @@ const SecurityShieldMesh: React.FC<{ isReducedMotion: boolean; isHovered: boolea
     if (groupRef.current) {
       const targetRotX = pointer.y * 0.4;
       const targetRotY = pointer.x * 0.5;
-      groupRef.current.rotation.x = THREE.MathUtils.damp(
+      groupRef.current.rotation.x = MathUtils.damp(
         groupRef.current.rotation.x,
         targetRotX,
         5,
         delta
       );
-      groupRef.current.rotation.y = THREE.MathUtils.damp(
+      groupRef.current.rotation.y = MathUtils.damp(
         groupRef.current.rotation.y,
         targetRotY,
         5,
@@ -82,7 +83,7 @@ const SecurityShieldMesh: React.FC<{ isReducedMotion: boolean; isHovered: boolea
       {/* Central Cyber Prism / Shield Emblem */}
       <mesh ref={coreRef}>
         <dodecahedronGeometry args={[0.75, 0]} />
-        <meshPhysicalMaterial
+        <meshStandardMaterial
           color="#0f172a"
           emissive={isHovered ? "#059669" : "#047857"}
           emissiveIntensity={isHovered ? 1.5 : 0.8}
@@ -126,7 +127,7 @@ const SecuritySceneRoot: React.FC<{ isReducedMotion: boolean }> = ({ isReducedMo
       <pointLight position={[-3, 2, 2]} intensity={2} color="#06b6d4" distance={8} />
       <pointLight position={[3, -2, 2]} intensity={2.5} color="#10b981" distance={8} />
 
-      <Float enabled={!isReducedMotion} speed={1.5} rotationIntensity={0.25} floatIntensity={0.5}>
+      <SceneFloat enabled={!isReducedMotion} speed={1.5} rotationIntensity={0.25} floatIntensity={0.5}>
         <group
           onPointerOver={() => {
             setIsHovered(true);
@@ -137,7 +138,7 @@ const SecuritySceneRoot: React.FC<{ isReducedMotion: boolean }> = ({ isReducedMo
         >
           <SecurityShieldMesh isReducedMotion={isReducedMotion} isHovered={isHovered} />
         </group>
-      </Float>
+      </SceneFloat>
     </>
   );
 };

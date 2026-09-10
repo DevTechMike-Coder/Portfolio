@@ -118,6 +118,14 @@ test("hero waits for idle and lower islands wait for visibility", async ({ page 
 
   const before = await page.locator(heroShell).boundingBox();
   await page.evaluate(() => (window as Window & { releaseIdle?: () => void }).releaseIdle?.());
+
+  // Idle hydration mounts only the lightweight shell. The heavy canvas chunk
+  // must not be requested until the visitor's first engagement signal.
+  await page.waitForTimeout(300);
+  await expect(page.locator(heroShell).locator("[data-scene-placeholder]")).toBeVisible();
+  expect(requests.some(is3DModule)).toBe(false);
+
+  await page.mouse.move(400, 300);
   await expectDrawing(page.locator("#home canvas"));
   const after = await page.locator(heroShell).boundingBox();
   expect(after!.height).toBe(before!.height);
@@ -126,7 +134,9 @@ test("hero waits for idle and lower islands wait for visibility", async ({ page 
 });
 
 test("persistent hero stops offscreen, in hidden tabs, and for reduced motion, then resumes", async ({ page }) => {
-  await page.goto("/");
+  // ?engageNow opts out of the engagement gate: this test drives the page
+  // programmatically and must not race real pointer events.
+  await page.goto("/?engageNow");
   const canvas = page.locator("#home canvas");
   const policy = page.locator("#home [data-frameloop]");
   await expectDrawing(canvas);
@@ -256,7 +266,7 @@ test("WebGL-unavailable browsers keep the static view without downloading 3D", a
       return Reflect.apply(getContext, this, [type, ...args]);
     } as typeof getContext;
   });
-  await page.goto("/");
+  await page.goto("/?engageNow");
   await expect(page.locator("#home").getByRole("status")).toContainText("static view active");
   await scrollToScene(page, techShell);
   await expect(page.locator("#stack").getByRole("status")).toContainText("static view active");
@@ -267,7 +277,8 @@ test("WebGL-unavailable browsers keep the static view without downloading 3D", a
 
 test("a failed 3D chunk leaves a usable static fallback", async ({ page }) => {
   await page.route("**/HeroCanvas*", (route) => route.abort());
-  await page.goto("/");
+  // ?engageNow skips the engagement gate so the aborted import actually runs.
+  await page.goto("/?engageNow");
   await expect(page.locator("#home").getByRole("status")).toContainText("static view active");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Micah");
   await expect(page.locator("#home").getByRole("link", { name: "View Projects" })).toBeVisible();

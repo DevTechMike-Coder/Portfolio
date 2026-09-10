@@ -44,134 +44,130 @@
   const spotlight = document.getElementById("spotlight");
 
   if (spotlight) {
-    // Current animated values (start at center)
-    let currentX = window.innerWidth / 2;
-    let currentY = window.innerHeight / 2;
-    // Target values
-    let targetX = currentX;
-    let targetY = currentY;
+    const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-    // Radius (adapted to device size)
-    let isMobile = window.innerWidth < 768;
-    let currentRadius = isMobile ? 220 : 320;
-    let targetRadius = currentRadius;
-
-    // Opacity values (starts at 0, transitions to ambient/active)
-    let currentOpacity = 0;
-    let targetOpacity = 0.6; // Soft ambient glow initially
-
-    let isInteracting = false;
-    let lastInteractionTime = Date.now();
-    const IDLE_TIMEOUT = 3000; // 3 seconds before initiating idle drift
-
-    // Smoothing factor (lerp)
-    const LERP_FACTOR = 0.08;
-
-    // Keep mobile state updated on resize
-    window.addEventListener("resize", () => {
-      isMobile = window.innerWidth < 768;
-    });
-
-    // Unified interactive updater
-    const updateTargetCoords = (x: number, y: number) => {
-      isInteracting = true;
-      lastInteractionTime = Date.now();
-      targetX = x;
-      targetY = y;
-      targetOpacity = 0.9; // Brighter active state
-      targetRadius = isMobile ? 260 : 380;
+    const paint = (x: number, y: number, radius: number, opacity: number) => {
+      spotlight.style.setProperty("--x", `${x.toFixed(1)}px`);
+      spotlight.style.setProperty("--y", `${y.toFixed(1)}px`);
+      spotlight.style.setProperty("--radius", `${radius.toFixed(1)}px`);
+      spotlight.style.opacity = opacity.toFixed(3);
     };
 
-    // Desktop mouse events
-    window.addEventListener("mousemove", (e) => {
-      updateTargetCoords(e.clientX, e.clientY);
-    });
+    if (!hasFinePointer) {
+      // Touch devices: no always-on animation loop. Show a static ambient glow
+      // and brighten it only while a finger is actually on the screen.
+      let touchFrame = 0;
+      let fadeTimer: ReturnType<typeof setTimeout> | undefined;
 
-    window.addEventListener("mouseleave", () => {
-      isInteracting = false;
-    });
+      const showAmbient = () => {
+        paint(window.innerWidth / 2, window.innerHeight * 0.3, 220, 0.5);
+      };
 
-    // Touch events for mobile/tablet devices
-    window.addEventListener("touchstart", (e) => {
-      if (e.touches.length > 0) {
-        updateTargetCoords(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: true });
+      const onInteraction = (event: TouchEvent) => {
+        if (event.touches.length === 0) return;
+        const touch = event.touches[0];
+        clearTimeout(fadeTimer);
+        if (touchFrame) return;
+        touchFrame = requestAnimationFrame(() => {
+          touchFrame = 0;
+          paint(touch.clientX, touch.clientY, 260, 0.85);
+        });
+      };
 
-    window.addEventListener("touchmove", (e) => {
-      if (e.touches.length > 0) {
-        updateTargetCoords(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: true });
+      window.addEventListener("touchstart", onInteraction, { passive: true });
+      window.addEventListener("touchmove", onInteraction, { passive: true });
+      window.addEventListener("touchend", () => {
+        clearTimeout(fadeTimer);
+        fadeTimer = setTimeout(showAmbient, 1200);
+      }, { passive: true });
 
-    window.addEventListener("touchend", () => {
-      isInteracting = false;
-    }, { passive: true });
+      showAmbient();
+    } else {
+      // Desktop: mouse-tracking glow with an idle drift. The loop is capped at
+      // ~30fps — plenty for a soft glow — which halves the style/paint cost.
+      let currentX = window.innerWidth / 2;
+      let currentY = window.innerHeight / 2;
+      let targetX = currentX;
+      let targetY = currentY;
 
-    window.addEventListener("touchcancel", () => {
-      isInteracting = false;
-    }, { passive: true });
+      let isMobile = window.innerWidth < 768;
+      let currentRadius = isMobile ? 220 : 320;
+      let targetRadius = currentRadius;
 
-    // requestAnimationFrame Loop
-    let animationId: number;
-    let isTabVisible = true;
+      let currentOpacity = 0;
+      let targetOpacity = 0.6;
 
-    const animate = () => {
-      if (!isTabVisible) return;
+      let isInteracting = false;
+      let lastInteractionTime = Date.now();
+      const IDLE_TIMEOUT = 3000;
+      const LERP_FACTOR = 0.08;
+      const MIN_FRAME_MS = 33;
 
-      const now = Date.now();
+      window.addEventListener("resize", () => {
+        isMobile = window.innerWidth < 768;
+      });
 
-      // Check if user has gone idle or left the viewport
-      if (!isInteracting || (now - lastInteractionTime > IDLE_TIMEOUT)) {
+      window.addEventListener("mousemove", (event) => {
+        isInteracting = true;
+        lastInteractionTime = Date.now();
+        targetX = event.clientX;
+        targetY = event.clientY;
+        targetOpacity = 0.9;
+        targetRadius = isMobile ? 260 : 380;
+      });
+
+      window.addEventListener("mouseleave", () => {
         isInteracting = false;
-        
-        // Dynamic Drift (Lissajous figure-8 curve)
-        const driftSpeed = 0.0008;
-        const time = now * driftSpeed;
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-        const rangeX = window.innerWidth * 0.25;
-        const rangeY = window.innerHeight * 0.2;
+      });
 
-        targetX = centerX + Math.cos(time) * rangeX;
-        targetY = centerY + Math.sin(time * 2) * rangeY;
+      let animationId: number;
+      let isTabVisible = true;
+      let lastFrameAt = 0;
 
-        // Soft pulse (breathing effect)
-        const baseRadius = isMobile ? 200 : 300;
-        const pulseAmplitude = isMobile ? 20 : 30;
-        targetRadius = baseRadius + Math.sin(time * 2.5) * pulseAmplitude;
-        
-        // Ambient opacity
-        targetOpacity = 0.6;
-      }
+      const animate = (now: number) => {
+        if (!isTabVisible) return;
+        animationId = requestAnimationFrame(animate);
 
-      // Linear Interpolation (lerp)
-      currentX += (targetX - currentX) * LERP_FACTOR;
-      currentY += (targetY - currentY) * LERP_FACTOR;
-      currentRadius += (targetRadius - currentRadius) * LERP_FACTOR;
-      currentOpacity += (targetOpacity - currentOpacity) * LERP_FACTOR;
+        if (now - lastFrameAt < MIN_FRAME_MS) return;
+        lastFrameAt = now;
 
-      // Apply styles
-      spotlight.style.setProperty("--x", `${currentX.toFixed(1)}px`);
-      spotlight.style.setProperty("--y", `${currentY.toFixed(1)}px`);
-      spotlight.style.setProperty("--radius", `${currentRadius.toFixed(1)}px`);
-      spotlight.style.opacity = currentOpacity.toFixed(3);
+        if (!isInteracting || Date.now() - lastInteractionTime > IDLE_TIMEOUT) {
+          isInteracting = false;
+
+          // Dynamic Drift (Lissajous figure-8 curve)
+          const time = now * 0.0008;
+          const centerX = window.innerWidth / 2;
+          const centerY = window.innerHeight / 2;
+
+          targetX = centerX + Math.cos(time) * window.innerWidth * 0.25;
+          targetY = centerY + Math.sin(time * 2) * window.innerHeight * 0.2;
+
+          const baseRadius = isMobile ? 200 : 300;
+          const pulseAmplitude = isMobile ? 20 : 30;
+          targetRadius = baseRadius + Math.sin(time * 2.5) * pulseAmplitude;
+          targetOpacity = 0.6;
+        }
+
+        currentX += (targetX - currentX) * LERP_FACTOR;
+        currentY += (targetY - currentY) * LERP_FACTOR;
+        currentRadius += (targetRadius - currentRadius) * LERP_FACTOR;
+        currentOpacity += (targetOpacity - currentOpacity) * LERP_FACTOR;
+
+        paint(currentX, currentY, currentRadius, currentOpacity);
+      };
+
+      // Pause/Resume loop on tab visibility changes to save CPU/Battery
+      document.addEventListener("visibilitychange", () => {
+        isTabVisible = !document.hidden;
+        if (isTabVisible) {
+          lastInteractionTime = Date.now(); // reset idle time
+          animationId = requestAnimationFrame(animate);
+        } else {
+          cancelAnimationFrame(animationId);
+        }
+      });
 
       animationId = requestAnimationFrame(animate);
-    };
-
-    // Pause/Resume loop on tab visibility changes to save CPU/Battery
-    document.addEventListener("visibilitychange", () => {
-      isTabVisible = !document.hidden;
-      if (isTabVisible) {
-        lastInteractionTime = Date.now(); // reset idle time
-        animate();
-      } else {
-        cancelAnimationFrame(animationId);
-      }
-    });
-
-    // Initialize animation loop
-    animate();
+    }
   }
 </script>

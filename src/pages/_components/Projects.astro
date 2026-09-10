@@ -9,7 +9,7 @@ import { Prisma } from "../../components/icons/Prisma";
 import { Postgresql } from "../../components/icons/Postgresql";
 import { Tailwind } from "../../components/icons/Tailwind";
 import { React as ReactIcon } from "../../components/icons/React";
-import { ProjectTiltCard } from "../../components/3d/ProjectTiltCard";
+import ProjectTiltCard from "../../components/3d/ProjectTiltCard.astro";
 
 // Confirmed project records with explicit verified status
 const featuredProject = {
@@ -90,7 +90,7 @@ const allProjectLogs = [
 
   <!-- FEATURED PROJECT: Larger Interactive Presentation with Browser Device Frame -->
   <div class="mb-14">
-    <ProjectTiltCard isFeatured={true} client:visible className="border border-white/15 bg-zinc-900/80 shadow-2xl backdrop-blur-xl">
+    <ProjectTiltCard isFeatured className="border border-white/15 bg-zinc-900/80 shadow-2xl backdrop-blur-xl">
       <div class="p-6 sm:p-10 flex flex-col gap-6">
         <!-- Futuristic Browser Header -->
         <div class="flex items-center justify-between border-b border-white/10 pb-4">
@@ -190,7 +190,7 @@ const allProjectLogs = [
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
     {
       secondaryProjects.map((p) => (
-        <ProjectTiltCard client:visible className="border border-white/10 bg-zinc-900/60 shadow-xl backdrop-blur-md">
+        <ProjectTiltCard className="border border-white/10 bg-zinc-900/60 shadow-xl backdrop-blur-md">
           <div class="p-6 sm:p-7 flex flex-col justify-between h-full gap-5">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
