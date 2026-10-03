@@ -118,6 +118,14 @@ test("hero waits for idle and lower islands wait for visibility", async ({ page 
 
   const before = await page.locator(heroShell).boundingBox();
   await page.evaluate(() => (window as Window & { releaseIdle?: () => void }).releaseIdle?.());
+
+  // Idle hydration mounts only the lightweight shell. The heavy canvas chunk
+  // must not be requested until the visitor's first engagement signal.
+  await page.waitForTimeout(300);
+  await expect(page.locator(heroShell).locator("[data-scene-placeholder]")).toBeVisible();
+  expect(requests.some(is3DModule)).toBe(false);
+
+  await page.mouse.move(400, 300);
   await expectDrawing(page.locator("#home canvas"));
   const after = await page.locator(heroShell).boundingBox();
   expect(after!.height).toBe(before!.height);
@@ -126,7 +134,9 @@ test("hero waits for idle and lower islands wait for visibility", async ({ page 
 });
 
 test("persistent hero stops offscreen, in hidden tabs, and for reduced motion, then resumes", async ({ page }) => {
-  await page.goto("/");
+  // ?engageNow opts out of the engagement gate: this test drives the page
+  // programmatically and must not race real pointer events.
+  await page.goto("/?engageNow");
   const canvas = page.locator("#home canvas");
   const policy = page.locator("#home [data-frameloop]");
   await expectDrawing(canvas);
@@ -256,7 +266,7 @@ test("WebGL-unavailable browsers keep the static view without downloading 3D", a
       return Reflect.apply(getContext, this, [type, ...args]);
     } as typeof getContext;
   });
-  await page.goto("/");
+  await page.goto("/?engageNow");
   await expect(page.locator("#home").getByRole("status")).toContainText("static view active");
   await scrollToScene(page, techShell);
   await expect(page.locator("#stack").getByRole("status")).toContainText("static view active");
@@ -267,9 +277,59 @@ test("WebGL-unavailable browsers keep the static view without downloading 3D", a
 
 test("a failed 3D chunk leaves a usable static fallback", async ({ page }) => {
   await page.route("**/HeroCanvas*", (route) => route.abort());
-  await page.goto("/");
+  // ?engageNow skips the engagement gate so the aborted import actually runs.
+  await page.goto("/?engageNow");
   await expect(page.locator("#home").getByRole("status")).toContainText("static view active");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Micah");
   await expect(page.locator("#home").getByRole("link", { name: "View Projects" })).toBeVisible();
   await expect(page.locator("#home canvas")).toHaveCount(0);
 });
+
+for (const width of [1440, 390]) {
+  test(`contribution tooltip stays compact and dismisses correctly at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.route("**/api/github-contributions.json", (route) => route.fulfill({
+      json: {
+        totalContributions: 44,
+        weeks: Array.from({ length: 44 }, () => ({
+          contributionDays: [
+            { date: "2026-09-09", contributionCount: 1, color: "#0e4429" },
+            { date: "2026-09-10", contributionCount: 0, color: "#161b22" },
+          ],
+        })),
+      },
+    }));
+    await page.goto("/");
+    const grid = page.locator("#gh-grid");
+    const tooltip = page.getByRole("tooltip");
+    await expect(grid.locator(".gh-day")).toHaveCount(88);
+    await grid.evaluate((element) => element.scrollIntoView({ behavior: "instant", block: "center" }));
+
+    for (const index of [0, 86]) {
+      const day = grid.locator(".gh-day").nth(index);
+      const box = (await day.boundingBox())!;
+      const x = box.x + box.width / 2;
+      const y = box.y + box.height / 2;
+      // Mouseover alone must position it; don't let mousemove mask the bug.
+      await day.dispatchEvent("mouseover", { clientX: x, clientY: y });
+      await expect(tooltip).toHaveText("1 contribution on Sep 9, 2026");
+      const tip = (await tooltip.boundingBox())!;
+      expect(tip.width).toBeLessThan(300);
+      expect(tip.x).toBeGreaterThanOrEqual(12);
+      expect(tip.x + tip.width).toBeLessThanOrEqual(width - 12);
+      expect(tip.y).toBeGreaterThanOrEqual(12);
+      expect(tip.y + tip.height).toBeLessThan(y);
+    }
+
+    await grid.dispatchEvent("mousemove", { clientX: 100, clientY: 400 });
+    await expect(tooltip).toBeHidden();
+    const day = grid.locator(".gh-day").nth(1);
+    await day.dispatchEvent("mouseover", { clientX: 100, clientY: 400 });
+    await expect(tooltip).toHaveText("No contributions on Sep 10, 2026");
+    await grid.locator("..").dispatchEvent("scroll");
+    await expect(tooltip).toBeHidden();
+    await day.dispatchEvent("mouseover", { clientX: 100, clientY: 400 });
+    await grid.dispatchEvent("mouseleave");
+    await expect(tooltip).toBeHidden();
+  });
+}

@@ -66,7 +66,7 @@ import HeroScene from "../../components/3d/HeroScene";
           </a>
 
           <a
-            href="/MIcah_Kesiena_Resume.pdf"
+            href="/Micah_Kesiena_Resume.pdf"
             download
             aria-label="Download CV"
             class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-transparent hover:bg-white/5 text-zinc-400 hover:text-white font-mono px-4 py-3 text-xs transition-colors"
@@ -101,7 +101,7 @@ import HeroScene from "../../components/3d/HeroScene";
 
         <!-- Static first, then hydrate the lightweight 3D shell when the browser is idle. -->
         <div class="w-full relative z-10">
-          <HeroScene client:idle={{ timeout: 2000 }} />
+          <HeroScene client:idle />
         </div>
       </div>
     </div>
@@ -123,27 +123,10 @@ import HeroScene from "../../components/3d/HeroScene";
 </section>
 
 <script>
-  import { gsap, ease, duration } from "../../lib/gsap";
+  import { revealOnLoad } from "../../lib/reveal";
 
-  const items = gsap.utils.toArray<HTMLElement>(".hero-fade");
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (items.length) {
-    if (prefersReduced) {
-      gsap.set(items, { opacity: 1, y: 0 });
-    } else {
-      gsap.fromTo(
-        items,
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: duration.slow,
-          ease: ease.smooth,
-          stagger: 0.1,
-          delay: 0.1,
-        }
-      );
-    }
-  }
+  revealOnLoad(document.querySelectorAll(".hero-fade"), {
+    stagger: 0.1,
+    y: 24,
+  });
 </script>

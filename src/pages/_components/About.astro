@@ -162,15 +162,10 @@ import SecurityCoreScene from "../../components/3d/SecurityCoreScene";
 </script>
 
 <script>
-  import { revealOnScroll } from "../../lib/gsap";
-  const aboutCards = document.querySelectorAll(".about-card");
-  if (aboutCards.length) {
-    revealOnScroll(Array.from(aboutCards) as HTMLElement[], {
-      trigger: "#about",
-      start: "top 80%",
-      stagger: 0.12,
-      y: 24,
-      hideOnExit: true,
-    });
-  }
+  import { revealOnScroll } from "../../lib/reveal";
+  revealOnScroll(document.querySelectorAll(".about-card"), {
+    stagger: 0.12,
+    y: 24,
+    hideOnExit: true,
+  });
 </script>

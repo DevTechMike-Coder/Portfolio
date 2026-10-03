@@ -18,6 +18,35 @@
   font-display: swap;
 }
 
+/* Scroll/load reveal — paired with src/lib/reveal.ts. The JS only toggles
+   classes; the animation itself is a compositor-friendly CSS transition. */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 28px));
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+}
+
+.reveal-item.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-item.reveal-static {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 :root {
   --bg-main: #07090e;
   --bg-surface: #0e131f;

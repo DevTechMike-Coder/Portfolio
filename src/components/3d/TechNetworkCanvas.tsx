@@ -1,9 +1,12 @@
 import React, { useRef, useState, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Float, OrbitControls, Html } from "@react-three/drei";
-import * as THREE from "three";
+import { MathUtils } from "three";
+import type { Group } from "three";
 import type { SceneActivity } from "./LazyCanvasWrapper";
 import { SceneCanvas } from "./SceneCanvas";
+import { SceneFloat } from "./SceneFloat";
+import { DragOrbit } from "./DragOrbit";
+import { HtmlLabel } from "./HtmlLabel";
 import { TECH_ITEMS } from "./techItems";
 import type { TechItem } from "./techItems";
 
@@ -15,7 +18,7 @@ const TechNode: React.FC<{
   onHover: (id: string | null) => void;
   isReducedMotion: boolean;
 }> = ({ tech, position, isHovered, onHover, isReducedMotion }) => {
-  const meshRef = useRef<THREE.Group>(null);
+  const meshRef = useRef<Group>(null);
   const { invalidate } = useThree();
 
   useFrame((_, delta) => {
@@ -28,7 +31,7 @@ const TechNode: React.FC<{
       return;
     }
 
-    meshRef.current.position.z = THREE.MathUtils.damp(
+    meshRef.current.position.z = MathUtils.damp(
       meshRef.current.position.z,
       targetZ,
       6,
@@ -78,9 +81,8 @@ const TechNode: React.FC<{
       )}
 
       {/* Compact Monospace Label */}
-      <Html
+      <HtmlLabel
         position={[0, -0.45, 0]}
-        center
         distanceFactor={9}
         className="pointer-events-none select-none transition-transform duration-200"
       >
@@ -94,7 +96,7 @@ const TechNode: React.FC<{
         >
           {tech.name}
         </div>
-      </Html>
+      </HtmlLabel>
     </group>
   );
 };
@@ -180,65 +182,63 @@ export default function TechNetworkCanvas({
       <pointLight position={[5, 5, 5]} intensity={2} color="#06b6d4" />
       <pointLight position={[-5, -5, -5]} intensity={1.5} color="#8b5cf6" />
 
-      {/* OrbitControls for user exploration */}
-      <OrbitControls
+      {/* Drag-to-orbit controls for user exploration (rotate-only by design) */}
+      <DragOrbit
         enabled={isActive}
         enableDamping={!isReducedMotion}
-        enableZoom={false}
-        enablePan={false}
         autoRotate={isActive && !isReducedMotion && hoveredId === null}
         autoRotateSpeed={0.8}
         rotateSpeed={0.6}
         dampingFactor={0.05}
-      />
-
-      <Float
-        enabled={isActive && !isReducedMotion && hoveredId === null}
-        speed={1}
-        rotationIntensity={0.2}
-        floatIntensity={0.3}
       >
-        {/* Central Core: "MY STACK" */}
-        <group position={[0, 0, 0]}>
-          <mesh>
-            <icosahedronGeometry args={[0.85, 1]} />
-            <meshStandardMaterial
-              color="#042f2e"
-              emissive="#10b981"
-              emissiveIntensity={0.6}
-              roughness={0.3}
-              wireframe={false}
-            />
-          </mesh>
-          <mesh>
-            <icosahedronGeometry args={[0.95, 0]} />
-            <meshBasicMaterial color="#34d399" wireframe transparent opacity={0.4} />
-          </mesh>
-          <Html center distanceFactor={8} className="pointer-events-none select-none">
-            <div className="bg-zinc-950/90 text-emerald-400 font-mono text-[10px] font-bold tracking-widest px-2.5 py-1 rounded-full border border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.3)] whitespace-nowrap">
-              MY_STACK
-            </div>
-          </Html>
-        </group>
+        <SceneFloat
+          enabled={isActive && !isReducedMotion && hoveredId === null}
+          speed={1}
+          rotationIntensity={0.2}
+          floatIntensity={0.3}
+        >
+          {/* Central Core: "MY STACK" */}
+          <group position={[0, 0, 0]}>
+            <mesh>
+              <icosahedronGeometry args={[0.85, 1]} />
+              <meshStandardMaterial
+                color="#042f2e"
+                emissive="#10b981"
+                emissiveIntensity={0.6}
+                roughness={0.3}
+                wireframe={false}
+              />
+            </mesh>
+            <mesh>
+              <icosahedronGeometry args={[0.95, 0]} />
+              <meshBasicMaterial color="#34d399" wireframe transparent opacity={0.4} />
+            </mesh>
+            <HtmlLabel distanceFactor={8} className="pointer-events-none select-none">
+              <div className="bg-zinc-950/90 text-emerald-400 font-mono text-[10px] font-bold tracking-widest px-2.5 py-1 rounded-full border border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.3)] whitespace-nowrap">
+                MY_STACK
+              </div>
+            </HtmlLabel>
+          </group>
 
-        {/* Network Connection Lines */}
-        <NetworkLines
-          nodePositions={nodePositions}
-          hoveredIndex={hoveredIndex !== -1 ? hoveredIndex : null}
-        />
-
-        {/* Orbiting Technology Nodes */}
-        {TECH_ITEMS.map((tech, index) => (
-          <TechNode
-            key={tech.id}
-            tech={tech}
-            position={nodePositions[index]}
-            isHovered={hoveredId === tech.id}
-            onHover={handleHover}
-            isReducedMotion={isReducedMotion}
+          {/* Network Connection Lines */}
+          <NetworkLines
+            nodePositions={nodePositions}
+            hoveredIndex={hoveredIndex !== -1 ? hoveredIndex : null}
           />
-        ))}
-      </Float>
+
+          {/* Orbiting Technology Nodes */}
+          {TECH_ITEMS.map((tech, index) => (
+            <TechNode
+              key={tech.id}
+              tech={tech}
+              position={nodePositions[index]}
+              isHovered={hoveredId === tech.id}
+              onHover={handleHover}
+              isReducedMotion={isReducedMotion}
+            />
+          ))}
+        </SceneFloat>
+      </DragOrbit>
     </SceneCanvas>
   );
 }

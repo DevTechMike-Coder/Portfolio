@@ -56,6 +56,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://micahkes
     <!-- Performance & Preconnects -->
     <meta name="theme-color" content="#07090e" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="preload" href="/fonts/baumans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/lora-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json" is:inline>
