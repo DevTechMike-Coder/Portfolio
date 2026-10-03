@@ -37,21 +37,21 @@ const secondaryProjects = [
   },
   {
     id: "03",
+    title: "Doctor Appointment Service",
+    description:
+      "A doctor appointment booking platform: Next.js frontend on top of a Spring Boot REST API with JWT authentication, bucket4j rate limiting, and Flyway-managed PostgreSQL migrations.",
+    status: "COMPLETED",
+    tech: ["Next.js", "Spring Boot", "Java", "PostgreSQL", "JWT"],
+    liveUrl: "https://doctor-appointment-service-frontend.vercel.app/", // TODO: Vercel frontend URL
+    githubUrl: "https://github.com/DevTechMike-Coder/DoctorAppointmentService_Frontend/", // TODO: repo URL
+  },
+  {
+    id: "04",
     title: "DevSec Scanner CLI",
     description:
       "A security command-line tool that inspects network services for open ports and vulnerable configurations, generating actionable hardening reports.",
     status: "IN PROGRESS",
     tech: ["Python", "Network Protocols", "Security Analysis"],
-    liveUrl: null,
-    githubUrl: null,
-  },
-  {
-    id: "04",
-    title: "Auth Vault",
-    description:
-      "A hardened authentication microservice extracted from Vertex Canvas: HMAC-signed session tokens, route guarding, and Redis rate-limiting out of the box.",
-    status: "PLANNED",
-    tech: ["Node.js", "Redis", "Security Middleware"],
     liveUrl: null,
     githubUrl: null,
   },
@@ -70,8 +70,8 @@ const secondaryProjects = [
 const allProjectLogs = [
   { id: "01", name: "VERTEX CANVAS", status: "COMPLETED", type: "Full-Stack Web App" },
   { id: "02", name: "NEXT HUB ECOMMERCE", status: "COMPLETED", type: "Full-Stack Web App" },
-  { id: "03", name: "DEVSEC SCANNER CLI", status: "IN PROGRESS", type: "Security CLI Tool" },
-  { id: "04", name: "AUTH VAULT", status: "PLANNED", type: "Security Microservice" },
+  { id: "03", name: "DOCTOR APPOINTMENT SERVICE", status: "COMPLETED", type: "Full-Stack Web App" },
+  { id: "04", name: "DEVSEC SCANNER CLI", status: "IN PROGRESS", type: "Security CLI Tool" },
   { id: "05", name: "ASTRO BLOG ENGINE", status: "IN PROGRESS", type: "Web Architecture" },
 ];
 ---
