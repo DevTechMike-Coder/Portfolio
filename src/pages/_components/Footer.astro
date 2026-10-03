@@ -1,9 +1,4 @@
 ---
-import { Github } from "../../components/icons/Github";
-import { Linkedin } from "../../components/icons/Linkedin";
-import { X } from "../../components/icons/X";
-import { Instagram } from "../../components/icons/Instagram";
-
 const currentYear = new Date().getFullYear();
 ---
 
@@ -47,44 +42,33 @@ const currentYear = new Date().getFullYear();
       <span class="text-emerald-400">ASTRO_ISLANDS: OK</span>
     </div>
 
-    <!-- Right Section: Social Links -->
-    <div class="flex items-center gap-3">
-      <a
-        href="https://github.com/DevTechMike-Coder"
-        aria-label="GitHub"
-        class="w-10 h-10 flex items-center justify-center rounded-xl border border-white/10 bg-zinc-900/80 hover:bg-zinc-800 hover:border-emerald-400 text-zinc-400 hover:text-emerald-400 transition-all shadow-sm"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Github className="w-4 h-4" />
-      </a>
-      <a
-        href="https://www.linkedin.com/in/micah-kesiena-a3b424361/"
-        aria-label="LinkedIn"
-        class="w-10 h-10 flex items-center justify-center rounded-xl border border-white/10 bg-zinc-900/80 hover:bg-zinc-800 hover:border-cyan-400 text-zinc-400 hover:text-cyan-400 transition-all shadow-sm"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Linkedin className="w-4 h-4" />
-      </a>
-      <a
-        href="https://x.com/DevTech_Coder23"
-        aria-label="X"
-        class="w-10 h-10 flex items-center justify-center rounded-xl border border-white/10 bg-zinc-900/80 hover:bg-zinc-800 hover:border-zinc-300 text-zinc-400 hover:text-white transition-all shadow-sm"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <X className="w-4 h-4" />
-      </a>
-      <a
-        href="https://www.instagram.com/micahkingfx2/"
-        aria-label="Instagram"
-        class="w-10 h-10 flex items-center justify-center rounded-xl border border-white/10 bg-zinc-900/80 hover:bg-zinc-800 hover:border-violet-400 text-zinc-400 hover:text-violet-400 transition-all shadow-sm"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Instagram className="w-4 h-4" />
-      </a>
+    <!-- Right Section: Navigation Directory & Security Telemetry -->
+    <div class="flex flex-col items-center md:items-end gap-3">
+      <nav aria-label="Footer navigation" class="flex flex-wrap items-center justify-center md:justify-end gap-x-5 gap-y-2 text-xs font-mono">
+        <a href="/#home" class="text-zinc-400 hover:text-white transition-colors">
+          Home
+        </a>
+        <a href="/#about" class="text-zinc-400 hover:text-white transition-colors">
+          About
+        </a>
+        <a href="/#stack" class="text-zinc-400 hover:text-white transition-colors">
+          Stack
+        </a>
+        <a href="/projects" class="text-emerald-400 hover:text-emerald-300 font-semibold transition-colors flex items-center gap-1">
+          Projects <span class="text-[10px]">↗</span>
+        </a>
+        <a href="/#contact" class="text-zinc-400 hover:text-white transition-colors">
+          Contact
+        </a>
+      </nav>
+
+      <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/80 border border-white/10 text-[11px] font-mono text-zinc-400">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        <span class="text-zinc-400">SEC_ID:</span>
+        <span class="text-zinc-200 tracking-wider">0x4D69636168</span>
+        <span class="text-zinc-600">|</span>
+        <span class="text-emerald-400">VERIFIED</span>
+      </div>
     </div>
   </div>
 </footer>

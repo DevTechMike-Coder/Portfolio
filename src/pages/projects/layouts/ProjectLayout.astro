@@ -1,21 +1,26 @@
 ---
 import "../../../styles/global.css";
 import BackToTop from "../../../components/uicomp/BackToTop.astro";
+import Footer from "../../_components/Footer.astro";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
-    <meta name="description" content="Portfolio of Micah Kingsley">
+    <meta name="description" content="Projects by Micah Kesiena - Security Focused Full Stack Developer" />
+    <meta name="theme-color" content="#07090e" />
     <meta name="generator" content={Astro.generator} />
-    <title>Micah's Projects</title>
+    <title>Projects Archive | Micah Kesiena</title>
   </head>
-  <body>
-    <slot />
+  <body class="bg-[#07090e] text-slate-100 antialiased selection:bg-emerald-500/30 selection:text-emerald-300 min-h-screen flex flex-col justify-between">
+    <div class="relative z-10 flex-1">
+      <slot />
+    </div>
+    <Footer />
     <BackToTop />
   </body>
 </html>
@@ -25,6 +30,7 @@ import BackToTop from "../../../components/uicomp/BackToTop.astro";
   body {
     margin: 0;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
+    background-color: #07090e;
   }
 </style>

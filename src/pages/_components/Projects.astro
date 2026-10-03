@@ -78,14 +78,24 @@ const allProjectLogs = [
 
 <section id="projects" class="pt-28 pb-16 px-4 md:px-10 max-w-7xl mx-auto">
   <!-- Section Title -->
-  <div class="flex items-center gap-3 mb-8">
-    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-      <Briefcase className="w-5 h-5" />
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+        <Briefcase className="w-5 h-5" />
+      </div>
+      <div>
+        <span class="text-xs font-mono uppercase tracking-widest text-emerald-400">DEPLOYMENTS // 04</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">Featured Projects</h2>
+      </div>
     </div>
-    <div>
-      <span class="text-xs font-mono uppercase tracking-widest text-emerald-400">DEPLOYMENTS // 04</span>
-      <h2 class="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">Featured Projects</h2>
-    </div>
+
+    <a
+      href="/projects"
+      class="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 hover:text-white text-xs font-mono font-medium tracking-wider transition-all duration-300 shadow-[0_0_15px_rgba(16,185,129,0.1)] hover:shadow-[0_0_20px_rgba(16,185,129,0.25)] w-fit"
+    >
+      <span>Explore All Projects</span>
+      <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-emerald-400" />
+    </a>
   </div>
 
   <!-- FEATURED PROJECT: Larger Interactive Presentation with Browser Device Frame -->
@@ -318,5 +328,25 @@ const allProjectLogs = [
         <span class="text-emerald-400 animate-pulse">■</span>
       </div>
     </div>
+  </div>
+
+  <!-- Explore All Projects CTA Banner -->
+  <div class="mt-8 p-6 sm:p-7 rounded-3xl bg-zinc-900/60 border border-white/10 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-5 shadow-xl">
+    <div class="flex items-center gap-4">
+      <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+        <Briefcase className="w-6 h-6" />
+      </div>
+      <div>
+        <h4 class="text-base sm:text-lg font-bold text-white uppercase tracking-tight">Looking for the full deployment archive?</h4>
+        <p class="text-xs sm:text-sm text-zinc-400 font-mono mt-0.5">Explore all live applications, source repositories, and experimental builds in the projects directory.</p>
+      </div>
+    </div>
+    <a
+      href="/projects"
+      class="shrink-0 inline-flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-mono font-bold px-6 py-3 text-xs tracking-wider uppercase transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)]"
+    >
+      Explore All Projects
+      <ArrowUpRight className="w-4 h-4" />
+    </a>
   </div>
 </section>
