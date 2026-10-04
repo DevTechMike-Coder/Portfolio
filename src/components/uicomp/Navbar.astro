@@ -1,5 +1,6 @@
 ---
 import { Download } from "../icons/Download";
+import { Github } from "../icons/Github";
 ---
 
 <header
@@ -73,23 +74,28 @@ import { Download } from "../icons/Download";
       </a>
     </nav>
 
-    <!-- Desktop Action -->
-    <div class="hidden md:flex items-center gap-3">
+    <!-- Desktop Actions -->
+    <div class="hidden md:flex items-center gap-2.5">
+      <a
+        href="https://github.com/DevTechMike-Coder"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-magnetic
+        aria-label="GitHub Profile (@DevTechMike-Coder)"
+        class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/10 bg-zinc-900/80 text-zinc-400 hover:text-white hover:bg-zinc-800 hover:border-emerald-500/40 transition-all shadow-sm"
+      >
+        <Github className="w-4 h-4" />
+      </a>
+
       <a
         href="/Micah_Kesiena_Resume.pdf"
         download
+        data-magnetic
         aria-label="Download CV"
         class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-zinc-900/80 px-4 py-2 text-xs font-medium text-zinc-200 transition-all hover:bg-zinc-800 hover:border-emerald-500/40 hover:text-emerald-300 shadow-sm"
       >
         <Download className="w-3.5 h-3.5 text-emerald-400" />
         Resume
-      </a>
-      <a
-        href="#contact"
-        class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 px-4 py-2 text-xs font-medium text-emerald-300 transition-all hover:bg-emerald-500/20 hover:border-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.15)]"
-      >
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-        Connect
       </a>
     </div>
 
