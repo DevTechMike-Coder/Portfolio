@@ -7,75 +7,75 @@ import { Github } from "../icons/Github";
   id="main-navbar"
   class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-4 sm:px-8 border-b border-transparent"
 >
-  <div class="max-w-7xl mx-auto flex items-center justify-between">
+  <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
     <!-- Brand -->
     <a
       href="#home"
       aria-label="Micah Kesiena Home"
-      class="group flex items-center gap-3 text-white transition-opacity hover:opacity-90"
+      class="group flex items-center gap-3 text-white transition-opacity hover:opacity-90 shrink-0"
     >
       <div
-        class="w-9 h-9 rounded-xl bg-linear-to-br from-emerald-500/20 to-cyan-500/10 border border-emerald-500/30 flex items-center justify-center font-mono font-bold text-sm text-emerald-400 group-hover:border-emerald-400 transition-colors shadow-[0_0_15px_rgba(16,185,129,0.15)]"
+        class="w-9 h-9 rounded-xl bg-linear-to-br from-emerald-500/20 to-cyan-500/10 border border-emerald-500/30 flex items-center justify-center font-mono font-bold text-sm text-emerald-400 group-hover:border-emerald-400 transition-colors shadow-[0_0_15px_rgba(16,185,129,0.15)] shrink-0"
       >
         MK
       </div>
       <div class="flex flex-col">
-        <span class="font-bold text-sm tracking-wide text-white flex items-center gap-1.5">
+        <span class="font-bold text-sm tracking-wide text-white flex items-center gap-1.5 whitespace-nowrap">
           MICAH KESIENA
           <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
         </span>
-        <span class="text-[10px] font-mono text-zinc-400 tracking-wider">SEC_DEV // FULLSTACK</span>
+        <span class="text-[10px] font-mono text-zinc-400 tracking-wider hidden sm:block">SEC_DEV // FULLSTACK</span>
       </div>
     </a>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden md:flex items-center gap-1 bg-zinc-900/60 backdrop-blur-md border border-white/10 rounded-full px-4 py-1.5 shadow-lg shadow-black/40">
+    <nav class="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-zinc-900/60 backdrop-blur-md border border-white/10 rounded-full px-3 xl:px-4 py-1.5 shadow-lg shadow-black/40 shrink-0">
       <a
         href="#home"
-        class="px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5"
+        class="px-2.5 xl:px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5 whitespace-nowrap"
       >
         Home
       </a>
       <a
         href="#about"
-        class="px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5"
+        class="px-2.5 xl:px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5 whitespace-nowrap"
       >
         About
       </a>
       <a
         href="#stack"
-        class="px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5"
+        class="px-2.5 xl:px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5 whitespace-nowrap"
       >
         Stack
       </a>
       <a
         href="#projects"
-        class="px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5"
+        class="px-2.5 xl:px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5 whitespace-nowrap"
       >
         Projects
       </a>
       <a
         href="#client-work"
-        class="px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5"
+        class="px-2.5 xl:px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5 whitespace-nowrap"
       >
         Client Work
       </a>
       <a
         href="#journey"
-        class="px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5"
+        class="px-2.5 xl:px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5 whitespace-nowrap"
       >
         Journey
       </a>
       <a
         href="#contact"
-        class="px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5"
+        class="px-2.5 xl:px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/5 whitespace-nowrap"
       >
         Contact
       </a>
     </nav>
 
     <!-- Desktop Actions -->
-    <div class="hidden md:flex items-center gap-2.5">
+    <div class="hidden lg:flex items-center gap-2.5 shrink-0">
       <a
         href="https://github.com/DevTechMike-Coder"
         target="_blank"
@@ -92,7 +92,7 @@ import { Github } from "../icons/Github";
         download
         data-magnetic
         aria-label="Download CV"
-        class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-zinc-900/80 px-4 py-2 text-xs font-medium text-zinc-200 transition-all hover:bg-zinc-800 hover:border-emerald-500/40 hover:text-emerald-300 shadow-sm"
+        class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-zinc-900/80 px-4 py-2 text-xs font-medium text-zinc-200 transition-all hover:bg-zinc-800 hover:border-emerald-500/40 hover:text-emerald-300 shadow-sm whitespace-nowrap"
       >
         <Download className="w-3.5 h-3.5 text-emerald-400" />
         Resume
@@ -105,7 +105,7 @@ import { Github } from "../icons/Github";
       type="button"
       aria-label="Toggle navigation menu"
       aria-expanded="false"
-      class="md:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-zinc-900/80 border border-white/10 text-zinc-300 hover:text-white focus:outline-none"
+      class="lg:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-zinc-900/80 border border-white/10 text-zinc-300 hover:text-white focus:outline-none"
     >
       <svg id="hamburger-icon" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -119,7 +119,7 @@ import { Github } from "../icons/Github";
   <!-- Mobile Dropdown Menu -->
   <div
     id="mobile-menu"
-    class="hidden md:hidden mt-3 mx-auto max-w-7xl rounded-2xl bg-zinc-950/95 backdrop-blur-xl border border-white/10 p-5 shadow-2xl transition-all duration-300"
+    class="hidden lg:hidden mt-3 mx-auto max-w-7xl rounded-2xl bg-zinc-950/95 backdrop-blur-xl border border-white/10 p-5 shadow-2xl transition-all duration-300"
   >
     <div class="flex flex-col gap-3">
       <a

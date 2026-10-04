@@ -1,73 +1,87 @@
 ---
 const currentYear = new Date().getFullYear();
+
+const navLinks = [
+  { label: "Home", href: "/#home" },
+  { label: "About", href: "/#about" },
+  { label: "Stack", href: "/#stack" },
+  { label: "Projects", href: "/projects", isSpecial: true },
+  { label: "Client Work", href: "/#client-work" },
+  { label: "Journey", href: "/#journey" },
+  { label: "Contact", href: "/#contact" },
+];
 ---
 
 <footer class="w-full border-t border-white/10 bg-zinc-950/80 backdrop-blur-xl mt-20 relative z-10">
-  <div
-    id="footer-content"
-    class="max-w-7xl mx-auto px-4 md:px-10 py-12 flex flex-col md:flex-row items-center justify-between gap-8"
-  >
-    <!-- Left Section: Monogram, Identity, Copyright, Philosophy -->
-    <div class="flex flex-col gap-2 items-center md:items-start text-center md:text-left">
-      <div class="flex items-center gap-2.5">
-        <span class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center font-mono font-bold text-xs text-emerald-400">
-          MK
-        </span>
-        <h3 class="text-lg font-bold tracking-tight text-white uppercase">
-          Micah Kesiena
-        </h3>
+  <div class="max-w-7xl mx-auto px-4 md:px-10 py-12">
+    <!-- Top Row: Brand & Philosophy on Left, Clean Navigation on Right -->
+    <div class="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8">
+      <!-- Left Column: Identity & Philosophy -->
+      <div class="flex flex-col gap-2.5 items-center lg:items-start text-center lg:text-left max-w-md">
+        <div class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center font-mono font-bold text-xs text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.2)]">
+            MK
+          </span>
+          <h3 class="text-lg font-bold tracking-tight text-white uppercase">
+            Micah Kesiena
+          </h3>
+        </div>
+
+        <p class="text-xs text-zinc-400 font-mono">
+          Security Focused Full Stack Developer • Penetration Tester
+        </p>
+
+        <p class="text-xs text-zinc-400 italic font-mono pt-1">
+          "Move fast, break nothing — patch what you break."
+        </p>
       </div>
 
-      <p class="text-xs text-zinc-400 font-mono">
-        Security Focused Full Stack Developer • Penetration Tester
-      </p>
-
-      <p class="text-[11px] text-zinc-400 font-mono mt-1">
-        © {currentYear} Micah Kesiena. Built with Astro & React Three Fiber.
-      </p>
-
-      <p class="text-xs text-zinc-400 italic mt-1 font-mono">
-        "Move fast, break nothing — patch what you break."
-      </p>
-    </div>
-
-    <!-- Center Section: System Status Indicator -->
-    <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900/60 border border-white/5 text-xs font-mono text-zinc-400">
-      <span class="relative flex h-2 w-2">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-      </span>
-      <span>SYSTEM STATUS: OPERATIONAL</span>
-      <span class="text-zinc-600">|</span>
-      <span class="text-emerald-400">ASTRO_ISLANDS: OK</span>
-    </div>
-
-    <!-- Right Section: Navigation Directory & Security Telemetry -->
-    <div class="flex flex-col items-center md:items-end gap-3">
-      <nav aria-label="Footer navigation" class="flex flex-wrap items-center justify-center md:justify-end gap-x-5 gap-y-2 text-xs font-mono">
-        <a href="/#home" class="text-zinc-400 hover:text-white transition-colors">
-          Home
-        </a>
-        <a href="/#about" class="text-zinc-400 hover:text-white transition-colors">
-          About
-        </a>
-        <a href="/#stack" class="text-zinc-400 hover:text-white transition-colors">
-          Stack
-        </a>
-        <a href="/projects" class="text-emerald-400 hover:text-emerald-300 font-semibold transition-colors flex items-center gap-1">
-          Projects <span class="text-[10px]">↗</span>
-        </a>
-        <a href="/#contact" class="text-zinc-400 hover:text-white transition-colors">
-          Contact
-        </a>
+      <!-- Right Column: Complete Navigation Directory -->
+      <nav aria-label="Footer navigation" class="flex flex-wrap items-center justify-center lg:justify-end gap-x-6 gap-y-2.5 text-xs font-mono">
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class={`transition-colors whitespace-nowrap ${
+                link.isSpecial
+                  ? "text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1"
+                  : "text-zinc-400 hover:text-white"
+              }`}
+            >
+              {link.label}
+              {link.isSpecial && <span class="text-[10px]">↗</span>}
+            </a>
+          ))
+        }
       </nav>
+    </div>
 
-      <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/80 border border-white/10 text-[11px] font-mono text-zinc-400">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-        <span class="text-zinc-400">SEC_ID:</span>
-        <span class="text-zinc-200 tracking-wider">0x4D69636168</span>
-        <span class="text-zinc-600">|</span>
-        <span class="text-emerald-400">VERIFIED</span>
+    <!-- Bottom Row: Copyright & Security Telemetry Badges -->
+    <div class="mt-8 pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono">
+      <p class="text-zinc-400 text-center md:text-left">
+        &copy; {currentYear} Micah Kesiena. Built with Astro &amp; React Three Fiber.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <!-- Live System Status Badge -->
+        <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/80 border border-white/5 text-[11px] text-zinc-400 whitespace-nowrap shadow-sm">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span>SYSTEM STATUS: OPERATIONAL</span>
+          <span class="text-zinc-600">|</span>
+          <span class="text-emerald-400 font-medium">ASTRO_ISLANDS: OK</span>
+        </div>
+
+        <!-- Security Verification Badge -->
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-white/10 text-[11px] text-zinc-400 whitespace-nowrap shadow-sm">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          <span class="text-zinc-400">SEC_ID:</span>
+          <span class="text-zinc-200 tracking-wider">0x4D69636168</span>
+          <span class="text-zinc-600">|</span>
+          <span class="text-emerald-400 font-medium">VERIFIED</span>
+        </div>
       </div>
     </div>
   </div>
