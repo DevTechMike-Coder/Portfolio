@@ -2,13 +2,6 @@
 import { Briefcase } from "../../components/icons/BriefCase";
 import { Github } from "../../components/icons/Github";
 import { ArrowUpRight } from "../../components/icons/ArrowUpRight";
-import { ChevronDown } from "../../components/icons/ChevronDown";
-import { Nextjs } from "../../components/icons/Nextjs";
-import { Typescript } from "../../components/icons/Typescript";
-import { Prisma } from "../../components/icons/Prisma";
-import { Postgresql } from "../../components/icons/Postgresql";
-import { Tailwind } from "../../components/icons/Tailwind";
-import { React as ReactIcon } from "../../components/icons/React";
 import ProjectTiltCard from "../../components/3d/ProjectTiltCard.astro";
 
 // Confirmed project records with explicit verified status
@@ -84,13 +77,14 @@ const allProjectLogs = [
         <Briefcase className="w-5 h-5" />
       </div>
       <div>
-        <span class="text-xs font-mono uppercase tracking-widest text-emerald-400">DEPLOYMENTS // 04</span>
+        <span class="text-xs font-mono uppercase tracking-widest text-emerald-400 cursor-default transition-colors hover:text-emerald-300" data-scramble data-scramble-on="both">DEPLOYMENTS // 04</span>
         <h2 class="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">Featured Projects</h2>
       </div>
     </div>
 
     <a
       href="/projects"
+      data-magnetic
       class="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 hover:text-white text-xs font-mono font-medium tracking-wider transition-all duration-300 shadow-[0_0_15px_rgba(16,185,129,0.1)] hover:shadow-[0_0_20px_rgba(16,185,129,0.25)] w-fit"
     >
       <span>Explore All Projects</span>
@@ -343,6 +337,7 @@ const allProjectLogs = [
     </div>
     <a
       href="/projects"
+      data-magnetic
       class="shrink-0 inline-flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-mono font-bold px-6 py-3 text-xs tracking-wider uppercase transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)]"
     >
       Explore All Projects

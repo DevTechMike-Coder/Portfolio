@@ -91,6 +91,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://micahkes
     <Navbar />
     <slot />
     <BackToTop />
+
+    <script>
+      import { initAutoScramble } from "../lib/scramble";
+      import { initMagneticButtons } from "../lib/magnetic";
+
+      initAutoScramble();
+      initMagneticButtons();
+    </script>
   </body>
 </html>
 

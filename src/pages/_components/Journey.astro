@@ -46,7 +46,7 @@ const journeyMilestones = [
       05
     </div>
     <div>
-      <span class="text-xs font-mono uppercase tracking-widest text-cyan-400">CHRONOLOGY // 05</span>
+      <span class="text-xs font-mono uppercase tracking-widest text-cyan-400 cursor-default transition-colors hover:text-cyan-300" data-scramble data-scramble-on="both">CHRONOLOGY // 05</span>
       <h2 class="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">Developer Journey</h2>
     </div>
   </div>
@@ -56,15 +56,40 @@ const journeyMilestones = [
   </p>
 
   <!-- Vertical Timeline Track -->
-  <div class="relative border-l border-zinc-800 ml-4 sm:ml-6 pl-6 sm:pl-10 space-y-12">
+  <div id="journey-track" class="relative ml-4 sm:ml-6 pl-6 sm:pl-10 space-y-12">
+    <!-- Static Background Track Rail -->
+    <div
+      class="timeline-rail-bg absolute left-0 top-3 bottom-6 w-[2px] -translate-x-1/2 bg-zinc-800/80 rounded-full pointer-events-none"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Dynamic Laser Beam Fill Track -->
+    <div
+      id="journey-laser"
+      class="timeline-laser absolute left-0 top-3 w-[2px] -translate-x-1/2 bg-linear-to-b from-emerald-400 via-teal-300 to-cyan-400 rounded-full shadow-[0_0_12px_rgba(16,185,129,0.8)] pointer-events-none"
+      style="height: 0px;"
+      aria-hidden="true"
+    >
+      <!-- Leading Laser Spark -->
+      <span
+        id="journey-spark"
+        class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2.5 h-2.5 rounded-full bg-cyan-300 shadow-[0_0_10px_#06b6d4,0_0_4px_#ffffff] opacity-0 transition-opacity duration-200"
+      ></span>
+    </div>
+
     {
-      journeyMilestones.map((item, index) => (
+      journeyMilestones.map((item) => (
         <div class="journey-item relative group">
-          <!-- Glowing Node on Timeline -->
-          <div class="absolute -left-[31px] sm:-left-[47px] top-1.5 w-3.5 h-3.5 rounded-full bg-zinc-950 border-2 border-emerald-400 group-hover:bg-emerald-400 group-hover:scale-125 transition-all shadow-[0_0_12px_rgba(16,185,129,0.5)]"></div>
+          <!-- Timeline Milestone Node -->
+          <div
+            class="journey-node absolute -left-6 sm:-left-10 top-2 -translate-x-1/2 w-4 h-4 rounded-full bg-zinc-950 border-2 border-zinc-700 transition-all duration-300 shadow-[0_0_8px_rgba(0,0,0,0.5)] group-hover:scale-125 z-10"
+            data-milestone-node
+          >
+            <div class="w-full h-full rounded-full transition-transform duration-300"></div>
+          </div>
 
           <!-- Milestone Card -->
-          <div class="p-6 sm:p-8 rounded-2xl bg-zinc-900/60 border border-white/10 group-hover:border-emerald-500/40 backdrop-blur-md transition-all shadow-lg flex flex-col gap-3">
+          <div class="journey-card p-6 sm:p-8 rounded-2xl bg-zinc-900/60 border border-white/10 group-hover:border-emerald-500/40 backdrop-blur-md transition-all duration-300 shadow-lg flex flex-col gap-3">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-3">
               <span class="text-xs font-mono text-emerald-400 tracking-wider">
                 {item.date}
@@ -108,11 +133,120 @@ const journeyMilestones = [
   </div>
 </section>
 
+<style>
+  /* Active state styles applied by the scroll observer */
+  .journey-node.is-active {
+    border-color: #10b981;
+    background-color: #06b6d4;
+    box-shadow: 0 0 16px rgba(16, 185, 129, 0.7), 0 0 4px #06b6d4;
+    transform: translate(-50%, 0) scale(1.15);
+  }
+
+  .journey-item.is-active .journey-card {
+    border-color: rgba(16, 185, 129, 0.25);
+    background-color: rgba(24, 24, 27, 0.75);
+    box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.15);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-laser {
+      height: 100% !important;
+    }
+    #journey-spark {
+      display: none !important;
+    }
+  }
+</style>
+
 <script>
   import { revealOnScroll } from "../../lib/reveal";
+
+  // Retain the existing staggered entrance reveal
   revealOnScroll(document.querySelectorAll(".journey-item"), {
     stagger: 0.15,
     y: 28,
     hideOnExit: true,
   });
+
+  // Dynamic Scroll Progress Laser Timeline
+  const track = document.getElementById("journey-track");
+  const laser = document.getElementById("journey-laser");
+  const spark = document.getElementById("journey-spark");
+  const items = document.querySelectorAll<HTMLElement>(".journey-item");
+
+  if (track && laser && spark && items.length > 0) {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!prefersReducedMotion) {
+      let isVisible = false;
+      let scheduled = false;
+
+      const updateProgress = () => {
+        scheduled = false;
+        if (!isVisible) return;
+
+        const rect = track.getBoundingClientRect();
+        const triggerY = window.innerHeight * 0.65;
+        const totalHeight = rect.height;
+
+        // How much of the track has crossed the 65% viewport line
+        const distance = triggerY - rect.top;
+        const clampedHeight = Math.max(0, Math.min(totalHeight, distance));
+
+        laser.style.height = `${clampedHeight.toFixed(1)}px`;
+        spark.style.opacity = clampedHeight > 10 && clampedHeight < totalHeight ? "1" : "0";
+
+        // Update active nodes
+        items.forEach((item) => {
+          const itemRect = item.getBoundingClientRect();
+          const node = item.querySelector(".journey-node");
+          const isPassed = itemRect.top <= triggerY;
+
+          if (isPassed) {
+            item.classList.add("is-active");
+            node?.classList.add("is-active");
+          } else {
+            item.classList.remove("is-active");
+            node?.classList.remove("is-active");
+          }
+        });
+      };
+
+      const onScroll = () => {
+        if (!scheduled && isVisible) {
+          scheduled = true;
+          requestAnimationFrame(updateProgress);
+        }
+      };
+
+      // Only listen to scroll when the section is in the viewport
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            isVisible = entry.isIntersecting;
+            if (isVisible) {
+              updateProgress();
+            }
+          }
+        },
+        { rootMargin: "100px 0px 100px 0px" }
+      );
+
+      const journeySection = document.getElementById("journey");
+      if (journeySection) {
+        sectionObserver.observe(journeySection);
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", updateProgress, { passive: true });
+      updateProgress();
+    } else {
+      // Reduced motion: fully illuminate
+      laser.style.height = "100%";
+      items.forEach((item) => {
+        item.classList.add("is-active");
+        item.querySelector(".journey-node")?.classList.add("is-active");
+      });
+    }
+  }
 </script>
