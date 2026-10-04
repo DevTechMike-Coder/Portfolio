@@ -1,0 +1,139 @@
+---
+import { Briefcase } from "../../components/icons/BriefCase";
+import { Github } from "../../components/icons/Github";
+import { ArrowUpRight } from "../../components/icons/ArrowUpRight";
+import { clientWork } from "../../data/clientWork";
+
+const kindLabel = { CLIENT: "Client Project", COLLAB: "Collaboration" } as const;
+---
+
+{
+  clientWork.length > 0 && (
+    <section id="client-work" class="pt-28 pb-16 px-4 md:px-10 max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+          <Briefcase className="w-5 h-5" />
+        </div>
+        <div>
+          <span class="text-xs font-mono uppercase tracking-widest text-emerald-400">CLIENT_WORK // 04B</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">Client &amp; Collaborations</h2>
+        </div>
+      </div>
+
+      <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mb-10">
+        Production work shipped for clients and alongside other developers.
+      </p>
+
+      <div id="client-work-grid" class="flex flex-col gap-6">
+        {clientWork.map((p) => (
+          <article class="group relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/60 backdrop-blur-xl shadow-xl transition-all duration-500 hover:-translate-y-1 hover:border-emerald-500/40 hover:shadow-2xl hover:shadow-emerald-500/10">
+            <div class="flex flex-col md:flex-row">
+              <div class={`relative h-52 w-full shrink-0 overflow-hidden bg-linear-to-br md:h-auto md:w-[34%] ${p.gradient}`}>
+                <div class="absolute inset-0 opacity-25 mix-blend-overlay [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:16px_16px]" />
+                <div class="absolute inset-0 bg-black/15" />
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <span class="font-[var(--font-bauhaus)] text-6xl sm:text-7xl font-black tracking-tighter text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.4)]">
+                    {p.monogram}
+                  </span>
+                </div>
+                <span class="absolute top-3 left-3 rounded-full border border-white/25 bg-black/50 px-2.5 py-1 text-[11px] font-mono font-medium text-emerald-300 backdrop-blur-md">
+                  {kindLabel[p.kind]}
+                </span>
+              </div>
+
+              <div class="flex flex-1 flex-col justify-between gap-6 p-6 sm:p-8">
+                <div class="space-y-4">
+                  <div class="flex items-start justify-between gap-3">
+                    <div>
+                      <h3 class="text-2xl sm:text-3xl font-bold tracking-tight text-white transition-colors duration-300 group-hover:text-emerald-400">
+                        {p.title}
+                      </h3>
+                      <p class="mt-1 text-xs font-mono text-zinc-400">
+                        {p.kind === "CLIENT" ? "FOR" : "WITH"} // {p.client} &middot; ROLE // {p.role}
+                      </p>
+                    </div>
+                    {p.githubUrl && (
+                      <a
+                        href={p.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-xl text-zinc-400 hover:text-white hover:bg-white/5 transition-colors"
+                        aria-label={`View ${p.title} source on GitHub`}
+                      >
+                        <Github className="w-5 h-5" />
+                      </a>
+                    )}
+                  </div>
+
+                  <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">{p.summary}</p>
+
+                  <ul class="space-y-1.5">
+                    {p.highlights.map((h) => (
+                      <li class="flex gap-2 text-sm text-zinc-300">
+                        <span class="text-emerald-400 font-mono select-none" aria-hidden="true">&gt;</span>
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {p.collaborators && p.collaborators.length > 0 && (
+                    <p class="text-xs font-mono text-zinc-400">
+                      BUILT_WITH //{" "}
+                      {p.collaborators.map((c, i) => (
+                        <>
+                          {i > 0 && ", "}
+                          {c.url ? (
+                            <a href={c.url} target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 underline-offset-2 hover:underline">
+                              {c.name}
+                            </a>
+                          ) : (
+                            c.name
+                          )}
+                        </>
+                      ))}
+                    </p>
+                  )}
+
+                  <div class="flex flex-wrap gap-1.5 pt-1">
+                    {p.tech.map((t) => (
+                      <span class="px-2.5 py-0.5 rounded-md bg-zinc-950/80 border border-white/5 text-[11px] font-mono text-zinc-300">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {p.liveUrl && (
+                  <div class="flex border-t border-white/5 pt-4">
+                    <a
+                      href={p.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-6 py-3 text-sm min-h-[44px] transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+                    >
+                      Visit Live Site
+                      <ArrowUpRight className="w-4 h-4" />
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<script>
+  import { revealOnScroll } from "../../lib/reveal";
+
+  const grid = document.getElementById("client-work-grid");
+  if (grid) {
+    revealOnScroll(Array.from(grid.children) as HTMLElement[], {
+      stagger: 0.12,
+      y: 28,
+      hideOnExit: true,
+    });
+  }
+</script>
