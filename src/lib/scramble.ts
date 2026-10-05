@@ -151,7 +151,7 @@ export function initAutoScramble() {
       el.dataset.scrambleOriginal = el.textContent?.trim() || "";
     }
 
-    const trigger = el.dataset.scrambleOn || "both";
+    const trigger = el.dataset.scrambleOn || "hover";
 
     if (trigger === "visible" || trigger === "both") {
       visibleObserver.observe(el);

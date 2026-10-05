@@ -16,7 +16,11 @@ export default function TechNetworkScene() {
     <div className="w-full flex flex-col items-center">
       {/* 3D Canvas Island */}
       <div className="w-full h-[400px] sm:h-[480px] lg:h-[540px] relative">
-        <LazyCanvasWrapper className="h-full w-full" fallback={<ScenePlaceholder label="MY_STACK" />}>
+        <LazyCanvasWrapper
+          engageOn="interaction"
+          className="h-full w-full"
+          fallback={<ScenePlaceholder label="MY_STACK" />}
+        >
           {(activity) => (
             <Suspense fallback={<ScenePlaceholder label="MY_STACK" />}>
               <TechNetworkCanvas {...activity} onSelect={setSelectedTech} />

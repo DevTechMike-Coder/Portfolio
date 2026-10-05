@@ -83,10 +83,12 @@
 
       showAmbient();
     } else {
-      // Desktop: mouse-tracking glow with an idle drift. The loop is capped at
-      // ~30fps — plenty for a soft glow — which halves the style/paint cost.
+      // Desktop: mouse-tracking glow.
+      // Paints statically once on load. The rAF loop starts ONLY when the visitor
+      // actually moves the pointer, smoothly lerps, and completely SLEEPS when idle.
+      // This eliminates continuous style recalculations during page load and idle time.
       let currentX = window.innerWidth / 2;
-      let currentY = window.innerHeight / 2;
+      let currentY = window.innerHeight * 0.35;
       let targetX = currentX;
       let targetY = currentY;
 
@@ -94,80 +96,84 @@
       let currentRadius = isMobile ? 220 : 320;
       let targetRadius = currentRadius;
 
-      let currentOpacity = 0;
-      let targetOpacity = 0.6;
+      let currentOpacity = 0.5;
+      let targetOpacity = 0.5;
 
       let isInteracting = false;
-      let lastInteractionTime = Date.now();
-      const IDLE_TIMEOUT = 3000;
-      const LERP_FACTOR = 0.08;
-      const MIN_FRAME_MS = 33;
+      let animationId: number = 0;
+      let isTabVisible = true;
+      let lastFrameAt = 0;
+      const MIN_FRAME_MS = 33; // ~30 fps cap for smooth soft glow
 
       window.addEventListener("resize", () => {
         isMobile = window.innerWidth < 768;
-      });
+      }, { passive: true });
+
+      const animate = (now: number) => {
+        if (!isTabVisible) {
+          animationId = 0;
+          return;
+        }
+
+        if (now - lastFrameAt >= MIN_FRAME_MS) {
+          lastFrameAt = now;
+
+          const dx = targetX - currentX;
+          const dy = targetY - currentY;
+          const dr = targetRadius - currentRadius;
+          const dop = targetOpacity - currentOpacity;
+
+          currentX += dx * 0.1;
+          currentY += dy * 0.1;
+          currentRadius += dr * 0.1;
+          currentOpacity += dop * 0.1;
+
+          paint(currentX, currentY, currentRadius, currentOpacity);
+
+          // Sleep condition: when close to target and not actively moving mouse
+          if (!isInteracting && Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5 && Math.abs(dop) < 0.01) {
+            paint(targetX, targetY, targetRadius, targetOpacity);
+            animationId = 0;
+            return; // Loop sleeps! Zero CPU, zero style recalculation
+          }
+        }
+
+        animationId = requestAnimationFrame(animate);
+      };
+
+      const startLoop = () => {
+        if (!animationId && isTabVisible) {
+          animationId = requestAnimationFrame(animate);
+        }
+      };
 
       window.addEventListener("mousemove", (event) => {
         isInteracting = true;
-        lastInteractionTime = Date.now();
         targetX = event.clientX;
         targetY = event.clientY;
-        targetOpacity = 0.9;
+        targetOpacity = 0.85;
         targetRadius = isMobile ? 260 : 380;
-      });
+        startLoop();
+      }, { passive: true });
 
       window.addEventListener("mouseleave", () => {
         isInteracting = false;
-      });
+        targetOpacity = 0.45;
+        targetRadius = isMobile ? 200 : 300;
+        startLoop();
+      }, { passive: true });
 
-      let animationId: number;
-      let isTabVisible = true;
-      let lastFrameAt = 0;
-
-      const animate = (now: number) => {
-        if (!isTabVisible) return;
-        animationId = requestAnimationFrame(animate);
-
-        if (now - lastFrameAt < MIN_FRAME_MS) return;
-        lastFrameAt = now;
-
-        if (!isInteracting || Date.now() - lastInteractionTime > IDLE_TIMEOUT) {
-          isInteracting = false;
-
-          // Dynamic Drift (Lissajous figure-8 curve)
-          const time = now * 0.0008;
-          const centerX = window.innerWidth / 2;
-          const centerY = window.innerHeight / 2;
-
-          targetX = centerX + Math.cos(time) * window.innerWidth * 0.25;
-          targetY = centerY + Math.sin(time * 2) * window.innerHeight * 0.2;
-
-          const baseRadius = isMobile ? 200 : 300;
-          const pulseAmplitude = isMobile ? 20 : 30;
-          targetRadius = baseRadius + Math.sin(time * 2.5) * pulseAmplitude;
-          targetOpacity = 0.6;
-        }
-
-        currentX += (targetX - currentX) * LERP_FACTOR;
-        currentY += (targetY - currentY) * LERP_FACTOR;
-        currentRadius += (targetRadius - currentRadius) * LERP_FACTOR;
-        currentOpacity += (targetOpacity - currentOpacity) * LERP_FACTOR;
-
-        paint(currentX, currentY, currentRadius, currentOpacity);
-      };
-
-      // Pause/Resume loop on tab visibility changes to save CPU/Battery
+      // Pause/Resume loop on tab visibility changes
       document.addEventListener("visibilitychange", () => {
         isTabVisible = !document.hidden;
-        if (isTabVisible) {
-          lastInteractionTime = Date.now(); // reset idle time
-          animationId = requestAnimationFrame(animate);
-        } else {
+        if (!isTabVisible && animationId) {
           cancelAnimationFrame(animationId);
+          animationId = 0;
         }
       });
 
-      animationId = requestAnimationFrame(animate);
+      // Paint static resting glow once on load — zero ongoing loop during critical page load
+      paint(currentX, currentY, currentRadius, currentOpacity);
     }
   }
 </script>

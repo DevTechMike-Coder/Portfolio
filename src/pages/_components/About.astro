@@ -146,7 +146,9 @@ import SecurityCoreScene from "../../components/3d/SecurityCoreScene";
 <script>
   (function () {
     const clockEl = document.getElementById("live-clock");
-    if (!clockEl) return;
+    const aboutSection = document.getElementById("about");
+    if (!clockEl || !aboutSection) return;
+
     function tick() {
       const now = new Date();
       clockEl!.textContent = now.toLocaleTimeString("en-US", {
@@ -156,8 +158,19 @@ import SecurityCoreScene from "../../components/3d/SecurityCoreScene";
         hour12: true,
       });
     }
-    tick();
-    setInterval(tick, 1000);
+
+    let timer: number = 0;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        tick();
+        if (!timer) timer = window.setInterval(tick, 1000);
+      } else if (timer) {
+        clearInterval(timer);
+        timer = 0;
+      }
+    }, { threshold: 0.05 });
+
+    observer.observe(aboutSection);
   })();
 </script>
 
