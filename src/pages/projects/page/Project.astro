@@ -9,6 +9,7 @@ import { Tailwind } from "../../../components/icons/Tailwind";
 import { Prisma } from "../../../components/icons/Prisma";
 import { Postgresql } from "../../../components/icons/Postgresql";
 import { React as ReactIcon } from "../../../components/icons/React";
+import { Astro as AstroIcon } from "../../../components/icons/Astro";
 
 type LiveProject = {
   title: string;
@@ -63,6 +64,19 @@ const liveProjects: LiveProject[] = [
     github: "https://github.com/DevTechMike-Coder/DoctorAppointmentService_Frontend",
     monogram: "DA",
     gradient: "from-sky-400 via-cyan-500 to-teal-600",
+  },
+  {
+    title: "ZeroJs Blog Engine",
+    description:
+      "A zero-JS markdown/MDX blog engine built on Astro with type-safe content collections, syntax highlighting, and RSS generation.",
+    tech: [
+      { name: "Astro", icon: AstroIcon },
+      { name: "TypeScript", icon: Typescript },
+    ],
+    live: "https://zero-js-blog.vercel.app",
+    github: "https://github.com/DevTechMike-Coder/ZeroJs_Blog",
+    monogram: "ZB",
+    gradient: "from-orange-500 via-rose-500 to-purple-600",
   },
 ];
 ---
