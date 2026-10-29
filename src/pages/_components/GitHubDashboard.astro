@@ -6,11 +6,11 @@ import { ArrowUpRight } from "../../components/icons/ArrowUpRight";
 <section id="github" class="pt-28 pb-16 px-4 md:px-10 max-w-7xl mx-auto">
   <!-- Section Title -->
   <div class="flex items-center gap-3 mb-8">
-    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
       <Github className="w-5 h-5" />
     </div>
     <div>
-      <span class="text-xs font-mono uppercase tracking-widest text-emerald-400 cursor-default transition-colors hover:text-emerald-300" data-scramble data-scramble-on="both">TELEMETRY // 03</span>
+      <span class="text-xs font-mono uppercase tracking-widest text-cyan-400 cursor-default transition-colors hover:text-cyan-300" data-scramble data-scramble-on="both">TELEMETRY // 03</span>
       <h2 class="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">GitHub Operations</h2>
     </div>
   </div>
@@ -22,14 +22,14 @@ import { ArrowUpRight } from "../../components/icons/ArrowUpRight";
       href="https://github.com/DevTechMike-Coder"
       target="_blank"
       rel="noopener noreferrer"
-      class="p-5 rounded-2xl bg-zinc-900/60 border border-white/10 hover:border-emerald-500/40 backdrop-blur-md transition-all group flex flex-col justify-between gap-4 min-w-0"
+      class="p-5 rounded-2xl bg-zinc-900/60 border border-white/10 hover:border-cyan-500/40 backdrop-blur-md transition-all group flex flex-col justify-between gap-4 min-w-0"
     >
       <div class="flex items-center justify-between">
         <span class="text-xs font-mono text-zinc-400">GITHUB_ID</span>
-        <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-emerald-400 transition-colors" />
+        <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-cyan-400 transition-colors" />
       </div>
       <div>
-        <h3 class="text-lg font-bold text-white font-mono group-hover:text-emerald-300 transition-colors">
+        <h3 class="text-lg font-bold text-white font-mono group-hover:text-cyan-300 transition-colors">
           @DevTechMike-Coder
         </h3>
         <p class="text-xs text-zinc-400">Open-source & production repos</p>
@@ -40,7 +40,7 @@ import { ArrowUpRight } from "../../components/icons/ArrowUpRight";
     <div class="p-5 rounded-2xl bg-zinc-900/60 border border-white/10 backdrop-blur-md flex flex-col justify-between gap-4 min-w-0">
       <div class="flex items-center justify-between">
         <span class="text-xs font-mono text-zinc-400">TOTAL_CONTRIBUTIONS</span>
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
       </div>
       <div>
         <p id="gh-total-contributions" class="text-3xl font-extrabold text-white font-mono">
@@ -88,16 +88,16 @@ import { ArrowUpRight } from "../../components/icons/ArrowUpRight";
   <div class="p-6 rounded-3xl bg-zinc-900/50 border border-white/10 backdrop-blur-md relative overflow-hidden">
     <div class="flex items-center justify-between mb-4 border-b border-white/5 pb-3">
       <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
         <span class="text-xs font-mono uppercase tracking-wider text-zinc-300">ANNUAL_COMMIT_HEATMAP</span>
       </div>
       <div class="flex items-center gap-1.5 text-[10px] font-mono text-zinc-400">
         <span>Less</span>
         <span class="w-2.5 h-2.5 rounded-xs bg-[#161b22]"></span>
-        <span class="w-2.5 h-2.5 rounded-xs bg-[#0e4429]"></span>
-        <span class="w-2.5 h-2.5 rounded-xs bg-[#006d32]"></span>
-        <span class="w-2.5 h-2.5 rounded-xs bg-[#26a641]"></span>
-        <span class="w-2.5 h-2.5 rounded-xs bg-[#39d353]"></span>
+        <span class="w-2.5 h-2.5 rounded-xs bg-[#0c2d48]"></span>
+        <span class="w-2.5 h-2.5 rounded-xs bg-[#0284c7]"></span>
+        <span class="w-2.5 h-2.5 rounded-xs bg-[#38bdf8]"></span>
+        <span class="w-2.5 h-2.5 rounded-xs bg-[#00f0ff]"></span>
         <span>More</span>
       </div>
     </div>
@@ -109,7 +109,7 @@ import { ArrowUpRight } from "../../components/icons/ArrowUpRight";
         aria-live="polite"
       >
         <div class="flex items-center gap-2 text-zinc-400 text-xs font-mono">
-          <div class="w-3 h-3 rounded-full border-2 border-emerald-400 border-t-transparent animate-spin"></div>
+          <div class="w-3 h-3 rounded-full border-2 border-cyan-400 border-t-transparent animate-spin"></div>
           <span>Synchronizing GitHub API telemetry...</span>
         </div>
       </div>
@@ -163,7 +163,7 @@ import { ArrowUpRight } from "../../components/icons/ArrowUpRight";
       for (const day of week.contributionDays) {
         const dayEl = document.createElement("div");
         dayEl.className =
-          "w-full aspect-square rounded-xs cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-emerald-400 hover:scale-125 gh-day";
+          "w-full aspect-square rounded-xs cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-cyan-400 hover:scale-125 gh-day";
         dayEl.style.backgroundColor = day.color || "#161b22";
         dayEl.dataset.date = day.date;
         dayEl.dataset.count = String(day.contributionCount);

@@ -15,10 +15,10 @@ export interface ContributionData {
 
 const COLOR_MAP: Record<string, string> = {
   "0": "#161b22",
-  "1": "#0e4429",
-  "2": "#006d32",
-  "3": "#26a641",
-  "4": "#39d353",
+  "1": "#0c2d48",
+  "2": "#0284c7",
+  "3": "#38bdf8",
+  "4": "#00f0ff",
 };
 
 // In-memory cache to avoid rate limiting and ensure snappy response

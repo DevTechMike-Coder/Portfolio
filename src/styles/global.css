@@ -52,9 +52,10 @@
   --bg-surface: #0e131f;
   --bg-surface-elevated: #141b2d;
   --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-highlight: rgba(16, 185, 129, 0.3);
-  --accent-emerald: #10b981;
-  --accent-cyan: #06b6d4;
+  --border-highlight: rgba(0, 240, 255, 0.35);
+  --accent-cyan: #00f0ff;
+  --accent-ice: #38bdf8;
+  --accent-blue: #0284c7;
   --accent-violet: #8b5cf6;
 }
 
@@ -130,12 +131,9 @@ p, ul, li {
 }
 
 /* Subtle glow utilities */
-.glow-emerald {
-  box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
-}
-
+.glow-emerald,
 .glow-cyan {
-  box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+  box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.3);
 }
 
 .glow-violet {

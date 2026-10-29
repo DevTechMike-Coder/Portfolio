@@ -6,7 +6,8 @@ type ButtonVariant =
   | "outline"
   | "ghost"
   | "danger"
-  | "emerald";
+  | "emerald"
+  | "cyan";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -27,7 +28,9 @@ const variants: Record<ButtonVariant, string> = {
     "bg-transparent text-slate-400 hover:text-white hover:bg-white/5 border-transparent",
   danger: "bg-red-600 text-white hover:bg-red-700 border-transparent",
   emerald:
-    "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20 hover:border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.1)] hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]",
+    "bg-cyan-500/10 text-cyan-400 border-cyan-500/30 hover:bg-cyan-500/20 hover:border-cyan-500/50 shadow-[0_0_15px_rgba(0,240,255,0.15)] hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]",
+  cyan:
+    "bg-cyan-500/10 text-cyan-400 border-cyan-500/30 hover:bg-cyan-500/20 hover:border-cyan-500/50 shadow-[0_0_15px_rgba(0,240,255,0.15)] hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]",
 };
 
 const sizes: Record<ButtonSize, string> = {

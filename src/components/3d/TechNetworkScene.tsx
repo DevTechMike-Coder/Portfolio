@@ -36,13 +36,13 @@ export default function TechNetworkScene() {
 
       {/* Active Technology Inspection Card */}
       {selectedTech && (
-        <div data-tech-inspector aria-live="polite" className="mt-4 w-full max-w-xl p-4 sm:p-5 rounded-2xl bg-zinc-900/80 border border-emerald-500/30 backdrop-blur-md flex items-center justify-between gap-4 shadow-xl shadow-emerald-500/5 transition-all">
+        <div data-tech-inspector aria-live="polite" className="mt-4 w-full max-w-xl p-4 sm:p-5 rounded-2xl bg-zinc-900/80 border border-cyan-500/30 backdrop-blur-md flex items-center justify-between gap-4 shadow-xl shadow-cyan-500/5 transition-all">
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
               <span className="text-base sm:text-lg font-bold text-white tracking-wide">
                 {selectedTech.name}
               </span>
-              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
                 {selectedTech.category}
               </span>
             </div>
@@ -55,7 +55,7 @@ export default function TechNetworkScene() {
             style={{
               borderColor: `${selectedTech.color}55`,
               backgroundColor: `${selectedTech.color}15`,
-              color: selectedTech.color === "#ffffff" ? "#10b981" : selectedTech.color,
+              color: selectedTech.color === "#ffffff" ? "#00f0ff" : selectedTech.color,
             }}
           >
             {selectedTech.name.slice(0, 2).toUpperCase()}

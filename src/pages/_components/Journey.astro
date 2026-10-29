@@ -66,7 +66,7 @@ const journeyMilestones = [
     <!-- Dynamic Laser Beam Fill Track -->
     <div
       id="journey-laser"
-      class="timeline-laser absolute left-0 top-3 w-[2px] -translate-x-1/2 bg-linear-to-b from-emerald-400 via-teal-300 to-cyan-400 rounded-full shadow-[0_0_12px_rgba(16,185,129,0.8)] pointer-events-none"
+      class="timeline-laser absolute left-0 top-3 w-[2px] -translate-x-1/2 bg-linear-to-b from-cyan-400 via-sky-400 to-blue-500 rounded-full shadow-[0_0_12px_rgba(0,240,255,0.85)] pointer-events-none"
       style="height: 0px;"
       aria-hidden="true"
     >
@@ -89,15 +89,15 @@ const journeyMilestones = [
           </div>
 
           <!-- Milestone Card -->
-          <div class="journey-card p-6 sm:p-8 rounded-2xl bg-zinc-900/60 border border-white/10 group-hover:border-emerald-500/40 backdrop-blur-md transition-all duration-300 shadow-lg flex flex-col gap-3">
+          <div class="journey-card p-6 sm:p-8 rounded-2xl bg-zinc-900/60 border border-white/10 group-hover:border-cyan-500/40 backdrop-blur-md transition-all duration-300 shadow-lg flex flex-col gap-3">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-3">
-              <span class="text-xs font-mono text-emerald-400 tracking-wider">
+              <span class="text-xs font-mono text-cyan-400 tracking-wider">
                 {item.date}
               </span>
               <span
                 class={`px-2.5 py-0.5 rounded-full text-[10px] font-mono tracking-wider ${
                   item.status === "CURRENT"
-                    ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/30"
+                    ? "bg-cyan-500/10 text-cyan-300 border border-cyan-500/30"
                     : "bg-zinc-800 text-zinc-400 border border-zinc-700"
                 }`}
               >
@@ -136,16 +136,16 @@ const journeyMilestones = [
 <style>
   /* Active state styles applied by the scroll observer */
   .journey-node.is-active {
-    border-color: #10b981;
-    background-color: #06b6d4;
-    box-shadow: 0 0 16px rgba(16, 185, 129, 0.7), 0 0 4px #06b6d4;
+    border-color: #00f0ff;
+    background-color: #38bdf8;
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.8), 0 0 4px #00f0ff;
     transform: translate(-50%, 0) scale(1.15);
   }
 
   .journey-item.is-active .journey-card {
-    border-color: rgba(16, 185, 129, 0.25);
+    border-color: rgba(0, 240, 255, 0.35);
     background-color: rgba(24, 24, 27, 0.75);
-    box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.15);
+    box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.18);
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -90,7 +90,7 @@ const TechNode: React.FC<{
           data-tech-node={tech.id}
           className={`px-2 py-0.5 rounded-md font-mono text-[11px] font-semibold whitespace-nowrap transition-all duration-200 ${
             isHovered
-              ? "bg-zinc-950 text-emerald-400 border border-emerald-500/50 shadow-lg scale-110"
+              ? "bg-zinc-950 text-cyan-400 border border-cyan-500/50 shadow-lg scale-110"
               : "bg-zinc-950/80 text-zinc-300 border border-white/10"
           }`}
         >
@@ -118,7 +118,7 @@ const NetworkLines: React.FC<{
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <lineBasicMaterial
-        color={hoveredIndex !== null ? "#10b981" : "#334155"}
+        color={hoveredIndex !== null ? "#00f0ff" : "#334155"}
         transparent
         opacity={hoveredIndex !== null ? 0.45 : 0.25}
       />
@@ -178,7 +178,7 @@ export default function TechNetworkCanvas({
       camera={{ position: [0, 0, 7.2], fov: 45 }}
     >
       <ambientLight intensity={0.7} color="#0f172a" />
-      <pointLight position={[0, 0, 0]} intensity={3} color="#10b981" distance={8} />
+      <pointLight position={[0, 0, 0]} intensity={3} color="#00f0ff" distance={8} />
       <pointLight position={[5, 5, 5]} intensity={2} color="#06b6d4" />
       <pointLight position={[-5, -5, -5]} intensity={1.5} color="#8b5cf6" />
 
@@ -202,8 +202,8 @@ export default function TechNetworkCanvas({
             <mesh>
               <icosahedronGeometry args={[0.85, 1]} />
               <meshStandardMaterial
-                color="#042f2e"
-                emissive="#10b981"
+                color="#082f49"
+                emissive="#00f0ff"
                 emissiveIntensity={0.6}
                 roughness={0.3}
                 wireframe={false}
@@ -211,10 +211,10 @@ export default function TechNetworkCanvas({
             </mesh>
             <mesh>
               <icosahedronGeometry args={[0.95, 0]} />
-              <meshBasicMaterial color="#34d399" wireframe transparent opacity={0.4} />
+              <meshBasicMaterial color="#38bdf8" wireframe transparent opacity={0.4} />
             </mesh>
             <HtmlLabel distanceFactor={8} className="pointer-events-none select-none">
-              <div className="bg-zinc-950/90 text-emerald-400 font-mono text-[10px] font-bold tracking-widest px-2.5 py-1 rounded-full border border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.3)] whitespace-nowrap">
+              <div className="bg-zinc-950/90 text-cyan-400 font-mono text-[10px] font-bold tracking-widest px-2.5 py-1 rounded-full border border-cyan-500/40 shadow-[0_0_15px_rgba(0,240,255,0.3)] whitespace-nowrap">
                 MY_STACK
               </div>
             </HtmlLabel>

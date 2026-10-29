@@ -19,7 +19,7 @@ const navLinks = [
       <!-- Left Column: Identity & Philosophy -->
       <div class="flex flex-col gap-2.5 items-center lg:items-start text-center lg:text-left max-w-md">
         <div class="flex items-center gap-2.5">
-          <span class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center font-mono font-bold text-xs text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.2)]">
+          <span class="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center font-mono font-bold text-xs text-cyan-400 shadow-[0_0_12px_rgba(0,240,255,0.25)]">
             MK
           </span>
           <h3 class="text-lg font-bold tracking-tight text-white uppercase">
@@ -44,7 +44,7 @@ const navLinks = [
               href={link.href}
               class={`transition-colors whitespace-nowrap ${
                 link.isSpecial
-                  ? "text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1"
+                  ? "text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1"
                   : "text-zinc-400 hover:text-white"
               }`}
             >
@@ -66,21 +66,21 @@ const navLinks = [
         <!-- Live System Status Badge -->
         <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/80 border border-white/5 text-[11px] text-zinc-400 whitespace-nowrap shadow-sm">
           <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
           </span>
           <span>SYSTEM STATUS: OPERATIONAL</span>
           <span class="text-zinc-600">|</span>
-          <span class="text-emerald-400 font-medium">ASTRO_ISLANDS: OK</span>
+          <span class="text-cyan-400 font-medium">ASTRO_ISLANDS: OK</span>
         </div>
 
         <!-- Security Verification Badge -->
         <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-white/10 text-[11px] text-zinc-400 whitespace-nowrap shadow-sm">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
           <span class="text-zinc-400">SEC_ID:</span>
           <span class="text-zinc-200 tracking-wider">0x4D69636168</span>
           <span class="text-zinc-600">|</span>
-          <span class="text-emerald-400 font-medium">VERIFIED</span>
+          <span class="text-cyan-400 font-medium">VERIFIED</span>
         </div>
       </div>
     </div>

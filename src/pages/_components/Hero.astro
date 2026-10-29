@@ -1,7 +1,7 @@
 ---
 import { MapPin } from "../../components/icons/MapPin";
 import { ArrowUpRight } from "../../components/icons/ArrowUpRight";
-import HeroScene from "../../components/3d/HeroScene";
+import HeroTerminal from "../../components/uicomp/HeroTerminal.astro";
 ---
 
 <section id="home" class="relative min-h-[90vh] pt-32 pb-20 px-4 md:px-10 overflow-hidden flex flex-col justify-center">
@@ -10,12 +10,12 @@ import HeroScene from "../../components/3d/HeroScene";
       <!-- Left Column: Hero Content & Positioning -->
       <div class="lg:col-span-7 flex flex-col gap-6">
         <!-- Status Indicator Pill -->
-        <div class="hero-fade flex items-center gap-2.5 border border-emerald-500/30 bg-emerald-500/10 rounded-full px-4 py-1.5 w-fit backdrop-blur-md shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+        <div class="hero-fade flex items-center gap-2.5 border border-cyan-500/30 bg-cyan-500/10 rounded-full px-4 py-1.5 w-fit backdrop-blur-md shadow-[0_0_20px_rgba(0,240,255,0.18)]">
           <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
           </span>
-          <span class="text-emerald-300 text-xs font-mono font-medium tracking-wide uppercase">
+          <span class="text-cyan-300 text-xs font-mono font-medium tracking-wide uppercase">
             Available for collaborations
           </span>
         </div>
@@ -26,10 +26,10 @@ import HeroScene from "../../components/3d/HeroScene";
             Hi, I'm
           </p>
           <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight text-white leading-none">
-            Micah <span class="text-transparent bg-clip-text bg-linear-to-r from-emerald-400 via-teal-300 to-cyan-400">Kesiena</span>
+            Micah <span class="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 via-sky-300 to-blue-400">Kesiena</span>
           </h1>
           <h2
-            class="text-xl sm:text-2xl font-bold uppercase tracking-wide text-zinc-300 font-mono pt-1 cursor-default transition-colors hover:text-emerald-300"
+            class="text-xl sm:text-2xl font-bold uppercase tracking-wide text-zinc-300 font-mono pt-1 cursor-default transition-colors hover:text-cyan-300"
             data-scramble
             data-scramble-on="hover"
           >
@@ -45,9 +45,9 @@ import HeroScene from "../../components/3d/HeroScene";
         </div>
 
         <!-- Philosophy quote snippet -->
-        <div class="hero-fade pl-4 border-l-2 border-emerald-500/40 py-1">
+        <div class="hero-fade pl-4 border-l-2 border-cyan-500/40 py-1">
           <p
-            class="text-sm font-mono text-zinc-400 italic cursor-default transition-colors hover:text-emerald-300"
+            class="text-sm font-mono text-zinc-400 italic cursor-default transition-colors hover:text-cyan-300"
             data-scramble
             data-scramble-on="hover"
           >
@@ -60,7 +60,7 @@ import HeroScene from "../../components/3d/HeroScene";
           <a
             href="#projects"
             data-magnetic
-            class="inline-flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-7 py-3.5 text-sm transition-all shadow-[0_0_20px_rgba(16,185,129,0.25)] hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]"
+            class="inline-flex items-center gap-2 rounded-full bg-cyan-400 hover:bg-cyan-300 text-zinc-950 font-bold px-7 py-3.5 text-sm transition-all shadow-[0_0_20px_rgba(0,240,255,0.35)] hover:shadow-[0_0_30px_rgba(0,240,255,0.55)]"
           >
             View Projects
             <ArrowUpRight className="w-4 h-4" />
@@ -69,7 +69,7 @@ import HeroScene from "../../components/3d/HeroScene";
           <a
             href="#contact"
             data-magnetic
-            class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-zinc-900/80 hover:bg-zinc-800 text-white font-medium px-7 py-3.5 text-sm transition-all hover:border-emerald-500/40"
+            class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-zinc-900/80 hover:bg-zinc-800 text-white font-medium px-7 py-3.5 text-sm transition-all hover:border-cyan-500/40"
           >
             Let's Connect
           </a>
@@ -78,7 +78,7 @@ import HeroScene from "../../components/3d/HeroScene";
         <!-- Meta tags & Location -->
         <div class="hero-fade flex flex-wrap items-center gap-6 pt-4 text-xs font-mono text-zinc-400">
           <div class="flex items-center gap-2 text-zinc-300">
-            <MapPin className="w-4 h-4 text-emerald-400" />
+            <MapPin className="w-4 h-4 text-cyan-400" />
             <span>Based in Ogun State, Nigeria</span>
           </div>
           <div class="hidden sm:flex items-center gap-2">
@@ -86,21 +86,20 @@ import HeroScene from "../../components/3d/HeroScene";
             <span>Penetration Tester</span>
           </div>
           <div class="hidden sm:flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
             <span>Full-Stack Architecture</span>
           </div>
         </div>
       </div>
 
-      <!-- Right Column: Interactive 3D Hero Scene -->
+      <!-- Right Column: Terminal Identity Console -->
       <div class="lg:col-span-5 relative flex items-center justify-center">
         <!-- Ambient Backing Glow -->
-        <div class="absolute w-72 h-72 rounded-full bg-emerald-500/15 blur-3xl pointer-events-none -z-10"></div>
-        <div class="absolute w-60 h-60 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none -z-10"></div>
+        <div class="absolute w-80 h-80 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none -z-10"></div>
+        <div class="absolute w-72 h-72 rounded-full bg-blue-600/10 blur-3xl pointer-events-none -z-10"></div>
 
-        <!-- Static first, then hydrate the lightweight 3D shell when the browser is idle. -->
-        <div class="w-full relative z-10">
-          <HeroScene client:idle />
+        <div class="w-full relative z-10 hero-fade">
+          <HeroTerminal />
         </div>
       </div>
     </div>
@@ -110,11 +109,11 @@ import HeroScene from "../../components/3d/HeroScene";
       <a
         href="#about"
         aria-label="Scroll down to About section"
-        class="group flex flex-col items-center gap-1.5 text-zinc-400 hover:text-emerald-400 transition-colors"
+        class="group flex flex-col items-center gap-1.5 text-zinc-400 hover:text-cyan-400 transition-colors"
       >
         <span class="text-[11px] font-mono tracking-widest uppercase">EXPLORE_SYSTEM</span>
-        <div class="w-6 h-10 rounded-full border border-zinc-700 group-hover:border-emerald-500/60 flex items-start justify-center p-1.5 transition-colors">
-          <div class="w-1 h-2 rounded-full bg-emerald-400 animate-bounce"></div>
+        <div class="w-6 h-10 rounded-full border border-zinc-700 group-hover:border-cyan-500/60 flex items-start justify-center p-1.5 transition-colors">
+          <div class="w-1 h-2 rounded-full bg-cyan-400 animate-bounce"></div>
         </div>
       </a>
     </div>

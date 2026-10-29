@@ -1,0 +1,211 @@
+---
+// Security Operations & Threat Defense HUD in Electric Cyan & Ice Blue theme
+---
+
+<div
+  class="w-full h-full flex flex-col justify-between p-6 sm:p-7 rounded-3xl bg-zinc-900/60 border border-white/10 backdrop-blur-md relative overflow-hidden shadow-2xl transition-all duration-300 hover:border-cyan-500/40"
+  role="region"
+  aria-label="Security Operations Threat Defense HUD"
+>
+  <!-- Ambient cyber background grid / glow -->
+  <div class="absolute inset-0 bg-radial from-cyan-500/10 via-transparent to-transparent pointer-events-none"></div>
+
+  <!-- Header: Live System State -->
+  <div class="flex items-center justify-between z-10 border-b border-white/5 pb-4">
+    <div class="flex items-center gap-2.5">
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-400"></span>
+      </span>
+      <span class="text-xs font-mono text-zinc-300 uppercase tracking-wider font-semibold">
+        DEFENSE_HUD // TELEMETRY
+      </span>
+    </div>
+
+    <span class="text-[10px] font-mono text-cyan-300 border border-cyan-500/30 px-3 py-1 rounded-full bg-cyan-500/10 shadow-[0_0_12px_rgba(6,182,212,0.2)] font-medium">
+      SYSTEM: ARMORED
+    </span>
+  </div>
+
+  <!-- Center Area: Threat Radar & Live Diagnostic Sweeper -->
+  <div class="relative py-6 flex flex-col items-center justify-center z-10">
+    <!-- Circular Radar Perimeter -->
+    <div class="relative w-44 h-44 sm:w-48 sm:h-48 rounded-full border border-cyan-500/25 flex items-center justify-center overflow-hidden bg-zinc-950/80 shadow-[inset_0_0_25px_rgba(6,182,212,0.1)]">
+      <!-- Radar Crosshairs -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="w-full h-[1px] bg-cyan-500/20"></div>
+      </div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="h-full w-[1px] bg-cyan-500/20"></div>
+      </div>
+
+      <!-- Concentric Rings -->
+      <div class="absolute w-32 h-32 rounded-full border border-cyan-500/30 border-dashed"></div>
+      <div class="absolute w-16 h-16 rounded-full border border-cyan-500/35"></div>
+
+      <!-- Rotating Sweep Beam -->
+      <div class="radar-sweep absolute inset-0 origin-center pointer-events-none"></div>
+
+      <!-- Center Shield/Core Icon -->
+      <div class="relative z-10 w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-400/40 flex items-center justify-center text-cyan-400 shadow-[0_0_20px_rgba(0,240,255,0.35)]">
+        <svg class="w-6 h-6 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <path d="m9 12 2 2 4-4"></path>
+        </svg>
+      </div>
+
+      <!-- Animated Ping Nodes on Radar -->
+      <span class="absolute top-8 right-10 w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(0,240,255,0.9)] animate-pulse"></span>
+      <span class="absolute bottom-10 left-8 w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.9)] animate-pulse"></span>
+      <span class="absolute top-16 left-12 w-1.5 h-1.5 rounded-full bg-cyan-300 opacity-80"></span>
+    </div>
+
+    <!-- Live Status Label under Radar -->
+    <div class="mt-4 flex items-center gap-2 text-xs font-mono text-zinc-400">
+      <span class="text-zinc-500">SURFACE:</span>
+      <span class="text-white font-medium">ZERO EXPLOITS DETECTED</span>
+    </div>
+  </div>
+
+  <!-- Security Audit Vectors List -->
+  <div class="space-y-2 z-10 font-mono text-xs">
+    <div class="flex items-center justify-between p-2.5 rounded-xl bg-zinc-950/70 border border-white/5 hover:border-cyan-500/25 transition-colors">
+      <div class="flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+        <span class="text-zinc-300">SQL Injection & ORM</span>
+      </div>
+      <span class="hud-badge text-[10px] font-bold text-[#00f0ff] bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/25">
+        DEFENDED
+      </span>
+    </div>
+
+    <div class="flex items-center justify-between p-2.5 rounded-xl bg-zinc-950/70 border border-white/5 hover:border-cyan-500/25 transition-colors">
+      <div class="flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+        <span class="text-zinc-300">AuthZ & Privilege Escalation</span>
+      </div>
+      <span class="hud-badge text-[10px] font-bold text-[#00f0ff] bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/25">
+        HARDENED
+      </span>
+    </div>
+
+    <div class="flex items-center justify-between p-2.5 rounded-xl bg-zinc-950/70 border border-white/5 hover:border-cyan-500/25 transition-colors">
+      <div class="flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+        <span class="text-zinc-300">AES-256 & Cryptography</span>
+      </div>
+      <span class="hud-badge text-[10px] font-bold text-[#00f0ff] bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/25">
+        ENCRYPTED
+      </span>
+    </div>
+
+    <div class="flex items-center justify-between p-2.5 rounded-xl bg-zinc-950/70 border border-white/5 hover:border-cyan-500/25 transition-colors">
+      <div class="flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+        <span class="text-zinc-300">OWASP Top 10 Standards</span>
+      </div>
+      <span class="hud-badge text-[10px] font-bold text-[#00f0ff] bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/25">
+        100% PASS
+      </span>
+    </div>
+  </div>
+
+  <!-- Interactive Action: Trigger Live Security Audit -->
+  <div class="mt-4 z-10 pt-3 border-t border-white/5 flex flex-col gap-2.5 font-mono">
+    <!-- Progress Bar (Hidden initially, active during scan) -->
+    <div id="scan-progress-container" class="hidden w-full bg-zinc-950 rounded-full h-1.5 overflow-hidden border border-cyan-500/25">
+      <div id="scan-progress-bar" class="bg-linear-to-r from-cyan-400 via-sky-400 to-blue-500 h-full w-0 transition-all duration-300"></div>
+    </div>
+
+    <button
+      id="run-audit-btn"
+      type="button"
+      class="group w-full py-2.5 px-4 rounded-xl border border-cyan-500/40 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 hover:text-white text-xs font-semibold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-[0_0_15px_rgba(0,240,255,0.15)] hover:shadow-[0_0_25px_rgba(0,240,255,0.3)]"
+    >
+      <svg id="audit-icon" class="w-3.5 h-3.5 text-cyan-400 transition-transform group-hover:rotate-180 duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+      </svg>
+      <span id="audit-btn-text">Run Security Audit Scan</span>
+    </button>
+
+    <div class="flex items-center justify-between text-[11px] text-zinc-400 pt-1">
+      <span>THREAT_LEVEL: <strong class="text-cyan-400 font-semibold">ZERO</strong></span>
+      <span>INTEGRITY: <strong class="text-cyan-400 font-semibold">100%</strong></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .radar-sweep {
+    background: conic-gradient(
+      from 0deg at 50% 50%,
+      rgba(0, 240, 255, 0) 0deg,
+      rgba(0, 240, 255, 0.04) 270deg,
+      rgba(0, 240, 255, 0.45) 360deg
+    );
+    animation: radar-spin 4s linear infinite;
+  }
+
+  @keyframes radar-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .radar-sweep {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const auditBtn = document.getElementById("run-audit-btn");
+  const auditBtnText = document.getElementById("audit-btn-text");
+  const auditIcon = document.getElementById("audit-icon");
+  const progressContainer = document.getElementById("scan-progress-container");
+  const progressBar = document.getElementById("scan-progress-bar");
+  const badges = document.querySelectorAll(".hud-badge");
+
+  let isScanning = false;
+
+  auditBtn?.addEventListener("click", () => {
+    if (isScanning) return;
+    isScanning = true;
+
+    if (auditBtnText) auditBtnText.textContent = "Scanning 12 Vectors...";
+    auditIcon?.classList.add("animate-spin");
+    progressContainer?.classList.remove("hidden");
+
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 15;
+      if (progressBar) progressBar.style.width = `${Math.min(progress, 100)}%`;
+
+      badges.forEach((b, i) => {
+        if (progress > i * 25) {
+          b.classList.add("scale-105", "text-white", "bg-cyan-500/25");
+        }
+      });
+
+      if (progress >= 100) {
+        clearInterval(interval);
+        setTimeout(() => {
+          if (auditBtnText) auditBtnText.textContent = "Audit Complete: 100% Secure";
+          auditIcon?.classList.remove("animate-spin");
+          badges.forEach((b) => b.classList.remove("scale-105", "text-white", "bg-cyan-500/25"));
+
+          setTimeout(() => {
+            if (auditBtnText) auditBtnText.textContent = "Run Security Audit Scan";
+            progressContainer?.classList.add("hidden");
+            if (progressBar) progressBar.style.width = "0%";
+            isScanning = false;
+          }, 2400);
+        }, 400);
+      }
+    }, 120);
+  });
+</script>
