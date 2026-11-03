@@ -1,0 +1,185 @@
+---
+import { Github } from "../icons/Github";
+import type { ProjectItem } from "../../data/projects";
+
+interface Props {
+  project: ProjectItem;
+  className?: string;
+}
+
+const { project, className = "" } = Astro.props;
+
+const visibleTech = project.tech.slice(0, 3);
+const extraTech = project.tech.slice(3);
+---
+
+<article
+  class={`project-format-card flex flex-col justify-between h-full p-6 sm:p-7 lg:p-8 bg-[#090b0e]/95 hover:bg-[#0e1219]/90 transition-colors duration-300 relative group ${className}`}
+  data-project-id={project.id}
+>
+  <!-- Top Meta: Year & Status Badge -->
+  <div>
+    <div class="flex items-start justify-between gap-4">
+      <div>
+        <span class="block text-[10px] font-mono uppercase tracking-[0.22em] text-zinc-500 font-bold">
+          YEAR
+        </span>
+        <span class="block text-sm font-mono font-bold text-zinc-300 tracking-wider mt-0.5">
+          {project.year}
+        </span>
+      </div>
+
+      <div>
+        {project.status === "ACTIVE" ? (
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[4px] border border-emerald-500/40 bg-emerald-950/20 text-emerald-400 text-[11px] font-mono font-medium uppercase tracking-wider">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
+            ACTIVE
+          </span>
+        ) : project.status === "COMPLETED" ? (
+          <span class="inline-flex items-center px-2.5 py-1 rounded-[4px] border border-amber-500/50 bg-amber-950/20 text-amber-400 text-[11px] font-mono font-medium uppercase tracking-wider">
+            COMPLETED
+          </span>
+        ) : (
+          <span class="inline-flex items-center px-2.5 py-1 rounded-[4px] border border-cyan-500/40 bg-cyan-950/20 text-cyan-300 text-[11px] font-mono font-medium uppercase tracking-wider">
+            IN PROGRESS
+          </span>
+        )}
+      </div>
+    </div>
+
+    <!-- Title -->
+    <h3 class="font-[var(--font-bauhaus)] font-extrabold uppercase tracking-tight text-white text-xl sm:text-[22px] lg:text-2xl mt-6 mb-6 leading-tight min-h-[56px] flex items-center group-hover:text-cyan-300 transition-colors">
+      {project.title}
+    </h3>
+
+    <!-- Description with Left Vertical Line -->
+    <div class="border-l border-zinc-700/80 pl-4 py-1 my-2">
+      <p class="font-mono italic text-xs sm:text-[13px] text-zinc-400 leading-relaxed font-light">
+        {project.description}
+      </p>
+    </div>
+  </div>
+
+  <!-- Bottom Details: Stack & Links -->
+  <div class="mt-8 flex flex-col justify-between">
+    <!-- Stack Section -->
+    <div class="mb-8">
+      <div class="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-500 font-bold mb-3">
+        <!-- 4-point crosshair diamond icon -->
+        <svg
+          class="w-3.5 h-3.5 text-zinc-500 shrink-0"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <polygon points="12 2 15 8.5 22 12 15 15.5 12 22 9 15.5 2 12 9 8.5 12 2"></polygon>
+        </svg>
+        <span>STACK</span>
+      </div>
+
+      <div class="tech-stack-container flex flex-wrap items-center gap-2">
+        {visibleTech.map((techItem) => (
+          <span class="px-2.5 py-1 rounded-[4px] bg-[#12161f] border border-zinc-800 text-[11px] font-mono text-zinc-300 font-medium">
+            {techItem}
+          </span>
+        ))}
+
+        {extraTech.length > 0 && (
+          <button
+            type="button"
+            class="toggle-extra-btn inline-flex items-center gap-1 px-2.5 py-1 rounded-[4px] bg-[#12161f] border border-zinc-800 text-[11px] font-mono text-lime-400 hover:text-lime-300 hover:border-lime-500/40 cursor-pointer transition-colors"
+            data-more-label={`+${extraTech.length} more ∨`}
+            data-less-label="- less ∧"
+            aria-expanded="false"
+          >
+            <span class="btn-text">+{extraTech.length} more ∨</span>
+          </button>
+        )}
+
+        {extraTech.length > 0 && (
+          <div class="extra-tech-drawer hidden w-full flex-wrap gap-2 pt-2 animate-fadeIn">
+            {extraTech.map((extraItem) => (
+              <span class="px-2.5 py-1 rounded-[4px] bg-[#12161f] border border-zinc-800/80 text-[11px] font-mono text-zinc-400 font-medium">
+                {extraItem}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Action Links Footer -->
+    <div class="flex items-center justify-between pt-6 border-t border-zinc-800/80">
+      {project.githubUrl ? (
+        <a
+          href={project.githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group/source inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-white transition-colors"
+          aria-label={`Source code for ${project.title}`}
+        >
+          <Github className="w-4 h-4 text-zinc-400 group-hover/source:text-white transition-colors" />
+          <span>SOURCE</span>
+        </a>
+      ) : (
+        <span class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-zinc-600 cursor-not-allowed">
+          <Github className="w-4 h-4 text-zinc-600" />
+          <span>SOURCE</span>
+        </span>
+      )}
+
+      {project.liveUrl && project.liveUrl !== "#" ? (
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group/live inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-emerald-400 transition-colors"
+          aria-label={`Open live site for ${project.title}`}
+        >
+          <span>OPEN_LIVE</span>
+          <span class="transition-transform duration-200 group-hover/live:translate-x-1 font-sans">→</span>
+        </a>
+      ) : (
+        <span class="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-zinc-600 cursor-not-allowed">
+          <span>OPEN_LIVE</span>
+          <span class="font-sans">→</span>
+        </span>
+      )}
+    </div>
+  </div>
+</article>
+
+<script>
+  function setupTechToggles() {
+    document.querySelectorAll(".project-format-card").forEach((card) => {
+      const toggleBtn = card.querySelector<HTMLButtonElement>(".toggle-extra-btn");
+      const drawer = card.querySelector<HTMLElement>(".extra-tech-drawer");
+      const btnText = toggleBtn?.querySelector<HTMLElement>(".btn-text");
+
+      if (toggleBtn && drawer && btnText) {
+        toggleBtn.addEventListener("click", () => {
+          const isExpanded = toggleBtn.getAttribute("aria-expanded") === "true";
+          if (isExpanded) {
+            drawer.classList.add("hidden");
+            drawer.classList.remove("flex");
+            toggleBtn.setAttribute("aria-expanded", "false");
+            btnText.textContent = toggleBtn.dataset.moreLabel || "+ more ∨";
+          } else {
+            drawer.classList.remove("hidden");
+            drawer.classList.add("flex");
+            toggleBtn.setAttribute("aria-expanded", "true");
+            btnText.textContent = toggleBtn.dataset.lessLabel || "- less ∧";
+          }
+        });
+      }
+    });
+  }
+
+  setupTechToggles();
+  document.addEventListener("astro:page-load", setupTechToggles);
+</script>
+

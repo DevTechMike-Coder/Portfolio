@@ -1,84 +1,8 @@
 ---
 import { Button } from "../../../components/reuseComp/Button";
 import { ArrowLeft } from "../../../components/icons/ArrowLeft";
-import ProjectCard, { type TechItem } from "./ProjectCard.astro";
-
-import { Nextjs } from "../../../components/icons/Nextjs";
-import { Typescript } from "../../../components/icons/Typescript";
-import { Tailwind } from "../../../components/icons/Tailwind";
-import { Prisma } from "../../../components/icons/Prisma";
-import { Postgresql } from "../../../components/icons/Postgresql";
-import { React as ReactIcon } from "../../../components/icons/React";
-import { Astro as AstroIcon } from "../../../components/icons/Astro";
-
-type LiveProject = {
-  title: string;
-  description: string;
-  tech: TechItem[];
-  live: string;
-  github?: string;
-  monogram: string;
-  gradient: string;
-};
-
-const liveProjects: LiveProject[] = [
-  {
-    title: "Vertex Canvas",
-    description:
-      "A premium, high-performance workspace and productivity app for developers, creators, and teams to map workflows, track tasks, and collaborate in real-time.",
-    tech: [
-      { name: "Next.js", icon: Nextjs },
-      { name: "TypeScript", icon: Typescript },
-      { name: "Prisma", icon: Prisma },
-      { name: "PostgreSQL", icon: Postgresql },
-    ],
-    live: "https://vertexcanvas.vercel.app",
-    github: "https://github.com/DevTechMike-Coder/KanbanTool",
-    monogram: "VC",
-    gradient: "from-cyan-400 via-sky-500 to-blue-600",
-  },
-  {
-    title: "Next Hub Ecommerce",
-    description:
-      "A high-performance e-commerce platform built with Next.js, featuring a seamless shopping experience and robust backend integration.",
-    tech: [
-      { name: "Next.js", icon: Nextjs },
-      { name: "TypeScript", icon: Typescript },
-      { name: "Tailwind", icon: Tailwind },
-      { name: "React", icon: ReactIcon },
-    ],
-    live: "https://ecommerce-three-omega-39.vercel.app/",
-    github: "https://github.com/DevTechMike-Coder/Ecommerce",
-    monogram: "NH",
-    gradient: "from-violet-500 via-indigo-500 to-blue-600",
-  },
-    {
-    title: "Doctor Appointment Service",
-    description:
-      "A doctor appointment booking platform with a Next.js frontend and a Spring Boot REST API, secured with JWT authentication and rate limiting.",
-    tech: [
-      { name: "Next.js", icon: Nextjs },
-      { name: "PostgreSQL", icon: Postgresql },
-    ],
-    live: "https://doctor-appointment-service-frontend.vercel.app",
-    github: "https://github.com/DevTechMike-Coder/DoctorAppointmentService_Frontend",
-    monogram: "DA",
-    gradient: "from-sky-400 via-cyan-500 to-teal-600",
-  },
-  {
-    title: "ZeroJs Blog Engine",
-    description:
-      "A zero-JS markdown/MDX blog engine built on Astro with type-safe content collections, syntax highlighting, and RSS generation.",
-    tech: [
-      { name: "Astro", icon: AstroIcon },
-      { name: "TypeScript", icon: Typescript },
-    ],
-    live: "https://zero-js-blog.vercel.app",
-    github: "https://github.com/DevTechMike-Coder/ZeroJs_Blog",
-    monogram: "ZB",
-    gradient: "from-orange-500 via-rose-500 to-purple-600",
-  },
-];
+import ProjectCard from "../../../components/projects/ProjectCard.astro";
+import { projects } from "../../../data/projects";
 ---
 
 <main class="pt-28 pb-20 px-4 md:px-10 lg:px-20 min-h-screen bg-transparent max-w-7xl mx-auto">
@@ -86,62 +10,60 @@ const liveProjects: LiveProject[] = [
     <Button
       variant="outline"
       size="sm"
-      className="flex items-center gap-2 cursor-pointer border border-white/15 bg-zinc-900/80 text-zinc-200 hover:text-white hover:border-cyan-500/40 hover:bg-zinc-800 backdrop-blur-md rounded-full px-4 py-2 transition-all duration-300 shadow-sm"
+      className="flex items-center gap-2 cursor-pointer border border-white/15 bg-zinc-900/80 text-zinc-200 hover:text-white hover:border-emerald-500/40 hover:bg-zinc-800 backdrop-blur-md rounded-full px-4 py-2 transition-all duration-300 shadow-sm"
     >
       <ArrowLeft
-        className="w-4 h-4 transition-transform group-hover:-translate-x-1 text-cyan-400"
+        className="w-4 h-4 transition-transform group-hover:-translate-x-1 text-emerald-400"
       />
       <span class="font-mono text-xs font-semibold uppercase tracking-wider">Back to Home</span>
     </Button>
   </a>
 
   <div class="mt-10 reveal-fade">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono mb-4">
-      <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono mb-4">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
       DEPLOYMENTS_CATALOG // VERIFIED BUILDS
     </div>
     <h1
       class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white uppercase"
     >
-      Projects <span class="bg-linear-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">Archive</span>
+      Projects <span class="bg-linear-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">Archive</span>
     </h1>
     <p class="text-zinc-400 mt-3 max-w-xl text-sm sm:text-base leading-relaxed">
       A curated collection of production applications, security-focused architectures, and full-stack software deployments.
     </p>
   </div>
 
-  <div id="live-project-grid" class="mt-10 flex flex-col gap-6">
-    {
-      liveProjects.map((project) => (
-        <ProjectCard
-          title={project.title}
-          description={project.description}
-          tech={project.tech}
-          live={project.live}
-          github={project.github}
-          monogram={project.monogram}
-          gradient={project.gradient}
-        />
-      ))
-    }
+  <!-- Projects Grid in User's Desired Format -->
+  <div class="mt-12 relative rounded-2xl p-[1px] bg-linear-to-b from-emerald-500/20 via-zinc-800/60 to-emerald-500/10 shadow-[0_0_40px_rgba(16,185,129,0.06)]">
+    <div class="relative rounded-2xl overflow-hidden bg-[#07090d]">
+      <div id="live-project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 divide-y md:divide-y-0 gap-px bg-zinc-800/80">
+        {
+          projects.map((project) => (
+            <div class="reveal-fade h-full">
+              <ProjectCard project={project} className="bg-[#090b0e]" />
+            </div>
+          ))
+        }
+      </div>
+    </div>
   </div>
 </main>
 
 <script>
   import { revealOnLoad, revealOnScroll } from "../../../lib/reveal";
 
-  // Above-the-fold header: fade in on load, same treatment as Hero.
   revealOnLoad(document.querySelectorAll(".reveal-fade"), {
-    stagger: 0.1,
+    stagger: 0.08,
     y: 20,
   });
 
   const liveGrid = document.getElementById("live-project-grid");
   if (liveGrid) {
     revealOnScroll(Array.from(liveGrid.children), {
-      stagger: 0.12,
-      y: 28,
-      hideOnExit: true,
+      stagger: 0.1,
+      y: 24,
+      hideOnExit: false,
     });
   }
 </script>
